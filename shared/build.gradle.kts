@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("kover")
 }
 
 kotlin {
@@ -63,5 +64,15 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 33
+    }
+
+    testOptions {
+        unitTests.all {
+            if (it.name != "testDebugUnitTest") {
+                it.extensions.configure(kotlinx.kover.api.KoverTaskExtension::class) {
+                    isDisabled.set(true)
+                }
+            }
+        }
     }
 }

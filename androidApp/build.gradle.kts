@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kover")
 }
 
 android {
@@ -35,6 +36,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    testOptions {
+        unitTests.all {
+            if (it.name != "testDebugUnitTest") {
+                it.extensions.configure(kotlinx.kover.api.KoverTaskExtension::class) {
+                    isDisabled.set(true)
+                }
+            }
+        }
     }
 }
 
