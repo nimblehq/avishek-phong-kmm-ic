@@ -9,6 +9,7 @@ excluded:
   - Pods
   - Derived
   - DerivedData
+  - fastlane
 
 opt_in_rules:
   - anyobject_protocol
@@ -72,6 +73,7 @@ opt_in_rules:
   - yoda_condition
 disabled_rules:
   - todo
+  - discouraged_optional_boolean
 
 attributes:
   always_on_same_line:
