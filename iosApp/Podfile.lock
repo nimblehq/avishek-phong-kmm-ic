@@ -1,6 +1,4 @@
 PODS:
-  - Alamofire (5.6.4)
-  - Differentiator (5.0.0)
   - Factory (2.1.2)
   - Firebase/CoreOnly (10.7.0):
     - FirebaseCore (= 10.7.0)
@@ -67,34 +65,7 @@ PODS:
     - PromisesObjC (= 2.2.0)
   - Quick (5.0.1)
   - R.swift (7.3.0)
-  - RxAlamofire (6.1.1):
-    - RxAlamofire/Core (= 6.1.1)
-  - RxAlamofire/Core (6.1.1):
-    - Alamofire (~> 5.4)
-    - RxSwift (~> 6.0)
-  - RxBlocking (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxDataSources (5.0.0):
-    - Differentiator (~> 5.0)
-    - RxCocoa (~> 6.0)
-    - RxSwift (~> 6.0)
-  - RxNimble/Core (6.0.0):
-    - Nimble (~> 10.0)
-    - RxSwift (~> 6.0)
-  - RxNimble/RxBlocking (6.0.0):
-    - RxBlocking
-    - RxNimble/Core
-  - RxNimble/RxTest (6.0.0):
-    - RxNimble/Core
-    - RxTest
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
-  - RxTest (6.5.0):
-    - RxSwift (= 6.5.0)
+  - shared (1.0)
   - SnapKit (5.6.0)
   - Sourcery (2.0.1):
     - Sourcery/CLI-Only (= 2.0.1)
@@ -116,12 +87,7 @@ DEPENDENCIES:
   - NimbleExtension (from `https://github.com/nimblehq/NimbleExtension`, branch `master`)
   - Quick
   - R.swift
-  - RxAlamofire
-  - RxCocoa
-  - RxDataSources
-  - RxNimble/RxBlocking
-  - RxNimble/RxTest
-  - RxSwift
+  - shared (from `../shared`)
   - SnapKit
   - Sourcery
   - SwiftFormat/CLI
@@ -131,8 +97,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
-    - Differentiator
     - Factory
     - Firebase
     - FirebaseCore
@@ -153,14 +117,6 @@ SPEC REPOS:
     - PromisesSwift
     - Quick
     - R.swift
-    - RxAlamofire
-    - RxBlocking
-    - RxCocoa
-    - RxDataSources
-    - RxNimble
-    - RxRelay
-    - RxSwift
-    - RxTest
     - SnapKit
     - Sourcery
     - SwiftFormat
@@ -172,6 +128,8 @@ EXTERNAL SOURCES:
   NimbleExtension:
     :branch: master
     :git: https://github.com/nimblehq/NimbleExtension
+  shared:
+    :path: "../shared"
 
 CHECKOUT OPTIONS:
   NimbleExtension:
@@ -179,8 +137,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/nimblehq/NimbleExtension
 
 SPEC CHECKSUMS:
-  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Factory: abeb556ed985e03ae341257a5160317352c7ede3
   Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
   FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
@@ -202,14 +158,7 @@ SPEC CHECKSUMS:
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
   Quick: 749aa754fd1e7d984f2000fe051e18a3a9809179
   R.swift: cef1c530541cb49412752721797f10dae6b32d11
-  RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
-  RxBlocking: 04b5fd28bb5ea49f7d64b80db8bbfe50d9cc1c7d
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
-  RxNimble: 04caf11bd7e8f7669d68ef69b8fdfe41552c1ef2
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
+  shared: 2d3b24a8fe27b7d9e65b8d075a9672fbc6a1aa10
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Sourcery: c873ccac00b051aa0bf2236f86cc3678e403ff27
   SwiftFormat: 9fea1c4be7fdc1274daeb7d34993fcf890d4ee82
@@ -217,6 +166,6 @@ SPEC CHECKSUMS:
   Wormholy: 09da0b876f9276031fd47383627cb75e194fc068
   xcbeautify: 6e2f57af5c3a86d490376d5758030a8dcc201c1b
 
-PODFILE CHECKSUM: e1c3a3ec6f736146c9ccf2233d057b34b2d29da6
+PODFILE CHECKSUM: 9a7993f6fdaeb890a2cc275a58f5afbd9c92a785
 
 COCOAPODS: 1.12.0
