@@ -90,6 +90,7 @@ iosApp/fastlane/Preview.html
 iosApp/fastlane/screenshots/**/*.png
 iosApp/fastlane/test_output
 iosApp/fastlane/xcov_output
+iosApp/vendor
 
 # Testing
 
