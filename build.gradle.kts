@@ -1,16 +1,28 @@
 buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
     dependencies {
-        classpath("org.jetbrains.kotlinx:kover:0.6.1")
+        classpath(Dependency.KOTLIN_GRADLE_PLUGIN)
+        classpath(Dependency.GRADLE)
+        classpath(Dependency.KOTLIN_SERIALIZATION)
+        classpath(Dependency.BUILD_KONFIG)
+		classpath(Dependency.KOVER)
     }
 }
 
 plugins {
-    //trick: for the same plugin versions in all sub-modules
-    id("com.android.application").version("7.4.2").apply(false)
-    id("com.android.library").version("7.4.2").apply(false)
-    id("org.jetbrains.kotlinx.kover") version "0.6.1"
-    kotlin("android").version("1.8.0").apply(false)
-    kotlin("multiplatform").version("1.8.0").apply(false)
+    id(Plugin.KOVER_FULL_PATH) version (Version.KOVER)
+	
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
     id("io.gitlab.arturbosch.detekt").version("1.23.0-RC1")
 }
 
