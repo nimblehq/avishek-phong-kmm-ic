@@ -2,8 +2,8 @@ name: Release iOS Staging App to Firebase
 
 on:
   push:
-    branches:
-      - develop
+    branches: [develop, chore/#5-set-up-release-firebase-staging-workflow]
+
 
 jobs:
   shared_test:
