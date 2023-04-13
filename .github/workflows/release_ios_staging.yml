@@ -2,8 +2,11 @@ name: Release iOS Staging App to Firebase
 
 on:
   push:
-    branches: [develop, chore/#5-set-up-release-firebase-staging-workflow]
+    branches: [develop]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   shared_test:
@@ -33,11 +36,6 @@ jobs:
         run:
           working-directory: iosApp
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-
       - name: Set up JAVA 11
         uses: actions/setup-java@v3
         with:
@@ -68,7 +66,6 @@ jobs:
           IOS_GOOGLE_SERVICE_INFO_STAGING: ${{ secrets.IOS_STAGING_GOOGLE_INFO_PLIST }}
         run: |
           mkdir -p PhongKMMIC/Configurations/Plists/GoogleService/Staging
-          touch PhongKMMIC/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist
           echo $IOS_GOOGLE_SERVICE_INFO_STAGING | base64 --decode > ./PhongKMMIC/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist
 
       - name: Cache Gradle
@@ -99,8 +96,8 @@ jobs:
       - name: Install Pods Dependencies
         run: bundle exec pod install
 
-      # - name: Build and Test
-      #   run: bundle exec fastlane buildAndTest
+      - name: Build and Test
+        run: bundle exec fastlane buildAndTest
 
       - name: Sync Addhoc Staging Signing
         env:
