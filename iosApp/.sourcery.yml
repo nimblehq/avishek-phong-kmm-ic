@@ -3,10 +3,7 @@ sources:
 templates:
   - tools/sourcery/templates
 output:
-  PhongKMMICTests/Sources/Mocks/Sourcery 
+  PhongKMMICTests/Sources/Mocks/Sourcery
 args:
   autoMockableTestableImports:
     - PhongKMMIC
-  autoMockableImports:
-    - RxSwift
-    - RxCocoa

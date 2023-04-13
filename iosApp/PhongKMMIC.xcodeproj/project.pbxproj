@@ -10,6 +10,7 @@
 		1575D172B085DBB3ABFB961F /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C050389BDC52AAFB296D63 /* Optional+Unwrap.swift */; };
 		18AE30F3DEFBFD18B5F4225B /* Pods_PhongKMMICTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CEDF2021F73F4C50DE37B7 /* Pods_PhongKMMICTests.framework */; };
 		22E5DD288CD568C028CD4E54 /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B8E596D1D6A3CD0144AB6E /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework */; };
+		3186FC8E29E7B02200BA6324 /* KMMICApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3186FC8D29E7B02200BA6324 /* KMMICApp.swift */; };
 		3284E1F4785C8D1EF4F27183 /* Navigator+Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6536EF8638A9EECD09327 /* Navigator+Scene.swift */; };
 		41F78CD1D2B8B9CFECB6905F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4FE5D003D7595D3A7BDAD9 /* HomeViewController.swift */; };
 		611DBFE850B38FE88E68F30C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C08433DD81FE83462A1C6 /* R.generated.swift */; };
@@ -21,7 +22,6 @@
 		8BFB62BE4D0088A7E8291553 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4377D1457F31E54B7249CC1F /* LaunchScreen.storyboard */; };
 		9E9C440668CB138292D8C450 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84102A692AEEDB97D55710DD /* Navigator.swift */; };
 		B2192456CC3F4341C6E3A88E /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BFA23D34A3C40D3E2D41 /* Typealiases.swift */; };
-		CF4CD6F662A9A6EEE44579CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EE7175EEB49537019C0D7 /* AppDelegate.swift */; };
 		D963A3CC32DC2A7056101CEE /* Navigator+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5858E8499539B3A51416D /* Navigator+Transition.swift */; };
 		E03F2686FA102AE2374CDA6F /* OptionalUnwrapSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510252B635DBAEDF9AA36780 /* OptionalUnwrapSpec.swift */; };
 		F303DCC8F89C63AF1B0DEE0D /* Color+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12B018E35346D91B13B3489 /* Color+Application.swift */; };
@@ -92,6 +92,7 @@
 		22E6536EF8638A9EECD09327 /* Navigator+Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigator+Scene.swift"; sourceTree = "<group>"; };
 		2CFCD9FF72A4C478557D5A7C /* Pods-PhongKMMICTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMICTests.release production.xcconfig"; path = "Target Support Files/Pods-PhongKMMICTests/Pods-PhongKMMICTests.release production.xcconfig"; sourceTree = "<group>"; };
 		2F061D81C6E75E2202EE2C63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3186FC8D29E7B02200BA6324 /* KMMICApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMICApp.swift; sourceTree = "<group>"; };
 		334282891C0D36A6D4327B36 /* KIF+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KIF+Swift.swift"; sourceTree = "<group>"; };
 		39E3FD88B495FB06587EC1DB /* Pods-PhongKMMIC.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC.debug staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC/Pods-PhongKMMIC.debug staging.xcconfig"; sourceTree = "<group>"; };
 		4377D1457F31E54B7249CC1F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,7 +115,6 @@
 		A90A6A786E1A9C282081AC2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B328AF4726E0923344754B8E /* Pods-PhongKMMIC-PhongKMMICKIFUITests.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC-PhongKMMICKIFUITests.debug staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC-PhongKMMICKIFUITests/Pods-PhongKMMIC-PhongKMMICKIFUITests.debug staging.xcconfig"; sourceTree = "<group>"; };
 		B720CEC934D3ACDC85FE70B7 /* ApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSpec.swift; sourceTree = "<group>"; };
-		BB9EE7175EEB49537019C0D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C11A22E729ABDCE212BF0B0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C12B018E35346D91B13B3489 /* Color+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Application.swift"; sourceTree = "<group>"; };
 		C57E97FDA8B03535C0EC82C5 /* Pods-PhongKMMIC-PhongKMMICKIFUITests.release staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC-PhongKMMICKIFUITests.release staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC-PhongKMMICKIFUITests/Pods-PhongKMMIC-PhongKMMICKIFUITests.release staging.xcconfig"; sourceTree = "<group>"; };
@@ -469,7 +469,7 @@
 		D4264863563AA81600A9C79E /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				BB9EE7175EEB49537019C0D7 /* AppDelegate.swift */,
+				3186FC8D29E7B02200BA6324 /* KMMICApp.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -958,7 +958,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF4CD6F662A9A6EEE44579CA /* AppDelegate.swift in Sources */,
 				84C3B5ACC1291A99F1B957D1 /* Constants+API.swift in Sources */,
 				FA2178E2737B9CA31A70F844 /* Constants.swift in Sources */,
 				41F78CD1D2B8B9CFECB6905F /* HomeViewController.swift in Sources */,
@@ -970,6 +969,7 @@
 				77C5D668A2E4E5DEC2BDEA9D /* UIView+Subviews.swift in Sources */,
 				611DBFE850B38FE88E68F30C /* R.generated.swift in Sources */,
 				B2192456CC3F4341C6E3A88E /* Typealiases.swift in Sources */,
+				3186FC8E29E7B02200BA6324 /* KMMICApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
