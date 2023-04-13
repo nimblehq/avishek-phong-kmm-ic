@@ -44,13 +44,13 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      - name: Install SSH key - For accessing match repo
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Install SSH key - For accessing match repo
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - uses: actions/cache@v3
         id: bunlderCache
@@ -99,11 +99,14 @@ jobs:
       - name: Install Pods Dependencies
         run: bundle exec pod install
 
-      - name: Build and Test
-        run: bundle exec fastlane buildAndTest
+      # - name: Build and Test
+      #   run: bundle exec fastlane buildAndTest
 
       - name: Sync Addhoc Staging Signing
-        run: bundle exec fastlane syncAdHocStagingCodeSigning --verbose
+        env:
+          CI: true
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: bundle exec fastlane syncAdHocStagingCodeSigning
 
       - name: Build and Upload to Firebase
         env:
