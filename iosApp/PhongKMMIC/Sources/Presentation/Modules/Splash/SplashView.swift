@@ -22,7 +22,7 @@ struct SplashView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(maxWidth: .infinity)
                 .opacity(
-                    isLoaded ? 1 : 0
+                    isLoaded ? 1.0 : 0.0
                 )
         }
         .ignoresSafeArea()

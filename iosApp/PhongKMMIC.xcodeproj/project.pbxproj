@@ -12,7 +12,7 @@
 		22E5DD288CD568C028CD4E54 /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B8E596D1D6A3CD0144AB6E /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework */; };
 		3162022229E5452900ADC0A9 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162022129E5452900ADC0A9 /* SplashView.swift */; };
 		3162022429E54E3400ADC0A9 /* KMMICApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162022329E54E3400ADC0A9 /* KMMICApp.swift */; };
-		3162022629E554AC00ADC0A9 /* R+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162022529E554AC00ADC0A9 /* R+SwiftUI.swift */; };
+		3162022629E554AC00ADC0A9 /* ImageResource+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162022529E554AC00ADC0A9 /* ImageResource+SwiftUI.swift */; };
 		611DBFE850B38FE88E68F30C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C08433DD81FE83462A1C6 /* R.generated.swift */; };
 		71192B8729C3777843712CE5 /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C64E7A91D374FB49F5DF818 /* AutoMockable.generated.swift */; };
 		77C5D668A2E4E5DEC2BDEA9D /* UIView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501383C06FFD93FF3A1A958 /* UIView+Subviews.swift */; };
@@ -91,7 +91,7 @@
 		2F061D81C6E75E2202EE2C63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3162022129E5452900ADC0A9 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		3162022329E54E3400ADC0A9 /* KMMICApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMICApp.swift; sourceTree = "<group>"; };
-		3162022529E554AC00ADC0A9 /* R+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "R+SwiftUI.swift"; sourceTree = "<group>"; };
+		3162022529E554AC00ADC0A9 /* ImageResource+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageResource+SwiftUI.swift"; sourceTree = "<group>"; };
 		334282891C0D36A6D4327B36 /* KIF+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KIF+Swift.swift"; sourceTree = "<group>"; };
 		39E3FD88B495FB06587EC1DB /* Pods-PhongKMMIC.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC.debug staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC/Pods-PhongKMMIC.debug staging.xcconfig"; sourceTree = "<group>"; };
 		4377D1457F31E54B7249CC1F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -350,7 +350,7 @@
 		77854E1FC97D358FF12781B5 /* Rswift */ = {
 			isa = PBXGroup;
 			children = (
-				3162022529E554AC00ADC0A9 /* R+SwiftUI.swift */,
+				3162022529E554AC00ADC0A9 /* ImageResource+SwiftUI.swift */,
 				C73C08433DD81FE83462A1C6 /* R.generated.swift */,
 			);
 			path = Rswift;
@@ -954,7 +954,7 @@
 			files = (
 				84C3B5ACC1291A99F1B957D1 /* Constants+API.swift in Sources */,
 				FA2178E2737B9CA31A70F844 /* Constants.swift in Sources */,
-				3162022629E554AC00ADC0A9 /* R+SwiftUI.swift in Sources */,
+				3162022629E554AC00ADC0A9 /* ImageResource+SwiftUI.swift in Sources */,
 				1575D172B085DBB3ABFB961F /* Optional+Unwrap.swift in Sources */,
 				F303DCC8F89C63AF1B0DEE0D /* Color+Application.swift in Sources */,
 				77C5D668A2E4E5DEC2BDEA9D /* UIView+Subviews.swift in Sources */,
