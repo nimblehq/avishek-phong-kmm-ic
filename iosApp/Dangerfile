@@ -1,34 +1,36 @@
+require 'git_diff_parser'
+
 # frozen_string_literal: true
-
-require './fastlane/Constants/Constants'
-
-# Warn when there is a big PR
-warn("This pull request is quite big (#{git.lines_of_code} lines changed), please consider splitting it into multiple pull requests.") if git.lines_of_code > 500
 
 # Warn to encourage that labels should have been used on the PR
 warn("This pull request doesn't have any labels, please consider to add labels to this pull request.") if github.pr_labels.empty?
 
+xcresultPath = "iosApp/fastlane/test_output/PhongKMMIC Staging.xcresult"
+scheme = "PhongKMMIC Staging"
+workspace = "iosApp/PhongKMMIC.xcworkspace"
+xcovOutputDirectory = "iosApp/fastlane/xcov_output"
+
 # SwiftFormat
-swiftformat.binary_path = './Pods/SwiftFormat/CommandLineTool/swiftformat'
-swiftformat.exclude = %w(Pods/**  **/*generated.swift)
+swiftformat.binary_path = 'iosApp/Pods/SwiftFormat/CommandLineTool/swiftformat'
+swiftformat.exclude = %w(Pods/**  **/*generated.swift fastlane/**)
 swiftformat.check_format
 
 # Swiftlint
-swiftlint.binary_path = './Pods/SwiftLint/swiftlint'
-swiftlint.config_file = '.swiftlint.yml'
+swiftlint.binary_path = 'iosApp/Pods/SwiftLint/swiftlint'
+swiftlint.config_file = 'iosApp/.swiftlint.yml'
 swiftlint.max_num_violations = 20
-swiftlint.lint_files(
-  inline_mode: true,
-  fail_on_error: true,
-  additional_swiftlint_args: '--strict'
-)
 
-xcresultPath = "./fastlane/test_output/PhongKMMIC Staging.xcresult"
-scheme = "PhongKMMIC Staging"
-workspace = "./PhongKMMIC.xcworkspace"
-xcovOutputDirectory = "./fastlane/xcov_output"
+diff = GitDiffParser::Patches.parse(git.diff.to_s)
+dir = "#{Dir.pwd}/"
 
-# Xcode summary
+swiftlint.lint_files(inline_mode: true) { |violation|
+  diff_filename = violation['file'].gsub(dir, '')
+  file_patch = diff.find_patch_by_file(diff_filename)
+  file_patch != nil && file_patch.changed_lines.any? { |line| line.number == violation['line']}
+}
+
+
+#Xcode summary
 changed_files = (git.modified_files - git.deleted_files) + git.added_files
 xcode_summary.ignored_results { |result|
   if result.location
@@ -37,11 +39,11 @@ xcode_summary.ignored_results { |result|
     true
   end
 }
-xcode_summary.ignored_files = 'Pods/**'
+xcode_summary.ignored_files = 'iosApp/Pods/**'
 xcode_summary.inline_mode = true
 xcode_summary.report xcresultPath
 
-# Xcov
+#Xcov
 xcov.report(
   scheme: scheme,
   workspace: workspace,

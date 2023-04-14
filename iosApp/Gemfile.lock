@@ -197,6 +197,7 @@ GEM
     git (1.18.0)
       addressable (~> 2.8)
       rchardet (~> 1.8)
+    git_diff_parser (4.0.0)
     google-apis-androidpublisher_v3 (0.38.0)
       google-apis-core (>= 0.11.0, < 2.a)
     google-apis-core (0.11.0)
@@ -345,6 +346,7 @@ DEPENDENCIES
   danger-xcov
   fastlane
   fastlane-plugin-firebase_app_distribution
+  git_diff_parser
   xcov
 
 BUNDLED WITH
