@@ -1,5 +1,5 @@
 //
-//  R+SwiftUI.swift
+//  ImageResource+SwiftUI.swift
 //  PhongKMMIC
 //
 //  Created by Phong Vo on 11/04/2023.
