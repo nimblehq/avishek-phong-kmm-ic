@@ -13,7 +13,7 @@ struct KMMICApp: App {
 
     var body: some Scene {
         WindowGroup {
-            Text("Hello")
+            SplashView()
         }
     }
 }
