@@ -1,0 +1,55 @@
+require 'git_diff_parser'
+
+# frozen_string_literal: true
+
+# Warn to encourage that labels should have been used on the PR
+warn("This pull request doesn't have any labels, please consider to add labels to this pull request.") if github.pr_labels.empty?
+
+xcresultPath = "iosApp/fastlane/test_output/PhongKMMIC Staging.xcresult"
+scheme = "PhongKMMIC Staging"
+workspace = "iosApp/PhongKMMIC.xcworkspace"
+xcovOutputDirectory = "iosApp/fastlane/xcov_output"
+
+# SwiftFormat
+swiftformat.binary_path = 'iosApp/Pods/SwiftFormat/CommandLineTool/swiftformat'
+swiftformat.exclude = %w(Pods/**  **/*generated.swift fastlane/**)
+swiftformat.check_format
+
+# Swiftlint
+swiftlint.binary_path = 'iosApp/Pods/SwiftLint/swiftlint'
+swiftlint.config_file = 'iosApp/.swiftlint.yml'
+swiftlint.max_num_violations = 20
+
+diff = GitDiffParser::Patches.parse(git.diff.to_s)
+dir = "#{Dir.pwd}/"
+
+swiftlint.lint_files(inline_mode: true) { |violation|
+  diff_filename = violation['file'].gsub(dir, '')
+  file_patch = diff.find_patch_by_file(diff_filename)
+  file_patch != nil && file_patch.changed_lines.any? { |line| line.number == violation['line']}
+}
+
+
+#Xcode summary
+changed_files = (git.modified_files - git.deleted_files) + git.added_files
+xcode_summary.ignored_results { |result|
+  if result.location
+    not changed_files.include?(result.location.file_path)
+  else
+    true
+  end
+}
+xcode_summary.ignored_files = 'iosApp/Pods/**'
+xcode_summary.inline_mode = true
+xcode_summary.report xcresultPath
+
+#Xcov
+xcov.report(
+  scheme: scheme,
+  workspace: workspace,
+  output_directory: xcovOutputDirectory,
+  xccov_file_direct_path: xcresultPath,
+  only_project_targets: true,
+  markdown_report: true,
+  html_report: false
+)
