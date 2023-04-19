@@ -55,8 +55,6 @@ kotlin {
                 implementation(Dependency.KTOR_JSON)
                 implementation(Dependency.KTOR_AUTH)
 
-                implementation(Dependency.KOIN_CORE)
-
                 implementation(Dependency.NAPIER)
 
                 // settings
@@ -70,7 +68,6 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(Dependency.KOIN_TEST)
             }
         }
         val androidMain by getting

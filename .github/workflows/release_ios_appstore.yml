@@ -17,12 +17,21 @@ jobs:
           working-directory: shared
       steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Setup Java JDK
         uses: actions/setup-java@v2.1.0
         with:
           distribution: 'adopt'
           java-version: '11'
+
+      - name: Setup Konfig Properties
+        env:
+          KMM_KONFIG_PROPERTIES: ${{ secrets.KMM_KONFIG_PROPERTIES }}
+        run: |
+          touch ../buildKonfig.properties
+          echo $KMM_KONFIG_PROPERTIES | base64 --decode > ../buildKonfig.properties
 
       - name: Running tests
         run: |
@@ -44,6 +53,9 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
 
       - name: Install SSH key - For accessing match repo
         uses: webfactory/ssh-agent@v0.7.0
@@ -60,6 +72,13 @@ jobs:
 
       - name: Bundle install
         run: bundle install --path vendor/bundle
+
+      - name: Setup Konfig Properties
+        env:
+          KMM_KONFIG_PROPERTIES: ${{ secrets.KMM_KONFIG_PROPERTIES }}
+        run: |
+          touch ../buildKonfig.properties
+          echo $KMM_KONFIG_PROPERTIES | base64 --decode > ../buildKonfig.properties
 
       - name: Paste Google-Info.plist from .secrets
         env:
