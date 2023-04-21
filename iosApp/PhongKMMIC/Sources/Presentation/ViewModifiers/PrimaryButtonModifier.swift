@@ -1,5 +1,5 @@
 //
-//  PrimaryButton.swift
+//  PrimaryButtonModifier.swift
 //  PhongKMMIC
 //
 //  Created by Phong Vo on 20/04/2023.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PrimaryButton: ViewModifier {
+struct PrimaryButtonModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
@@ -23,6 +23,6 @@ struct PrimaryButton: ViewModifier {
 extension View {
 
     func primaryButton() -> some View {
-        modifier(PrimaryButton())
+        modifier(PrimaryButtonModifier())
     }
 }

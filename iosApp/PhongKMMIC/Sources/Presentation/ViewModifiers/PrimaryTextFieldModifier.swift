@@ -1,5 +1,5 @@
 //
-//  PrimaryTextField.swift
+//  PrimaryTextFieldModifier.swift
 //  PhongKMMIC
 //
 //  Created by Phong Vo on 20/04/2023.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PrimaryTextField: ViewModifier {
+struct PrimaryTextFieldModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         ZStack {
@@ -27,6 +27,6 @@ struct PrimaryTextField: ViewModifier {
 extension View {
 
     func primaryTextField() -> some View {
-        modifier(PrimaryTextField())
+        modifier(PrimaryTextFieldModifier())
     }
 }
