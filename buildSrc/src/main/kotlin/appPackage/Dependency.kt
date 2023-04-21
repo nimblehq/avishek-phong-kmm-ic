@@ -46,4 +46,7 @@ object Dependency {
     const val KOIN_ANDROID = "io.insert-koin:koin-android:${Version.KOIN_ANDROID}"
     const val KOIN_COMPOSE = "io.insert-koin:koin-androidx-compose:${Version.KOIN_ANDROID}"
     const val KOIN_TEST = "io.insert-koin:koin-test:${Version.KOIN}"
+
+    // JSON API
+    const val JSON_API = "co.nimblehq.jsonapi:core:${Version.JSON_API}"
 }

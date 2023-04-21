@@ -62,7 +62,7 @@ kotlin {
                 implementation(Dependency.SETTINGS_SERIALIZATION)
 
                 // Json API
-                implementation(project(Module.JSONAPI_CORE))
+                implementation(Dependency.JSON_API)
 
                 // Koin
                 implementation(Dependency.KOIN_CORE)
@@ -108,7 +108,7 @@ android {
     namespace = "co.nimblehq.avishek.phong.kmmic"
     compileSdk = 33
     defaultConfig {
-        minSdk = 21
+        minSdk = 23
         targetSdk = 33
     }
 

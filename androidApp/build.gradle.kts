@@ -9,7 +9,7 @@ android {
     compileSdk = 33
     defaultConfig {
         applicationId = "co.nimblehq.avishek.phong.kmmic.android"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.compose.material:material:1.3.1")
     implementation("androidx.activity:activity-compose:1.6.1")
 
+    implementation(Dependency.KOIN_CORE)
     implementation(Dependency.KOIN_ANDROID)
     implementation(Dependency.KOIN_COMPOSE)
 }

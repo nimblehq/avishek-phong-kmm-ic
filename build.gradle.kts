@@ -15,7 +15,7 @@ buildscript {
 
 plugins {
     id(Plugin.KOVER_FULL_PATH) version (Version.KOVER)
-	
+	id("io.gitlab.arturbosch.detekt").version("1.23.0-RC1")
 }
 
 allprojects {
@@ -23,7 +23,21 @@ allprojects {
         google()
         mavenCentral()
     }
-    id("io.gitlab.arturbosch.detekt").version("1.23.0-RC1")
+
+    val buildProperties = rootDir.loadGradleProperties("buildKonfig.properties")
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+        maven {
+            name = "Github Packages"
+            url = uri("https://maven.pkg.github.com/nimblehq/jsonapi-kotlin")
+            credentials {
+                username = buildProperties.getProperty("GITHUB_USER")
+                password = buildProperties.getProperty("GITHUB_TOKEN")
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete::class) {

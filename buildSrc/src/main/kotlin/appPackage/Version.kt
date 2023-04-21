@@ -1,4 +1,5 @@
 object Version {
+    const val JSON_API = "0.1.0"
     const val BUILD_KONFIG = "0.13.3"
     const val KTOR = "2.1.1"
     const val NATIVE_COROUTINES_KOTLIN = "0.12.6-new-mm"
