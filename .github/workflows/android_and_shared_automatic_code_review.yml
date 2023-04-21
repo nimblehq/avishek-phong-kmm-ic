@@ -1,4 +1,4 @@
-name: Android Automatic Code Review
+name: Android and Shared Automatic Code Review
 
 on:
   pull_request:
