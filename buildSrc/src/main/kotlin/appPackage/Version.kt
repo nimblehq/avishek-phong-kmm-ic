@@ -11,4 +11,6 @@ object Version {
     const val KOTLIN_SERIALIZATION = "1.7.10"
     const val KSP = "1.7.10-1.0.6"
     const val KOVER = "0.6.1"
+    const val KOIN = "3.2.0"
+    const val KOIN_ANDROID = "3.3.0"
 }

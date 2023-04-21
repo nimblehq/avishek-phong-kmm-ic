@@ -7,7 +7,7 @@ import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
 import kotlinx.serialization.ExperimentalSerializationApi
 
-private const val ACCESS_TOKEN_KEY = "access_token"
+private const val KEY_ACCESS_TOKEN = "access_token"
 
 interface TokenLocalDataSource {
     fun save(token: TokenApiModel)
@@ -17,10 +17,10 @@ interface TokenLocalDataSource {
 @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
 class TokenLocalDataSourceImpl(private val settings: Settings): TokenLocalDataSource {
 
-    override fun save(token: TokenApiModel) {
-        settings.encodeValue(TokenApiModel.serializer(), ACCESS_TOKEN_KEY, token)
-    }
+    override fun save(token: TokenApiModel) =
+        settings.encodeValue(TokenApiModel.serializer(), KEY_ACCESS_TOKEN, token)
+
 
     override fun getToken(): TokenApiModel? =
-        settings.decodeValueOrNull(TokenApiModel.serializer(), ACCESS_TOKEN_KEY)
+        settings.decodeValueOrNull(TokenApiModel.serializer(), KEY_ACCESS_TOKEN)
 }

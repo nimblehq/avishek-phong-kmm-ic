@@ -61,16 +61,24 @@ kotlin {
                 implementation(Dependency.SETTINGS)
                 implementation(Dependency.SETTINGS_SERIALIZATION)
 
-                //Json API
+                // Json API
                 implementation(project(Module.JSONAPI_CORE))
+
+                // Koin
+                implementation(Dependency.KOIN_CORE)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation(Dependency.KOIN_TEST)
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation(Dependency.KTOR_ANDROID)
+            }
+        }
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting

@@ -13,7 +13,7 @@ interface TokenRemoteDataSource {
     fun refreshToken(body: RefreshTokenApiBody): Flow<TokenApiModel>
 }
 
-class TokenRemoteDataSourceImpl(private  val apiClient: ApiClient) : TokenRemoteDataSource {
+class TokenRemoteDataSourceImpl(private val apiClient: ApiClient) : TokenRemoteDataSource {
 
     override fun refreshToken(body: RefreshTokenApiBody): Flow<TokenApiModel> {
         return apiClient.responseBody(

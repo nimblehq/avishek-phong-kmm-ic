@@ -9,7 +9,7 @@ buildscript {
         classpath(Dependency.GRADLE)
         classpath(Dependency.KOTLIN_SERIALIZATION)
         classpath(Dependency.BUILD_KONFIG)
-		classpath(Dependency.KOVER)
+        classpath(Dependency.KOVER)
     }
 }
 

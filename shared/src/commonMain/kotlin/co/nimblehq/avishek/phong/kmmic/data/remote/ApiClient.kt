@@ -75,7 +75,7 @@ class ApiClient(
                             tokenRemoteDataSource
                                 .refreshToken(
                                     RefreshTokenApiBody(
-                                        refreshToken = oldTokens?.refreshToken ?: ""
+                                        refreshToken = oldTokens?.refreshToken.orEmpty()
                                     )
                                 )
                                 .last()
