@@ -20,17 +20,7 @@ data class TokenApiModel(
     val refreshToken: String,
     @SerialName("created_at")
     val createdAt: Int
-) {
-    constructor(token: Token) : this(
-        "-",
-        "-",
-        token.accessToken,
-        token.tokenType,
-        token.expiresIn,
-        token.refreshToken,
-        token.createdAt
-    )
-}
+)
 
 fun TokenApiModel.toToken(): Token =
     Token(
