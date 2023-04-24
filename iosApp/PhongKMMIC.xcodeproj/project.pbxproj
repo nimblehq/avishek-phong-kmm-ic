@@ -19,6 +19,8 @@
 		3160A5F329F51F9F0052C223 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F129F51F9F0052C223 /* LaunchArgument.swift */; };
 		3160A5F429F51F9F0052C223 /* UITestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F229F51F9F0052C223 /* UITestHelper.swift */; };
 		3160A5F629F51FC80052C223 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F529F51FC80052C223 /* AppDelegate.swift */; };
+		3160A5F929F643B50052C223 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F829F643B50052C223 /* Container.swift */; };
+		3160A5FB29F6625D0052C223 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5FA29F6625D0052C223 /* Navigator.swift */; };
 		3162022229E5452900ADC0A9 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162022129E5452900ADC0A9 /* SplashView.swift */; };
 		3162022429E54E3400ADC0A9 /* KMMICApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162022329E54E3400ADC0A9 /* KMMICApp.swift */; };
 		3162022629E554AC00ADC0A9 /* ImageResource+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162022529E554AC00ADC0A9 /* ImageResource+SwiftUI.swift */; };
@@ -117,6 +119,8 @@
 		3160A5F129F51F9F0052C223 /* LaunchArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchArgument.swift; sourceTree = "<group>"; };
 		3160A5F229F51F9F0052C223 /* UITestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
 		3160A5F529F51FC80052C223 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3160A5F829F643B50052C223 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		3160A5FA29F6625D0052C223 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		3162022129E5452900ADC0A9 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		3162022329E54E3400ADC0A9 /* KMMICApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMICApp.swift; sourceTree = "<group>"; };
 		3162022529E554AC00ADC0A9 /* ImageResource+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageResource+SwiftUI.swift"; sourceTree = "<group>"; };
@@ -334,6 +338,14 @@
 			path = UITests;
 			sourceTree = "<group>";
 		};
+		3160A5F729F643850052C223 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				3160A5F829F643B50052C223 /* Container.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
 		3162022029E5451400ADC0A9 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +428,7 @@
 				31CCAF3129F1434100262470 /* Screen.swift */,
 				31CCAF3329F1437400262470 /* AppCoordinator.swift */,
 				31CCAF3529F1485400262470 /* Transition.swift */,
+				3160A5FA29F6625D0052C223 /* Navigator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -711,6 +724,7 @@
 		F8C719E2CDFEE20E235E231B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3160A5F729F643850052C223 /* DI */,
 				3186FCA629F124B500BA6324 /* KMM */,
 				3186FCA129F0E18700BA6324 /* SwiftUI */,
 				DAB22AA045F76565B25B908F /* Foundation */,
@@ -1123,6 +1137,7 @@
 				3160A5F629F51FC80052C223 /* AppDelegate.swift in Sources */,
 				84C3B5ACC1291A99F1B957D1 /* Constants+API.swift in Sources */,
 				FA2178E2737B9CA31A70F844 /* Constants.swift in Sources */,
+				3160A5FB29F6625D0052C223 /* Navigator.swift in Sources */,
 				3162022629E554AC00ADC0A9 /* ImageResource+SwiftUI.swift in Sources */,
 				3160A5F429F51F9F0052C223 /* UITestHelper.swift in Sources */,
 				1575D172B085DBB3ABFB961F /* Optional+Unwrap.swift in Sources */,
@@ -1132,6 +1147,7 @@
 				77C5D668A2E4E5DEC2BDEA9D /* UIView+Subviews.swift in Sources */,
 				3186FC9929F0DBCC00BA6324 /* PrimaryTextFieldModifier.swift in Sources */,
 				611DBFE850B38FE88E68F30C /* R.generated.swift in Sources */,
+				3160A5F929F643B50052C223 /* Container.swift in Sources */,
 				B2192456CC3F4341C6E3A88E /* Typealiases.swift in Sources */,
 				3186FC9329EFC5A300BA6324 /* LogInView.swift in Sources */,
 				3162022229E5452900ADC0A9 /* SplashView.swift in Sources */,
