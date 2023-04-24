@@ -14,6 +14,8 @@ struct LogInView: View {
     @State private var email = ""
     @State private var password = ""
 
+    @StateObject private var viewModel = LogInCombineViewModel()
+
     var body: some View {
         ZStack {
             R.image.backgroundBlur.image
@@ -42,18 +44,19 @@ struct LogInView: View {
             .padding(.horizontal, 24.0)
         }
         .ignoresSafeArea()
+        .progressView($viewModel.isLoading)
         .accessibility(.logIn(.view))
     }
 
     var emailField: some View {
         TextField(
             R.string.localizable.authenticationFieldsEmail(),
-            text: $email
+            text: $viewModel.email
         )
         .autocapitalization(.none)
         .disableAutocorrection(true)
         .keyboardType(.emailAddress)
-        .primaryTextField()
+        .primaryTextField(error: $viewModel.isInvalidEmail)
         .accessibility(.logIn(.emailField))
     }
 
@@ -61,18 +64,20 @@ struct LogInView: View {
         HStack {
             SecureField(
                 R.string.localizable.authenticationFieldsPassword(),
-                text: $password
+                text: $viewModel.password
             )
         }
-        .primaryTextField()
+        .primaryTextField(error: $viewModel.isInvalidPassword)
         .accessibility(.logIn(.passwordField))
     }
 
     var loginButton: some View {
-        Button(R.string.localizable.authenticationButtonLogin(), action: {})
-            .frame(maxWidth: .infinity)
-            .primaryButton()
-            .accessibility(.logIn(.logInButton))
+        Button(R.string.localizable.authenticationButtonLogin()) {
+            viewModel.login()
+        }
+        .frame(maxWidth: .infinity)
+        .primaryButton()
+        .accessibility(.logIn(.logInButton))
     }
 }
 

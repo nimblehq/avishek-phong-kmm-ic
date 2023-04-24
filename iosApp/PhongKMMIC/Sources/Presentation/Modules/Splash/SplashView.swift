@@ -6,13 +6,16 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import Combine
 import Factory
 import shared
 import SwiftUI
+import KMPNativeCoroutinesCore
+import KMPNativeCoroutinesCombine
 
 struct SplashView: View {
 
-    @InjectedObject(\.splashViewModel) private var viewModel
+    @InjectedObject(\.splashViewModel) private var viewModel: shared.SplashViewModel
 
     @State private var nimbleLogoOpacity = 0.0
 
@@ -36,9 +39,9 @@ struct SplashView: View {
                     }
                 }
                 .onAnimationCompleted(for: nimbleLogoOpacity) {
-                    if !viewModel.checkIfUserLoggedIn() {
+//                    if !viewModel.checkIfUserLoggedIn() {
                         navigator.showScreen(screen: .login, with: .root)
-                    }
+//                    }
                 }
         }
         .ignoresSafeArea()
