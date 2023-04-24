@@ -9,13 +9,3 @@ data class Token(
     val refreshToken: String,
     val createdAt: Int
 )
-
-fun Token.toApiModel() = TokenApiModel(
-    id = "-",
-    type = "-",
-    accessToken = accessToken,
-    tokenType = tokenType,
-    expiresIn = expiresIn,
-    refreshToken = refreshToken,
-    createdAt = createdAt,
-)

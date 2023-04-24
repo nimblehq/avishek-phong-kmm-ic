@@ -22,11 +22,20 @@ data class TokenApiModel(
     val createdAt: Int
 )
 
-fun TokenApiModel.toToken(): Token =
-    Token(
-        accessToken,
-        tokenType,
-        expiresIn,
-        refreshToken,
-        createdAt
-    )
+fun TokenApiModel.toToken() = Token(
+    accessToken,
+    tokenType,
+    expiresIn,
+    refreshToken,
+    createdAt
+)
+
+fun Token.toApiModel() = TokenApiModel(
+    id = "-",
+    type = "-",
+    accessToken = accessToken,
+    tokenType = tokenType,
+    expiresIn = expiresIn,
+    refreshToken = refreshToken,
+    createdAt = createdAt,
+)

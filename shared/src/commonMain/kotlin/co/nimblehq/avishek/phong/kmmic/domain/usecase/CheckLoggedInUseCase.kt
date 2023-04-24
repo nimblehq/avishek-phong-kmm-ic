@@ -6,12 +6,3 @@ interface CheckLoggedInUseCase {
 
     operator fun invoke(): Boolean
 }
-
-class CheckLoggedInUseCaseImpl(
-    private val authenticationRepository: AuthenticationRepository
-): CheckLoggedInUseCase {
-
-    override fun invoke(): Boolean {
-        return authenticationRepository.hasCachedToken()
-    }
-}
