@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
 plugins {
     kotlin(Plugin.MULTIPLATFORM)
@@ -9,6 +10,7 @@ plugins {
     id(Plugin.ANDROID_LIBRARY)
     id(Plugin.KOTLINX_SERIALIZATION)
     id(Plugin.KOVER)
+    id(Plugin.KSP).version(Version.KSP)
 }
 
 kotlin {
@@ -72,6 +74,12 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(Dependency.KOIN_TEST)
+                implementation(Dependency.COROUTINES_TEST)
+                implementation(Dependency.MOCKATIVE)
+                implementation(Dependency.KOTEST_FRAMEWORK)
+                implementation(Dependency.KOTEST_ASSERTIONS)
+                implementation(Dependency.KOTEST_PROPERTY)
+                implementation(Dependency.TURBINE)
             }
         }
         val androidMain by getting {
@@ -102,6 +110,18 @@ kotlin {
             iosSimulatorArm64Test.dependsOn(this)
         }
     }
+}
+
+dependencies {
+    configurations
+        .filter { it.name.startsWith("ksp") && it.name.contains("Test") }
+        .forEach {
+            add(it.name, Dependency.MOCKATIVE_PROCESSOR)
+        }
+}
+
+ksp {
+    arg("mockative.stubsUnitByDefault", "true")
 }
 
 android {
@@ -161,5 +181,18 @@ buildkonfig {
             "BASE_URL",
             buildKonfigProperties.getProperty("PRODUCTION_BASE_URL")
         )
+    }
+}
+
+tasks.withType<com.google.devtools.ksp.gradle.KspTask>().configureEach {
+    when (this) {
+        is com.google.devtools.ksp.gradle.KspTaskNative -> {
+            this.compilerPluginOptions.addPluginArgument(
+                tasks
+                    .named<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>(compilation.compileKotlinTaskName)
+                    .get()
+                    .compilerPluginOptions
+            )
+        }
     }
 }

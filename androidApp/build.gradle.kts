@@ -60,4 +60,12 @@ dependencies {
     implementation(Dependency.KOIN_CORE)
     implementation(Dependency.KOIN_ANDROID)
     implementation(Dependency.KOIN_COMPOSE)
+
+    testImplementation(Dependency.JUNIT)
+    testImplementation(Dependency.MOCKK)
+    testImplementation(Dependency.KOTLIN_COROUTINES_TEST)
+    testImplementation(Dependency.KOTEST_ASSERTIONS)
+    androidTestImplementation(Dependency.MOCKK_ANDROID)
+    androidTestImplementation(Dependency.JUNIT_EXT)
+    androidTestImplementation(Dependency.ESPRESSO_CORE)
 }

@@ -34,7 +34,7 @@ struct LogInView: View {
                 Spacer().frame(maxHeight: 70.0)
 
                 if isLoaded {
-                    loginField
+                    emailField
                     passwordField
                     loginButton
                 }
@@ -42,9 +42,10 @@ struct LogInView: View {
             .padding(.horizontal, 24.0)
         }
         .ignoresSafeArea()
+        .accessibility(.logIn(.view))
     }
 
-    var loginField: some View {
+    var emailField: some View {
         TextField(
             R.string.localizable.authenticationFieldsEmail(),
             text: $email
@@ -53,6 +54,7 @@ struct LogInView: View {
         .disableAutocorrection(true)
         .keyboardType(.emailAddress)
         .primaryTextField()
+        .accessibility(.logIn(.emailField))
     }
 
     var passwordField: some View {
@@ -63,12 +65,14 @@ struct LogInView: View {
             )
         }
         .primaryTextField()
+        .accessibility(.logIn(.passwordField))
     }
 
     var loginButton: some View {
         Button(R.string.localizable.authenticationButtonLogin(), action: {})
             .frame(maxWidth: .infinity)
             .primaryButton()
+            .accessibility(.logIn(.logInButton))
     }
 }
 

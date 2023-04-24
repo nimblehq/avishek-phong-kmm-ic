@@ -14,4 +14,12 @@ object Version {
     const val KOVER = "0.6.1"
     const val KOIN = "3.2.0"
     const val KOIN_ANDROID = "3.3.0"
+
+    const val MOCKATIVE = "1.2.6"
+    const val KOTEST = "5.5.1"
+    const val TURBINE = "0.12.1"
+    const val JUNIT = "4.13.2"
+    const val JUNIT_EXT = "1.1.3"
+    const val ESPRESSO_CORE = "3.4.0"
+    const val MOCKK = "1.13.2"
 }

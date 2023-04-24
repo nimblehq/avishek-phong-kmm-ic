@@ -49,4 +49,18 @@ object Dependency {
 
     // JSON API
     const val JSON_API = "co.nimblehq.jsonapi:core:${Version.JSON_API}"
+
+    const val MOCKATIVE = "io.mockative:mockative:${Version.MOCKATIVE}"
+    const val MOCKATIVE_PROCESSOR = "io.mockative:mockative-processor:${Version.MOCKATIVE}"
+    const val KOTEST_FRAMEWORK = "io.kotest:kotest-framework-engine:${Version.KOTEST}"
+    const val KOTEST_ASSERTIONS = "io.kotest:kotest-assertions-core:${Version.KOTEST}"
+    const val KOTEST_PROPERTY = "io.kotest:kotest-property:${Version.KOTEST}"
+    const val TURBINE = "app.cash.turbine:turbine:${Version.TURBINE}"
+    const val MOCKK_ANDROID = "io.mockk:mockk-android:${Version.MOCKK}"
+    const val JUNIT = "junit:junit:${Version.JUNIT}"
+    const val JUNIT_EXT = "androidx.test.ext:junit:${Version.JUNIT_EXT}"
+    const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Version.ESPRESSO_CORE}"
+    const val KOTLIN_COROUTINES_TEST =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.COROUTINES_CORE}"
+    const val MOCKK = "io.mockk:mockk:${Version.MOCKK}"
 }
