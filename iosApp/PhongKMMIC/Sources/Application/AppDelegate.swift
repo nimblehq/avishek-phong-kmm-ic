@@ -14,7 +14,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        UITestHelper.shared.speedUpUITestAnimation()
+        #if DEBUG
+            UITestHelper.shared.speedUpUITestAnimation()
+        #endif
         return true
     }
 }

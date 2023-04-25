@@ -3,7 +3,6 @@ package co.nimblehq.avishek.phong.kmmic.data.repository
 import co.nimblehq.avishek.phong.kmmic.data.local.datasource.TokenLocalDataSource
 import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.TokenRemoteDataSource
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.TokenApiModel
-import co.nimblehq.avishek.phong.kmmic.data.repository.AuthenticationRepositoryImpl
 import co.nimblehq.avishek.phong.kmmic.domain.repository.AuthenticationRepository
 import io.kotest.matchers.shouldBe
 import io.mockative.Mock

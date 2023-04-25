@@ -1,6 +1,5 @@
 package co.nimblehq.avishek.phong.kmmic.domain.usecase
 
-import co.nimblehq.avishek.phong.kmmic.data.remote.model.TokenApiModel
 import co.nimblehq.avishek.phong.kmmic.domain.repository.AuthenticationRepository
 import io.kotest.matchers.shouldBe
 import io.mockative.Mock
@@ -32,7 +31,7 @@ class CheckLoggedInUseCaseTest {
             .whenInvoked()
             .thenReturn(true)
 
-        useCase shouldBe true
+        useCase() shouldBe true
     }
 
     @Test
@@ -42,6 +41,6 @@ class CheckLoggedInUseCaseTest {
             .whenInvoked()
             .thenReturn(false)
 
-        useCase shouldBe false
+        useCase() shouldBe false
     }
 }
