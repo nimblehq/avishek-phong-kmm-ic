@@ -11,6 +11,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     kotlin("android").version("1.8.0").apply(false)
     kotlin("multiplatform").version("1.8.0").apply(false)
+    id("io.gitlab.arturbosch.detekt").version("1.23.0-RC1")
 }
 
 tasks.register("clean", Delete::class) {
@@ -34,20 +35,32 @@ repositories {
     mavenCentral()
 }
 
-val detekt by configurations.creating
+detekt {
+    toolVersion = "1.23.0-RC1"
 
-val detektTask = tasks.register<JavaExec>("detekt") {
-    main = "io.gitlab.arturbosch.detekt.cli.Main"
-    classpath = detekt
+    source = files(
+        "androidApp/src",
+        "shared/src"
+    )
 
-    val input = projectDir
-    val config = "$projectDir/detekt.yml"
-    val exclude = ".*/build/.*,.*/resources/.*"
-    val params = listOf("-i", input, "-c", config, "-ex", exclude)
+    parallel = false
+    config = files("$projectDir/detekt.yml")
+    buildUponDefaultConfig = false
+    allRules = false
+    disableDefaultRuleSets = false
+    debug = false
 
-    args(params)
+    ignoreFailures = false
+    ignoredBuildTypes = listOf("release")
+    ignoredFlavors = listOf("production")
+    ignoredVariants = listOf("productionRelease")
+
+    basePath = "$projectDir"
 }
 
-dependencies {
-    detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.22.0")
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+    }
 }
