@@ -1,0 +1,66 @@
+name: Release Android Staging App to Firebase
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  deploy_android_staging_to_firebase:
+    name: Deploy Android Staging to Firebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup BuildKonfig Properties
+        env:
+          KMM_KONFIG_PROPERTIES: ${{ secrets.KMM_KONFIG_PROPERTIES }}
+        run: |
+          echo $KMM_KONFIG_PROPERTIES | base64 --decode > buildKonfig.properties
+
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Setup Google Services
+        env:
+          GOOGLE_SERVICES_JSON_STAGING: ${{ secrets.GOOGLE_SERVICES_JSON_STAGING }}
+        run: |
+          mkdir -p androidApp/src/staging
+          echo $GOOGLE_SERVICES_JSON_STAGING > androidApp/src/staging/google-services.json
+
+      - name: Run unit tests with Kover
+        run: ./gradlew koverMergedXmlReport
+
+      - uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: androidApp/build.gradle.kts
+          versionCode: ${{ github.run_number }}
+
+      - name: Build Staging APK
+        run: ./gradlew assembleStagingDebug
+
+      - name: Deploy Staging App to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_STAGING }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_DISTRIBUTION_CREDENTIAL_FILE_CONTENT }}
+          groups: nimble
+          file: androidApp/build/outputs/apk/staging/debug/androidApp-staging-debug.apk

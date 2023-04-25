@@ -127,3 +127,7 @@ buildSrc/src/main/kotlin/appPackage/BuildKonfig.kt
 .rvmrc
 buildKonfig.properties
 .secrets
+
+#Android
+google-services.json
+config/release.keystore
