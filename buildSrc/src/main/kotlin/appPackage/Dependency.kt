@@ -63,4 +63,10 @@ object Dependency {
     const val KOTLIN_COROUTINES_TEST =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.COROUTINES_CORE}"
     const val MOCKK = "io.mockk:mockk:${Version.MOCKK}"
+
+    // Google Services Gradle Plugin
+    const val GOOGLE_SERVICES = "com.google.gms:google-services:${Version.GOOGLE_SERVICES}"
+
+    // Firebase
+    const val FIREBASE = "com.google.firebase:firebase-bom:${Version.FIREBASE}"
 }

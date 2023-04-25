@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kover")
+    id("com.google.gms.google-services")
 }
 
 val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
@@ -105,4 +106,6 @@ dependencies {
     androidTestImplementation(Dependency.MOCKK_ANDROID)
     androidTestImplementation(Dependency.JUNIT_EXT)
     androidTestImplementation(Dependency.ESPRESSO_CORE)
+
+    implementation(Dependency.FIREBASE)
 }
