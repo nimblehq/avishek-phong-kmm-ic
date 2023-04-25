@@ -2,7 +2,7 @@ package co.nimblehq.avishek.phong.kmmic.data.remote
 
 import co.nimblehq.avishek.phong.kmmic.BuildKonfig
 import co.nimblehq.avishek.phong.kmmic.data.local.datasource.TokenLocalDataSource
-import co.nimblehq.avishek.phong.kmmic.data.remote.body.RefreshTokenApiBody
+import co.nimblehq.avishek.phong.kmmic.data.remote.body.RefreshTokenRequestBody
 import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.TokenRemoteDataSource
 import co.nimblehq.avishek.phong.kmmic.domain.model.AppError
 import co.nimblehq.jsonapi.json.JsonApi
@@ -21,6 +21,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.util.reflect.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
@@ -74,7 +75,7 @@ class ApiClient(
                         refreshTokens {
                             tokenRemoteDataSource
                                 .refreshToken(
-                                    RefreshTokenApiBody(
+                                    RefreshTokenRequestBody(
                                         refreshToken = oldTokens?.refreshToken.orEmpty()
                                     )
                                 )
@@ -90,10 +91,20 @@ class ApiClient(
         }
     }
 
-    inline fun <reified T> responseBody(builder: HttpRequestBuilder): Flow<T> {
+    inline fun <reified T, reified P> responseBody(
+        path: String,
+        httpMethod: HttpMethod,
+        requestBody: P,
+    ): Flow<T> {
+        val requestBuilder = HttpRequestBuilder().apply {
+            path(path)
+            method = httpMethod
+            setBody(requestBody)
+        }
+
         return flow {
             val body = httpClient.request(
-                builder.apply {
+                requestBuilder.apply {
                     contentType(ContentType.Application.Json)
                 }
             ).bodyAsText()
@@ -107,10 +118,20 @@ class ApiClient(
         }
     }
 
-    fun emptyResponseBody(builder: HttpRequestBuilder): Flow<Unit> {
+    inline fun <reified T>  emptyResponseBody(
+        path: String,
+        httpMethod: HttpMethod,
+        requestBody: T
+    ): Flow<Unit> {
+        val requestBuilder = HttpRequestBuilder().apply {
+            path(path)
+            method = httpMethod
+            setBody(requestBody)
+        }
+
         return flow {
             val body = httpClient.request(
-                builder.apply {
+                requestBuilder.apply {
                     contentType(ContentType.Application.Json)
                 }
             ).bodyAsText()

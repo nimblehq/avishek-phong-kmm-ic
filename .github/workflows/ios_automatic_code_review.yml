@@ -16,9 +16,7 @@ jobs:
         run:
           working-directory: shared
       steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
+      - uses: actions/checkout@v3
 
       - name: Setup Java JDK
         uses: actions/setup-java@v2.1.0
@@ -53,8 +51,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: recursive
 
       - uses: actions/cache@v3
         id: bunlderCache

@@ -7,7 +7,7 @@ import co.nimblehq.avishek.phong.kmmic.BuildKonfig
 private const val GRANT_TYPE_REFRESH_TOKEN = "refresh_token"
 
 @Serializable
-data class RefreshTokenApiBody(
+data class RefreshTokenRequestBody(
     @SerialName("grant_type")
     val grantType: String = GRANT_TYPE_REFRESH_TOKEN,
     @SerialName("refresh_token")
