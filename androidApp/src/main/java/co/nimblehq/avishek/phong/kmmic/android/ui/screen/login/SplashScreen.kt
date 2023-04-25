@@ -34,8 +34,8 @@ fun SplashScreen() {
 
 @Composable
 fun SplashContent(
-    modifier: Modifier = Modifier,
     shouldShowLogo: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         contentAlignment = Alignment.Center,

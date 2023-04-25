@@ -10,8 +10,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 
 @Composable
 fun Overlay(
-    modifier: Modifier,
-    colors: List<Color>
+    colors: List<Color>,
+    modifier: Modifier = Modifier,
 ) {
     val gradient = Brush.verticalGradient(colors = colors)
     Box(modifier = modifier.background(gradient))

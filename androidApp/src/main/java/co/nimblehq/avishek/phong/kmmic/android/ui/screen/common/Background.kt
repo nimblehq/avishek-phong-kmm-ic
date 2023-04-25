@@ -8,7 +8,7 @@ import androidx.compose.ui.res.painterResource
 import co.nimblehq.avishek.phong.kmmic.android.R
 
 @Composable
-fun Background(modifier: Modifier) {
+fun Background(modifier: Modifier = Modifier) {
     Image(
         painterResource(id = R.drawable.bg_splash),
         contentDescription = null,
