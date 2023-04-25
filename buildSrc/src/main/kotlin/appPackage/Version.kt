@@ -1,4 +1,11 @@
 object Version {
+    const val ANDROID_COMPILE_SDK_VERSION = 33
+    const val ANDROID_MIN_SDK_VERSION = 23
+    const val ANDROID_TARGET_SDK_VERSION = 33
+
+    const val ANDROID_VERSION_CODE = 2
+    const val ANDROID_VERSION_NAME = "0.3.0"
+
     const val JSON_API = "0.1.0"
     const val BUILD_KONFIG = "0.13.3"
     const val KTOR = "2.1.1"
