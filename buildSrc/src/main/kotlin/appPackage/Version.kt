@@ -21,6 +21,9 @@ object Version {
     const val KOVER = "0.6.1"
     const val KOIN = "3.2.0"
     const val KOIN_ANDROID = "3.3.0"
+    const val GOOGLE_SERVICES = "4.3.15"
+    const val FIREBASE = "31.5.0"
+    const val TIMBER = "4.7.1"
 
     const val MOCKATIVE = "1.2.6"
     const val KOTEST = "5.5.1"
@@ -30,6 +33,9 @@ object Version {
     const val ESPRESSO_CORE = "3.4.0"
     const val MOCKK = "1.13.2"
 
-    const val GOOGLE_SERVICES = "4.3.15"
-    const val FIREBASE = "31.5.0"
+    // COMPOSE
+    const val COMPOSE = "1.3.2"
+    const val COMPOSE_MATERIAL = "1.3.1"
+    const val COMPOSE_ACTIVITY = "1.5.1"
+    const val COMPOSE_NAVIGATION = "2.5.3"
 }

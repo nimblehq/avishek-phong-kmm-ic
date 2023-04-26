@@ -1,5 +1,15 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.theme
 
-import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
+import androidx.compose.ui.graphics.Color
 
-internal val Black60 = Black.copy(alpha = 0.6f)
+internal val White18 = Color.White.copy(alpha = 0.18f)
+
+internal val LightColorPalette = lightColors(
+    onSurface = White18
+)
+
+internal val DarkColorPalette = darkColors(
+    onSurface = White18
+)

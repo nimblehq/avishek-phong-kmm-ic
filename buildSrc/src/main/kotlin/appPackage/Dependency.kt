@@ -69,4 +69,16 @@ object Dependency {
 
     // Firebase
     const val FIREBASE = "com.google.firebase:firebase-bom:${Version.FIREBASE}"
+
+    // Compose
+    const val COMPOSE_UI = "androidx.compose.ui:ui:${Version.COMPOSE}"
+    const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling:${Version.COMPOSE}"
+    const val COMPOSE_UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Version.COMPOSE}"
+    const val COMPOSE_FOUNDATION = "androidx.compose.foundation:foundation:${Version.COMPOSE}"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Version.COMPOSE_MATERIAL}"
+    const val COMPOSE_ACTIVITY = "androidx.activity:activity-compose:${Version.COMPOSE_ACTIVITY}"
+    const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:${Version.COMPOSE_NAVIGATION}"
+
+    // Logging
+    const val TIMBER = "com.jakewharton.timber:timber:${Version.TIMBER}"
 }
