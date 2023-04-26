@@ -12,6 +12,7 @@ private const val KEY_ACCESS_TOKEN = "access_token"
 interface TokenLocalDataSource {
     fun save(token: TokenApiModel)
     fun getToken(): TokenApiModel?
+    fun removeToken()
 }
 
 @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
@@ -23,4 +24,6 @@ class TokenLocalDataSourceImpl(private val settings: Settings): TokenLocalDataSo
 
     override fun getToken(): TokenApiModel? =
         settings.decodeValueOrNull(TokenApiModel.serializer(), KEY_ACCESS_TOKEN)
+
+    override fun removeToken() =  settings.remove(KEY_ACCESS_TOKEN)
 }

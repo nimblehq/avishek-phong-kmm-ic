@@ -8,10 +8,10 @@
 
 import Combine
 import Factory
+import KMPNativeCoroutinesCombine
+import KMPNativeCoroutinesCore
 import shared
 import SwiftUI
-import KMPNativeCoroutinesCore
-import KMPNativeCoroutinesCombine
 
 struct SplashView: View {
 
@@ -39,9 +39,9 @@ struct SplashView: View {
                     }
                 }
                 .onAnimationCompleted(for: nimbleLogoOpacity) {
-//                    if !viewModel.checkIfUserLoggedIn() {
+                    if !viewModel.checkIfUserLoggedIn() {
                         navigator.showScreen(screen: .login, with: .root)
-//                    }
+                    }
                 }
         }
         .ignoresSafeArea()

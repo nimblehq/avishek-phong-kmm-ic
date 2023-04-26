@@ -1,6 +1,5 @@
 package co.nimblehq.avishek.phong.kmmic.domain.usecase
 
-import co.nimblehq.avishek.phong.kmmic.data.usecase.LogInUseCaseImpl
 import co.nimblehq.avishek.phong.kmmic.domain.model.Token
 import co.nimblehq.avishek.phong.kmmic.domain.repository.AuthenticationRepository
 import io.kotest.matchers.shouldBe

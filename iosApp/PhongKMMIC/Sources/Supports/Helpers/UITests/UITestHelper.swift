@@ -6,6 +6,7 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
+import shared
 import UIKit
 
 final class UITestHelper {
@@ -18,21 +19,31 @@ final class UITestHelper {
         LaunchArgument.contains(.fastAnimation)
     }
 
+    var clearingKeychainUITests: Bool {
+        LaunchArgument.contains(.clearKeychain)
+    }
+
     func speedUpUITestAnimation() {
-        #if DEBUG
-            if isFastAnimationUITests {
-                // swiftformat:disable:next numberFormatting
-                speed = 1_000.0
-                UIApplication
-                    .shared
-                    .connectedScenes
-                    .compactMap { $0 as? UIWindowScene }
-                    .flatMap { $0.windows }
-                    .first { $0.isKeyWindow }?
-                    .layer
-                    .speed = speed
-            }
-        #endif
+        if isFastAnimationUITests {
+            // swiftformat:disable:next numberFormatting
+            speed = 1_000.0
+            UIApplication
+                .shared
+                .connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }?
+                .layer
+                .speed = speed
+        }
+    }
+
+    func clearKeychainUITest() {
+//        if clearingKeychainUITests {
+//            DispatchQueue.main.async {
+//                UITestLogout.shared.removeAccessToken()
+//            }
+//        }
     }
 }
 
