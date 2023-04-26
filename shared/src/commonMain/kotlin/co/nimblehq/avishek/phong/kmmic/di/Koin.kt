@@ -8,11 +8,12 @@ import org.koin.dsl.KoinAppDeclaration
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) : KoinApplication {
     val dataModules = listOf(localModule, remoteModule, repositoryModule)
     val domainModules = listOf(useCaseModule)
+    val viewModelModule = listOf(viewModelModule)
 
     return startKoin {
         appDeclaration()
         modules(
-            domainModules + dataModules + platformModule()
+            domainModules + dataModules + viewModelModule + platformModule()
         )
     }
 }
