@@ -24,16 +24,19 @@ struct SplashView: View {
                 .opacity(
                     isLoaded ? 1.0 : 0.0
                 )
+                .animation(.easeIn(duration: 1.0).delay(0.5), value: isLoaded)
+                .onAppear {
+                    withAnimation {
+                        isLoaded.toggle()
+                    }
+                }
         }
         .ignoresSafeArea()
-        .animation(.easeIn(duration: 1.0).delay(0.5), value: isLoaded)
-        .onAppear {
-            isLoaded.toggle()
-        }
     }
 }
 
-struct LandingScreen_Previews: PreviewProvider {
+struct SplashView_Previews: PreviewProvider {
+
     static var previews: some View {
         SplashView()
     }
