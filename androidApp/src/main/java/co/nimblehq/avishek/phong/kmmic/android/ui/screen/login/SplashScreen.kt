@@ -3,14 +3,19 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.screen.login
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import co.nimblehq.avishek.phong.kmmic.android.ui.screen.common.*
+import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.Black60
 import kotlinx.coroutines.delay
@@ -41,18 +46,25 @@ fun SplashContent(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxSize()
     ) {
-        Background(modifier = Modifier.matchParentSize())
-
-        Overlay(
-            colors = listOf(Transparent, Black60),
+        Image(
+            painterResource(id = R.drawable.bg_splash),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
             modifier = Modifier.matchParentSize()
         )
+
+        val gradient = Brush.verticalGradient(colors = listOf(Transparent, Black60))
+        Box(modifier = modifier.background(gradient))
 
         AnimatedVisibility(
             visible = shouldShowLogo,
             enter = fadeIn(animationSpec = tween(DURATION_LOGO))
         ) {
-            Logo()
+            Image(
+                painterResource(id = R.drawable.logo_white),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
         }
     }
 }
