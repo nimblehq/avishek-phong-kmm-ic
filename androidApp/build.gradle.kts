@@ -6,13 +6,13 @@ plugins {
 
 android {
     namespace = "co.nimblehq.avishek.phong.kmmic.android"
-    compileSdk = 33
+    compileSdk = Version.ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
         applicationId = "co.nimblehq.avishek.phong.kmmic.android"
-        minSdk = 23
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Version.ANDROID_MIN_SDK_VERSION
+        targetSdk = Version.ANDROID_TARGET_SDK_VERSION
+        versionCode = Version.ANDROID_VERSION_CODE
+        versionName = Version.ANDROID_VERSION_NAME
     }
     buildFeatures {
         compose = true
