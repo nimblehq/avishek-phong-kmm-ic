@@ -1,4 +1,4 @@
-package co.nimblehq.avishek.phong.kmmic.android.ui.screen.login
+package co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -47,7 +47,7 @@ fun SplashContent(
         modifier = modifier.fillMaxSize()
     ) {
         Image(
-            painterResource(id = R.drawable.bg_splash),
+            painter = painterResource(id = R.drawable.bg_splash),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.matchParentSize()
@@ -61,7 +61,7 @@ fun SplashContent(
             enter = fadeIn(animationSpec = tween(DURATION_LOGO))
         ) {
             Image(
-                painterResource(id = R.drawable.logo_white),
+                painter = painterResource(id = R.drawable.logo_white),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
