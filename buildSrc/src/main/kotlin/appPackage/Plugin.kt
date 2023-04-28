@@ -1,6 +1,6 @@
 object Plugin {
     const val ANDROID_APPLICATION = "com.android.application"
-    const val GOOGLE_SERVICE = "com.google.gms.google-services"
+    const val GOOGLE_SERVICES = "com.google.gms.google-services"
     const val ANDROID = "android"
 
     const val MULTIPLATFORM = "multiplatform"

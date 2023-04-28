@@ -1,9 +1,13 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("kover")
+    with(Plugin) {
+        id(ANDROID_APPLICATION)
+        kotlin(ANDROID)
+        id(KOVER)
+        id(GOOGLE_SERVICES)
+    }
 }
 
+val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
 android {
     namespace = "co.nimblehq.avishek.phong.kmmic.android"
     compileSdk = Version.ANDROID_COMPILE_SDK_VERSION
@@ -25,10 +29,46 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+
+    signingConfigs {
+        create(BuildTypes.RELEASE) {
+            storeFile = file("../config/release.keystore")
+            storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD") as String
+            keyPassword = keystoreProperties.getProperty("KEY_PASSWORD") as String
+            keyAlias = keystoreProperties.getProperty("KEY_ALIAS") as String
         }
+
+        getByName(BuildTypes.DEBUG) {
+            storeFile = file("../config/debug.keystore")
+            storePassword = "F8@k7uen"
+            keyAlias = "debug-key-alias"
+            keyPassword = "F8@k7uen"
+        }
+    }
+
+    buildTypes {
+        getByName(BuildTypes.RELEASE) {
+            isMinifyEnabled = true
+            isDebuggable = false
+            isShrinkResources = true
+            signingConfig = signingConfigs[BuildTypes.RELEASE]
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+
+        getByName(BuildTypes.DEBUG) {
+            // For quickly testing build with proguard, enable this
+            isMinifyEnabled = false
+            signingConfig = signingConfigs[BuildTypes.DEBUG]
+        }
+    }
+
+    flavorDimensions += Flavors.DIMENSION_VERSION
+    productFlavors {
+        create(Flavors.STAGING) {
+            applicationIdSuffix = ".staging"
+        }
+
+        create(Flavors.PRODUCTION) {}
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -61,10 +101,13 @@ dependencies {
     implementation(Dependency.KOIN_ANDROID)
     implementation(Dependency.KOIN_COMPOSE)
 
+    implementation(Dependency.FIREBASE)
+
     testImplementation(Dependency.JUNIT)
     testImplementation(Dependency.MOCKK)
     testImplementation(Dependency.KOTLIN_COROUTINES_TEST)
     testImplementation(Dependency.KOTEST_ASSERTIONS)
+
     androidTestImplementation(Dependency.MOCKK_ANDROID)
     androidTestImplementation(Dependency.JUNIT_EXT)
     androidTestImplementation(Dependency.ESPRESSO_CORE)
