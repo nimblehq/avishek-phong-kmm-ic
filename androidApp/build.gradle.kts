@@ -1,8 +1,10 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("kover")
-    id("com.google.gms.google-services")
+    with(Plugin) {
+        id(ANDROID_APPLICATION)
+        kotlin(ANDROID)
+        id(KOVER)
+        id(GOOGLE_SERVICES)
+    }
 }
 
 val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
@@ -99,13 +101,14 @@ dependencies {
     implementation(Dependency.KOIN_ANDROID)
     implementation(Dependency.KOIN_COMPOSE)
 
+    implementation(Dependency.FIREBASE)
+
     testImplementation(Dependency.JUNIT)
     testImplementation(Dependency.MOCKK)
     testImplementation(Dependency.KOTLIN_COROUTINES_TEST)
     testImplementation(Dependency.KOTEST_ASSERTIONS)
+
     androidTestImplementation(Dependency.MOCKK_ANDROID)
     androidTestImplementation(Dependency.JUNIT_EXT)
     androidTestImplementation(Dependency.ESPRESSO_CORE)
-
-    implementation(Dependency.FIREBASE)
 }
