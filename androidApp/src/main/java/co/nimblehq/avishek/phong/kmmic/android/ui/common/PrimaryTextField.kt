@@ -31,6 +31,7 @@ fun PrimaryTextField(
     imeAction: ImeAction = ImeAction.Next,
     contentDescription: String = "",
     singleLine: Boolean = true,
+    trailingIcon: @Composable (() -> Unit)? = null,
 ) {
     val focusManager = LocalFocusManager.current
     TextField(
@@ -50,6 +51,7 @@ fun PrimaryTextField(
             imeAction = imeAction
         ),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+        trailingIcon = trailingIcon,
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = TextFieldHeight)

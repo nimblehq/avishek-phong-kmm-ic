@@ -3,8 +3,7 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -107,6 +106,9 @@ fun SplashScreen() {
             modifier = Modifier.alpha(animateAlpha),
             onLogInClick = { email, passsword ->
                 // TODO: implement in the integrate PR
+            },
+            onForgotClick = {
+                // TODO: implement in the integrate PR
             }
         )
     }
@@ -172,6 +174,7 @@ fun SplashContent(
 @Composable
 private fun LoginForm(
     onLogInClick: (email: String, password: String) -> Unit,
+    onForgotClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var email by remember { mutableStateOf("") }
@@ -190,24 +193,23 @@ private fun LoginForm(
             placeholder = stringResource(id = R.string.login_email),
             keyboardType = KeyboardType.Email,
         )
-        Box {
-            PrimaryTextField(
-                value = password,
-                onValueChange = { password = it },
-                placeholder = stringResource(id = R.string.login_password),
-                visualTransformation = PasswordVisualTransformation(),
-                imeAction = ImeAction.Done,
-            )
-            Text(
-                text = stringResource(id = R.string.login_forgot),
-                color = MaterialTheme.colors.onSurface.copy(alpha = ForgotTextAlpha),
-                style = MaterialTheme.typography.body2,
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .align(Alignment.CenterEnd)
-                    .padding(end = 18.dp)
-            )
-        }
+        PrimaryTextField(
+            value = password,
+            onValueChange = { password = it },
+            placeholder = stringResource(id = R.string.login_password),
+            visualTransformation = PasswordVisualTransformation(),
+            imeAction = ImeAction.Done,
+            trailingIcon = {
+                Text(
+                    text = stringResource(id = R.string.login_forgot),
+                    color = MaterialTheme.colors.onSurface.copy(alpha = ForgotTextAlpha),
+                    style = MaterialTheme.typography.body2,
+                    modifier = Modifier
+                        .padding(end = 18.dp)
+                        .clickable { onForgotClick() }
+                )
+            },
+        )
         PrimaryButton(
             text = stringResource(id = R.string.login_button),
             onClick = { onLogInClick(email, password) },
@@ -235,7 +237,8 @@ fun SplashContentPreview() {
 fun LoginFormPreview() {
     ApplicationTheme {
         LoginForm(
-            onLogInClick = { _, _ -> }
+            onLogInClick = { _, _ -> },
+            onForgotClick = {}
         )
     }
 }
