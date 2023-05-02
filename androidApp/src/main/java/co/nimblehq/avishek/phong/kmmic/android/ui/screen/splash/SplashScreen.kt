@@ -78,11 +78,13 @@ fun SplashScreen() {
         )
     )
 
+    // Animate logo visibility
     LaunchedEffect(Unit) {
         delay(LogoDelayInMillis)
         shouldShowLogo = true
     }
 
+    // Animate logo position and login form visibility
     LaunchedEffect(Unit) {
         delay(LogoDurationInMillis.toLong())
         shouldShowLoginForm = true
@@ -209,8 +211,7 @@ private fun LoginForm(
         PrimaryButton(
             text = stringResource(id = R.string.login_button),
             onClick = { onLogInClick(email, password) },
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
