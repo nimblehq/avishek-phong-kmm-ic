@@ -18,8 +18,6 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,10 +30,6 @@ import kotlinx.coroutines.delay
 private const val LogoDelayInMillis = 500L
 private const val LogoDurationInMillis = 750
 private const val LoginFormRevealDurationInMillis = 700
-
-const val LoginEmailFieldContentDescription = "LoginEmailField"
-const val LoginPasswordFieldContentDescription = "LoginPasswordField"
-const val LoginButtonContentDescription = "LoginButton"
 
 private val InitialLogoOffset: Offset = Offset(0f, 0f)
 private val FinalLogoOffset = Offset(0f, -230f)
@@ -54,8 +48,6 @@ private const val ForgotTextAlpha = 0.5f
 @Composable
 fun SplashScreen() {
     var shouldShowLogo by remember { mutableStateOf(false) }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
     var logoOffset by remember { mutableStateOf(InitialLogoOffset) }
     var logoScale by remember { mutableStateOf(InitialLogoScale) }
     var alpha by remember { mutableStateOf(InitialAlpha) }
@@ -111,11 +103,7 @@ fun SplashScreen() {
     if (shouldShowLoginForm) {
         LoginForm(
             modifier = Modifier.alpha(animateAlpha),
-            email = email,
-            password = password,
-            onEmailChange = { email = it },
-            onPasswordChange = { password = it },
-            onLogInClick = {
+            onLogInClick = { email, passsword ->
                 // TODO: implement in the integrate PR
             }
         )
@@ -181,13 +169,12 @@ fun SplashContent(
 
 @Composable
 private fun LoginForm(
-    email: String,
-    password: String,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onLogInClick: () -> Unit,
+    onLogInClick: (email: String, password: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = modifier
@@ -197,19 +184,17 @@ private fun LoginForm(
     ) {
         PrimaryTextField(
             value = email,
-            onValueChange = onEmailChange,
+            onValueChange = { email = it },
             placeholder = stringResource(id = R.string.login_email),
             keyboardType = KeyboardType.Email,
-            contentDescription = LoginEmailFieldContentDescription
         )
         Box {
             PrimaryTextField(
                 value = password,
-                onValueChange = onPasswordChange,
+                onValueChange = { password = it },
                 placeholder = stringResource(id = R.string.login_password),
                 visualTransformation = PasswordVisualTransformation(),
                 imeAction = ImeAction.Done,
-                contentDescription = LoginPasswordFieldContentDescription
             )
             Text(
                 text = stringResource(id = R.string.login_forgot),
@@ -223,10 +208,9 @@ private fun LoginForm(
         }
         PrimaryButton(
             text = stringResource(id = R.string.login_button),
-            onClick = onLogInClick,
+            onClick = { onLogInClick(email, password) },
             modifier = Modifier
                 .fillMaxWidth()
-                .semantics { contentDescription = LoginButtonContentDescription },
         )
     }
 }
@@ -250,11 +234,7 @@ fun SplashContentPreview() {
 fun LoginFormPreview() {
     ApplicationTheme {
         LoginForm(
-            email = "Email",
-            onEmailChange = {},
-            password = "Password",
-            onPasswordChange = {},
-            onLogInClick = {}
+            onLogInClick = { _, _ -> }
         )
     }
 }
