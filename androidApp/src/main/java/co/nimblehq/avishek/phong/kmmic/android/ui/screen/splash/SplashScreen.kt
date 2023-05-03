@@ -28,9 +28,11 @@ import co.nimblehq.avishek.phong.kmmic.presentation.module.SplashViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
 
-private const val LogoDelayInMillis = 500L
-private const val LogoDurationInMillis = 750
-private const val LoginFormRevealDurationInMillis = 700
+const val LogoImageContentDescription = "LogoImage"
+
+const val LogoDelayInMillis = 500L
+const val LogoDurationInMillis = 750
+const val LoginFormRevealDurationInMillis = 700
 
 private val InitialLogoOffset: Offset = Offset(0f, 0f)
 private val FinalLogoOffset = Offset(0f, -230f)
@@ -137,7 +139,7 @@ fun SplashContent(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.bg_splash),
-                contentDescription = null,
+                contentDescription = LogoImageContentDescription,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .matchParentSize()

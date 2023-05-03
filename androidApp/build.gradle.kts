@@ -17,6 +17,7 @@ android {
         targetSdk = Version.ANDROID_TARGET_SDK_VERSION
         versionCode = Version.ANDROID_VERSION_CODE
         versionName = Version.ANDROID_VERSION_NAME
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         compose = true
@@ -77,12 +78,24 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     testOptions {
+        unitTests {
+            // Robolectric resource processing/loading https://github.com/robolectric/robolectric/pull/4736
+            isIncludeAndroidResources = true
+        }
         unitTests.all {
-            if (it.name != "testDebugUnitTest") {
+            if (it.name != "testStagingDebugUnitTest") {
                 it.extensions.configure(kotlinx.kover.api.KoverTaskExtension::class) {
                     isDisabled.set(true)
                 }
+            }
+        }
+        animationsDisabled = true
+        // https://github.com/mockk/mockk/issues/297#issuecomment-901924678
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
             }
         }
     }
@@ -107,6 +120,9 @@ dependencies {
         testImplementation(MOCKK)
         testImplementation(KOTLIN_COROUTINES_TEST)
         testImplementation(KOTEST_ASSERTIONS)
+        testImplementation(COMPOSE_UI_TEST_JUNIT)
+        debugImplementation(COMPOSE_UI_TEST_MANIFEST)
+        testImplementation(ROBOLECTRIC)
         androidTestImplementation(MOCKK_ANDROID)
         androidTestImplementation(JUNIT_EXT)
         androidTestImplementation(ESPRESSO_CORE)

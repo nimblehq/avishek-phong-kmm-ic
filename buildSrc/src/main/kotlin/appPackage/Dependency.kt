@@ -63,6 +63,7 @@ object Dependency {
     const val KOTLIN_COROUTINES_TEST =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.COROUTINES_CORE}"
     const val MOCKK = "io.mockk:mockk:${Version.MOCKK}"
+    const val ROBOLECTRIC = "org.robolectric:robolectric:${Version.ROBOLECTRIC}"
 
     // Google Services Gradle Plugin
     const val GOOGLE_SERVICES = "com.google.gms:google-services:${Version.GOOGLE_SERVICES}"
@@ -78,6 +79,8 @@ object Dependency {
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Version.COMPOSE_MATERIAL}"
     const val COMPOSE_ACTIVITY = "androidx.activity:activity-compose:${Version.COMPOSE_ACTIVITY}"
     const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:${Version.COMPOSE_NAVIGATION}"
+    const val COMPOSE_UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4:${Version.COMPOSE_UI_TEST_JUNIT}"
+    const val COMPOSE_UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:${Version.COMPOSE_UI_TEST_JUNIT}"
 
     // Logging
     const val TIMBER = "com.jakewharton.timber:timber:${Version.TIMBER}"

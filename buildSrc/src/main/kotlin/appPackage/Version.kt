@@ -31,11 +31,13 @@ object Version {
     const val JUNIT = "4.13.2"
     const val JUNIT_EXT = "1.1.3"
     const val ESPRESSO_CORE = "3.4.0"
-    const val MOCKK = "1.13.2"
+    const val MOCKK = "1.13.3"
+    const val ROBOLECTRIC = "4.9.1"
 
     // COMPOSE
     const val COMPOSE = "1.3.2"
     const val COMPOSE_MATERIAL = "1.3.1"
     const val COMPOSE_ACTIVITY = "1.5.1"
     const val COMPOSE_NAVIGATION = "2.5.3"
+    const val COMPOSE_UI_TEST_JUNIT = "1.4.2"
 }
