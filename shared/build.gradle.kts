@@ -85,6 +85,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Dependency.KTOR_ANDROID)
+                implementation(Dependency.KOIN_ANDROID)
             }
         }
         val androidTest by getting
