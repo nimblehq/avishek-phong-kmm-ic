@@ -1,0 +1,74 @@
+name: Release Android Production App to Firebase
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy_android_production_to_firebase:
+    name: Deploy Android production to Firebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup BuildKonfig Properties
+        env:
+          KMM_KONFIG_PROPERTIES: ${{ secrets.KMM_KONFIG_PROPERTIES }}
+        run: |
+          echo $KMM_KONFIG_PROPERTIES | base64 --decode > buildKonfig.properties
+
+      - name: Setup Google Services
+        env:
+          GOOGLE_SERVICES_JSON_PRODUCTION: ${{ secrets.GOOGLE_SERVICES_JSON_PRODUCTION }}
+        run: |
+          mkdir -p androidApp/src/production
+          echo $GOOGLE_SERVICES_JSON_PRODUCTION > androidApp/src/production/google-services.json
+
+      - name: Setup Android release signing
+        env:
+          ANDROID_RELEASE_KEYSTORE: ${{ secrets.ANDROID_RELEASE_KEYSTORE }}
+          ANDROID_SIGNING_PROPERTIES: ${{ secrets.ANDROID_SIGNING_PROPERTIES }}
+        run: |
+          echo $ANDROID_RELEASE_KEYSTORE | base64 --decode > config/release.keystore
+          echo $ANDROID_SIGNING_PROPERTIES | base64 --decode > signing.properties
+
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Run unit tests with Kover
+        run: ./gradlew koverMergedXmlReport
+
+      - uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: androidApp/build.gradle.kts
+          versionCode: ${{ github.run_number }}
+
+      - name: Build Production APK
+        run: ./gradlew assembleProductionRelease
+
+      - name: Deploy staging to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_PRODUCTION }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_DISTRIBUTION_CREDENTIAL_FILE_CONTENT }}
+          groups: nimble
+          file: androidApp/build/outputs/apk/production/release/androidApp-production-release.apk

@@ -1,5 +1,5 @@
 build:
-  maxIssues: 10
+  maxIssues: 25
   weights:
     complexity: 2
     formatting: 1
@@ -52,7 +52,7 @@ complexity:
   active: true
   ComplexCondition:
     active: true
-    threshold: 4
+    threshold: 3
   ComplexInterface:
     active: false
     threshold: 10
@@ -64,14 +64,14 @@ complexity:
     active: false
   LargeClass:
     active: true
-    threshold: 400
+    threshold: 150
   LongMethod:
-    active: false
-    threshold: 20
+    active: true
+    threshold: 60
   LongParameterList:
     active: true
-    threshold: 6
-    ignoreDefaultParameters: false
+    threshold: 8
+    ignoreDefaultParameters: true
   MethodOverloading:
     active: false
     threshold: 5
@@ -86,7 +86,7 @@ complexity:
     ignoreStringsRegex: '$^'
   TooManyFunctions:
     active: true
-    thresholdInFiles: 15
+    thresholdInFiles: 10
     thresholdInClasses: 10
     thresholdInInterfaces: 10
     thresholdInObjects: 10
@@ -109,7 +109,7 @@ empty-blocks:
   EmptyForBlock:
     active: true
   EmptyFunctionBlock:
-    active: true
+    active: false
   EmptyIfBlock:
     active: true
   EmptyInitBlock:
@@ -189,6 +189,7 @@ naming:
   FunctionNaming:
     active: true
     functionPattern: '^([a-z$][a-zA-Z$0-9]*)|(`.*`)$'
+    ignoreAnnotated: [ 'Composable' ]
   MatchingDeclarationName:
     active: true
   MemberNameEqualsClassName:
@@ -202,9 +203,9 @@ naming:
     packagePattern: '^[a-z]+(\.[a-z][a-z0-9]*)*$'
   TopLevelPropertyNaming:
     active: true
-    constantPattern: '[A-Z][_A-Z0-9]*'
-    propertyPattern: '[a-z][A-Za-z\d]*'
-    privatePropertyPattern: '(_)?[a-z][A-Za-z0-9]*'
+    constantPattern: '[A-Z][_A-Za-z0-9]*'
+    propertyPattern: '[A-Za-z][A-Za-z0-9]*'
+    privatePropertyPattern: '(_)?[A-Za-z][A-Za-z0-9]*'
   VariableMaxLength:
     active: false
     maximumVariableNameLength: 64
@@ -213,7 +214,7 @@ naming:
     minimumVariableNameLength: 1
   VariableNaming:
     active: true
-    variablePattern: '[a-z][A-Za-z0-9]*'
+    variablePattern: '(_)?[a-z][A-Za-z0-9]*'
     privateVariablePattern: '(_)?[a-z][A-Za-z0-9]*'
 
 performance:
@@ -286,17 +287,17 @@ style:
     active: true
     ignoreNumbers: '-1,0,1,2'
     ignoreHashCodeFunction: false
-    ignorePropertyDeclaration: false
+    ignorePropertyDeclaration: true
     ignoreConstantDeclaration: true
     ignoreCompanionObjectPropertyDeclaration: true
     ignoreAnnotation: false
     ignoreNamedArgument: true
-    ignoreRanges: true
     ignoreEnums: false
   MaxLineLength:
     active: true
     maxLineLength: 120
     excludePackageStatements: false
+    excludeImportStatements: false
   ModifierOrder:
     active: true
   NestedClassesVisibility:
@@ -315,7 +316,7 @@ style:
     active: false
   ReturnCount:
     active: true
-    max: 5
+    max: 2
     excludedFunctions: "equals"
   SafeCast:
     active: true
@@ -336,6 +337,9 @@ style:
     active: false
   UnusedImports:
     active: false
+  UnusedPrivateMember:
+    active: true
+    ignoreAnnotated: [ 'Preview' ]
   UseDataClass:
     active: false
     excludeAnnotatedClasses: ""

@@ -34,6 +34,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
+  - FlowStacks (0.2.5)
   - GoogleDataTransport (9.2.2):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -78,6 +79,7 @@ PODS:
 DEPENDENCIES:
   - Factory
   - Firebase/Crashlytics
+  - FlowStacks
   - IQKeyboardManagerSwift
   - KeychainAccess
   - KIF
@@ -105,6 +107,7 @@ SPEC REPOS:
     - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseSessions
+    - FlowStacks
     - GoogleDataTransport
     - GoogleUtilities
     - IQKeyboardManagerSwift
@@ -145,6 +148,7 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: 35fdd1a433b31e28adcf5c8933f4c526691a1e0b
   FirebaseInstallations: 59c0e4c7a816a0f76710d83f77e5369b3e45eb96
   FirebaseSessions: 34e5c084da010ef3802cbc062b822e513c9e6318
+  FlowStacks: a8f2c03581f41c4206c8444843a659c8a1897604
   GoogleDataTransport: 8378d1fa8ac49753ea6ce70d65a7cb70ce5f66e6
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   IQKeyboardManagerSwift: c7955c0bdbf7b2eb29bb7daaa44e3d90f55a9a85
@@ -158,7 +162,7 @@ SPEC CHECKSUMS:
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
   Quick: 749aa754fd1e7d984f2000fe051e18a3a9809179
   R.swift: cef1c530541cb49412752721797f10dae6b32d11
-  shared: 2d3b24a8fe27b7d9e65b8d075a9672fbc6a1aa10
+  shared: 07cac7993e4f05eda6b76f3a213b070947c3b79f
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Sourcery: c873ccac00b051aa0bf2236f86cc3678e403ff27
   SwiftFormat: 9fea1c4be7fdc1274daeb7d34993fcf890d4ee82
@@ -166,6 +170,6 @@ SPEC CHECKSUMS:
   Wormholy: 09da0b876f9276031fd47383627cb75e194fc068
   xcbeautify: 6e2f57af5c3a86d490376d5758030a8dcc201c1b
 
-PODFILE CHECKSUM: 9a7993f6fdaeb890a2cc275a58f5afbd9c92a785
+PODFILE CHECKSUM: d8a584b17e95d320bb3394051059ebd8accbe373
 
 COCOAPODS: 1.12.0

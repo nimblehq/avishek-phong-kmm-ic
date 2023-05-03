@@ -23,6 +23,7 @@ target 'PhongKMMIC' do
   pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
   pod 'R.swift'
   pod 'Factory'
+  pod 'FlowStacks'
 
   # Development
   pod 'SwiftLint'

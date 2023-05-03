@@ -1,16 +1,44 @@
 buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
     dependencies {
-        classpath("org.jetbrains.kotlinx:kover:0.6.1")
+        classpath(Dependency.KOTLIN_GRADLE_PLUGIN)
+        classpath(Dependency.GRADLE)
+        classpath(Dependency.KOTLIN_SERIALIZATION)
+        classpath(Dependency.BUILD_KONFIG)
+        classpath(Dependency.KOVER)
+        classpath(Dependency.GOOGLE_SERVICES)
     }
 }
 
 plugins {
-    //trick: for the same plugin versions in all sub-modules
-    id("com.android.application").version("7.4.2").apply(false)
-    id("com.android.library").version("7.4.2").apply(false)
-    id("org.jetbrains.kotlinx.kover") version "0.6.1"
-    kotlin("android").version("1.8.0").apply(false)
-    kotlin("multiplatform").version("1.8.0").apply(false)
+    id(Plugin.KOVER_FULL_PATH) version (Version.KOVER)
+	id("io.gitlab.arturbosch.detekt").version("1.23.0-RC1")
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    val buildProperties = rootDir.loadGradleProperties("buildKonfig.properties")
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+        maven {
+            name = "Github Packages"
+            url = uri("https://maven.pkg.github.com/nimblehq/jsonapi-kotlin")
+            credentials {
+                username = buildProperties.getProperty("GITHUB_USER")
+                password = buildProperties.getProperty("GITHUB_TOKEN")
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete::class) {
@@ -34,20 +62,32 @@ repositories {
     mavenCentral()
 }
 
-val detekt by configurations.creating
+detekt {
+    toolVersion = "1.23.0-RC1"
 
-val detektTask = tasks.register<JavaExec>("detekt") {
-    main = "io.gitlab.arturbosch.detekt.cli.Main"
-    classpath = detekt
+    source = files(
+        "androidApp/src",
+        "shared/src"
+    )
 
-    val input = projectDir
-    val config = "$projectDir/detekt.yml"
-    val exclude = ".*/build/.*,.*/resources/.*"
-    val params = listOf("-i", input, "-c", config, "-ex", exclude)
+    parallel = false
+    config = files("$projectDir/detekt.yml")
+    buildUponDefaultConfig = false
+    allRules = false
+    disableDefaultRuleSets = false
+    debug = false
 
-    args(params)
+    ignoreFailures = false
+    ignoredBuildTypes = listOf("release")
+    ignoredFlavors = listOf("production")
+    ignoredVariants = listOf("productionRelease")
+
+    basePath = "$projectDir"
 }
 
-dependencies {
-    detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.22.0")
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+    }
 }
