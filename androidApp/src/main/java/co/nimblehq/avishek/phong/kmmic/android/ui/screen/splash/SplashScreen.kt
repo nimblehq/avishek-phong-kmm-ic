@@ -3,10 +3,10 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,9 +21,9 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.R
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryButton
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryTextField
+import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.presentation.module.LogInViewModel
 import co.nimblehq.avishek.phong.kmmic.presentation.module.SplashViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
@@ -51,6 +51,8 @@ private const val ForgotTextAlpha = 0.5f
 @Composable
 fun SplashScreen(
     splashViewModel: SplashViewModel = getViewModel(),
+    loginViewModel: LogInViewModel = getViewModel(),
+    onLoginSuccess: () -> Unit,
 ) {
     var shouldShowLogo by remember { mutableStateOf(false) }
     var logoOffset by remember { mutableStateOf(InitialLogoOffset) }
@@ -58,6 +60,8 @@ fun SplashScreen(
     var alpha by remember { mutableStateOf(InitialAlpha) }
     var blurRadius by remember { mutableStateOf(InitialBlurRadius) }
     var shouldShowLoginForm by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf("") }
 
     val floatTweenSpec = tween<Float>(
         durationMillis = LoginFormRevealDurationInMillis,
@@ -83,20 +87,44 @@ fun SplashScreen(
         )
     )
 
-    // Animate logo visibility
     LaunchedEffect(Unit) {
         delay(LogoDelayInMillis)
         shouldShowLogo = true
     }
 
-    // Animate logo position and login form visibility
     LaunchedEffect(Unit) {
         delay(LogoDurationInMillis.toLong())
-        shouldShowLoginForm = !splashViewModel.checkIfUserLoggedIn()
-        blurRadius = FinalBlurRadius
-        alpha = FinalAlpha
-        logoOffset = FinalLogoOffset
-        logoScale = FinalLogoScale
+
+        if (splashViewModel.checkIfUserLoggedIn()) {
+            delay(LogoDurationInMillis.toLong())
+            onLoginSuccess()
+        } else {
+            shouldShowLoginForm = true
+            blurRadius = FinalBlurRadius
+            alpha = FinalAlpha
+            logoOffset = FinalLogoOffset
+            logoScale = FinalLogoScale
+        }
+    }
+
+    LaunchedEffect(loginViewModel.viewState) {
+        loginViewModel.viewState.collect { loginViewState ->
+            isLoading = loginViewState.isLoading
+            error = loginViewState.error.orEmpty()
+
+            when {
+                loginViewState.isSuccess -> onLoginSuccess()
+                loginViewState.isInvalidEmail -> {
+                    // TODO: set error message
+                }
+                loginViewState.isInvalidPassword -> {
+                    // TODO: set error message
+                }
+                else -> {
+                    // Do nothing
+                }
+            }
+        }
     }
 
     SplashContent(
@@ -110,12 +138,24 @@ fun SplashScreen(
     if (shouldShowLoginForm) {
         LoginForm(
             modifier = Modifier.alpha(animateAlpha),
-            onLogInClick = { email, passsword ->
-                // TODO: implement in the integrate PR
-            },
-            onForgotClick = {
-                // TODO: implement in the integrate PR
+            onLogInClick = { email, password ->
+                loginViewModel.logIn(email, password)
             }
+        )
+    }
+
+    if (error.isNotBlank()) {
+        AlertDialog(
+            message = error,
+            onDismissRequest = { error = "" }
+        )
+    }
+
+    if (isLoading) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize()
         )
     }
 }
@@ -180,7 +220,6 @@ fun SplashContent(
 @Composable
 private fun LoginForm(
     onLogInClick: (email: String, password: String) -> Unit,
-    onForgotClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var email by remember { mutableStateOf("") }
@@ -199,27 +238,29 @@ private fun LoginForm(
             placeholder = stringResource(id = R.string.login_email),
             keyboardType = KeyboardType.Email,
         )
-        PrimaryTextField(
-            value = password,
-            onValueChange = { password = it },
-            placeholder = stringResource(id = R.string.login_password),
-            visualTransformation = PasswordVisualTransformation(),
-            imeAction = ImeAction.Done,
-            trailingIcon = {
-                Text(
-                    text = stringResource(id = R.string.login_forgot),
-                    color = MaterialTheme.colors.onSurface.copy(alpha = ForgotTextAlpha),
-                    style = MaterialTheme.typography.body2,
-                    modifier = Modifier
-                        .padding(end = 18.dp)
-                        .clickable { onForgotClick() }
-                )
-            },
-        )
+        Box {
+            PrimaryTextField(
+                value = password,
+                onValueChange = { password = it },
+                placeholder = stringResource(id = R.string.login_password),
+                visualTransformation = PasswordVisualTransformation(),
+                imeAction = ImeAction.Done,
+            )
+            Text(
+                text = stringResource(id = R.string.login_forgot),
+                color = MaterialTheme.colors.onSurface.copy(alpha = ForgotTextAlpha),
+                style = MaterialTheme.typography.body2,
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 18.dp)
+            )
+        }
         PrimaryButton(
             text = stringResource(id = R.string.login_button),
             onClick = { onLogInClick(email, password) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         )
     }
 }
@@ -243,8 +284,7 @@ fun SplashContentPreview() {
 fun LoginFormPreview() {
     ApplicationTheme {
         LoginForm(
-            onLogInClick = { _, _ -> },
-            onForgotClick = {}
+            onLogInClick = { _, _ -> }
         )
     }
 }

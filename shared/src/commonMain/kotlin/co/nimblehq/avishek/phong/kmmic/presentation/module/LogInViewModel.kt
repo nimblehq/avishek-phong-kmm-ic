@@ -17,7 +17,7 @@ data class LogInViewState(
     constructor(error: String?) : this(false, false, error)
 }
 
-class LogInViewModel(private val logInUseCase: LogInUseCase): BaseViewModel() {
+class LogInViewModel(private val logInUseCase: LogInUseCase) : BaseViewModel() {
 
     private val mutableViewState: MutableStateFlow<LogInViewState> =
         MutableStateFlow(LogInViewState())
@@ -25,8 +25,8 @@ class LogInViewModel(private val logInUseCase: LogInUseCase): BaseViewModel() {
     val viewState: StateFlow<LogInViewState> = mutableViewState
 
     fun logIn(email: String, password: String) {
-        if (!validInput(email, password)) { return }
-        logInUseCase(email, password)
+        if (!validInput(email, password)) return
+        logInUseCase(email = email, password = password)
             .onStart { setLoadingState() }
             .catch { error -> handleLoginError(error) }
             .onEach { loginSuccess() }
@@ -36,7 +36,7 @@ class LogInViewModel(private val logInUseCase: LogInUseCase): BaseViewModel() {
     private fun validInput(email: String, password: String): Boolean {
         val isInvalidEmail = !email.isValidEmail()
         val isInvalidPassword = password.isEmpty()
-        if (isInvalidEmail or isInvalidPassword)  {
+        if (isInvalidEmail or isInvalidPassword) {
             mutableViewState.update {
                 LogInViewState(
                     isInvalidEmail = isInvalidEmail,
