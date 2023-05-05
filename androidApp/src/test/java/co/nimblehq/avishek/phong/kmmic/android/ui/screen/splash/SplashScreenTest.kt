@@ -1,8 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash
 
 import android.content.Context
-import androidx.annotation.DrawableRes
-import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -77,14 +75,5 @@ internal class SplashScreenTest {
 
     private fun ComposeContentTestRule.waitForAnimationEnd() {
         mainClock.advanceTimeBy(AnimationDurationInMillis)
-    }
-
-    private fun onNodeWithDrawable(@DrawableRes drawableId: Int): SemanticsNodeInteraction {
-        return composeRule.onNode(
-            SemanticsMatcher.expectValue(
-                SemanticsPropertyKey("DrawableResId"),
-                drawableId
-            )
-        )
     }
 }
