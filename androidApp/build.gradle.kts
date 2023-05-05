@@ -104,6 +104,15 @@ android {
 dependencies {
     implementation(project(":shared"))
 
+    modules {
+        module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {
+            replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk7 is now part of kotlin-stdlib")
+        }
+        module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") {
+            replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk8 is now part of kotlin-stdlib")
+        }
+    }
+
     with(Dependency) {
         implementation(COMPOSE_UI)
         implementation(COMPOSE_UI_TOOLING)
