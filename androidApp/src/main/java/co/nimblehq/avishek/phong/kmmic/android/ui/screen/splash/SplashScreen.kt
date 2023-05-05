@@ -51,7 +51,7 @@ private const val ForgotTextAlpha = 0.5f
 @Composable
 fun SplashScreen(
     splashViewModel: SplashViewModel = getViewModel(),
-    loginViewModel: LogInViewModel = getViewModel(),
+    logInViewModel: LogInViewModel = getViewModel(),
     onLoginSuccess: () -> Unit,
 ) {
     var shouldShowLogo by remember { mutableStateOf(false) }
@@ -107,8 +107,8 @@ fun SplashScreen(
         }
     }
 
-    LaunchedEffect(loginViewModel.viewState) {
-        loginViewModel.viewState.collect { loginViewState ->
+    LaunchedEffect(logInViewModel.viewState) {
+        logInViewModel.viewState.collect { loginViewState ->
             isLoading = loginViewState.isLoading
             error = loginViewState.error.orEmpty()
 
@@ -139,7 +139,7 @@ fun SplashScreen(
         LoginForm(
             modifier = Modifier.alpha(animateAlpha),
             onLogInClick = { email, password ->
-                loginViewModel.logIn(email, password)
+                logInViewModel.logIn(email, password)
             }
         )
     }
