@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		105624BF652ECD0330600F22 /* Pods_PhongKMMICKIFUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054955D5FC8BA5FB01DC2E0C /* Pods_PhongKMMICKIFUITests.framework */; };
 		1575D172B085DBB3ABFB961F /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C050389BDC52AAFB296D63 /* Optional+Unwrap.swift */; };
 		18AE30F3DEFBFD18B5F4225B /* Pods_PhongKMMICTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CEDF2021F73F4C50DE37B7 /* Pods_PhongKMMICTests.framework */; };
-		22E5DD288CD568C028CD4E54 /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B8E596D1D6A3CD0144AB6E /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework */; };
 		3160A5DA29F26F260052C223 /* AnimationCompletionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5D929F26F260052C223 /* AnimationCompletionModifier.swift */; };
 		3160A5E129F281040052C223 /* ViewId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5E029F281040052C223 /* ViewId.swift */; };
 		3160A5E529F294D30052C223 /* GenericScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5E229F290310052C223 /* GenericScreen.swift */; };
@@ -21,8 +21,8 @@
 		3160A5F629F51FC80052C223 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F529F51FC80052C223 /* AppDelegate.swift */; };
 		3160A5F929F643B50052C223 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F829F643B50052C223 /* Container.swift */; };
 		3160A5FB29F6625D0052C223 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5FA29F6625D0052C223 /* Navigator.swift */; };
-		3160A5FD29F776F90052C223 /* LogInView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5FC29F776F90052C223 /* LogInView+DataSource.swift */; };
-		3160A5FF29F7E17F0052C223 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5FE29F7E17F0052C223 /* ProgressView.swift */; };
+		3160A5FD29F776F90052C223 /* LogInCombineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5FC29F776F90052C223 /* LogInCombineViewModel.swift */; };
+		3160A5FF29F7E17F0052C223 /* ProgressAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5FE29F7E17F0052C223 /* ProgressAnimationView.swift */; };
 		3160A60129F8D0E20052C223 /* LogInSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A60029F8D0E20052C223 /* LogInSpec.swift */; };
 		3160A60229F8D3A00052C223 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F129F51F9F0052C223 /* LaunchArgument.swift */; };
 		3160A60329F8D3A00052C223 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160A5F129F51F9F0052C223 /* LaunchArgument.swift */; };
@@ -109,11 +109,12 @@
 		0062F13459A029E966B2B7D5 /* Pods-PhongKMMIC.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC.release production.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC/Pods-PhongKMMIC.release production.xcconfig"; sourceTree = "<group>"; };
 		02CEDF2021F73F4C50DE37B7 /* Pods_PhongKMMICTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhongKMMICTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0475F21C5BDA70F7915C786F /* ReleaseProduction.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseProduction.xcconfig; sourceTree = "<group>"; };
+		054955D5FC8BA5FB01DC2E0C /* Pods_PhongKMMICKIFUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhongKMMICKIFUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0823985EE7418542BEC05BCF /* Constants+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+API.swift"; sourceTree = "<group>"; };
-		13B8E596D1D6A3CD0144AB6E /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhongKMMIC_PhongKMMICKIFUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1731A578C5658AB66427EF0B /* Pods-PhongKMMIC.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC.debug production.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC/Pods-PhongKMMIC.debug production.xcconfig"; sourceTree = "<group>"; };
 		1C43800FA1C06902E9C72FB5 /* PhongKMMICKIFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhongKMMICKIFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A73F67761017862715D1D4 /* Pods_PhongKMMIC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhongKMMIC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		268658C462D68B97AE171092 /* Pods-PhongKMMICKIFUITests.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMICKIFUITests.debug staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMICKIFUITests/Pods-PhongKMMICKIFUITests.debug staging.xcconfig"; sourceTree = "<group>"; };
 		2CFCD9FF72A4C478557D5A7C /* Pods-PhongKMMICTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMICTests.release production.xcconfig"; path = "Target Support Files/Pods-PhongKMMICTests/Pods-PhongKMMICTests.release production.xcconfig"; sourceTree = "<group>"; };
 		2F061D81C6E75E2202EE2C63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3160A5D929F26F260052C223 /* AnimationCompletionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationCompletionModifier.swift; sourceTree = "<group>"; };
@@ -126,8 +127,8 @@
 		3160A5F529F51FC80052C223 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3160A5F829F643B50052C223 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		3160A5FA29F6625D0052C223 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
-		3160A5FC29F776F90052C223 /* LogInView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogInView+DataSource.swift"; sourceTree = "<group>"; };
-		3160A5FE29F7E17F0052C223 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		3160A5FC29F776F90052C223 /* LogInCombineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInCombineViewModel.swift; sourceTree = "<group>"; };
+		3160A5FE29F7E17F0052C223 /* ProgressAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressAnimationView.swift; sourceTree = "<group>"; };
 		3160A60029F8D0E20052C223 /* LogInSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInSpec.swift; sourceTree = "<group>"; };
 		3162022129E5452900ADC0A9 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		3162022329E54E3400ADC0A9 /* KMMICApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMICApp.swift; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 		7C64E7A91D374FB49F5DF818 /* AutoMockable.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		7DD5748A8B05C96D88B35D5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		836C6F51FD4FD7E18FE93DFD /* Pods-PhongKMMIC.release staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC.release staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC/Pods-PhongKMMIC.release staging.xcconfig"; sourceTree = "<group>"; };
+		8885601E94A1B6D96FFBD821 /* Pods-PhongKMMICKIFUITests.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMICKIFUITests.debug production.xcconfig"; path = "Target Support Files/Pods-PhongKMMICKIFUITests/Pods-PhongKMMICKIFUITests.debug production.xcconfig"; sourceTree = "<group>"; };
 		8BF084342E42D37651E9E7D5 /* DebugProduction.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugProduction.xcconfig; sourceTree = "<group>"; };
 		91B838D38AF82AC05A5DB7D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A43479D241427EDCF3250BEE /* Pods-PhongKMMIC-PhongKMMICKIFUITests.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC-PhongKMMICKIFUITests.debug production.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC-PhongKMMICKIFUITests/Pods-PhongKMMIC-PhongKMMICKIFUITests.debug production.xcconfig"; sourceTree = "<group>"; };
@@ -166,7 +168,9 @@
 		C12B018E35346D91B13B3489 /* Color+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Application.swift"; sourceTree = "<group>"; };
 		C57E97FDA8B03535C0EC82C5 /* Pods-PhongKMMIC-PhongKMMICKIFUITests.release staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC-PhongKMMICKIFUITests.release staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC-PhongKMMICKIFUITests/Pods-PhongKMMIC-PhongKMMICKIFUITests.release staging.xcconfig"; sourceTree = "<group>"; };
 		C73C08433DD81FE83462A1C6 /* R.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		C97DE79233E575D3F6F31BBD /* Pods-PhongKMMICKIFUITests.release staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMICKIFUITests.release staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMICKIFUITests/Pods-PhongKMMICKIFUITests.release staging.xcconfig"; sourceTree = "<group>"; };
 		D067F7CB8B1319DDC60BA3BC /* Pods-PhongKMMICTests.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMICTests.debug staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMICTests/Pods-PhongKMMICTests.debug staging.xcconfig"; sourceTree = "<group>"; };
+		D4EC7C30990A7EC2F97938D3 /* Pods-PhongKMMICKIFUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMICKIFUITests.release production.xcconfig"; path = "Target Support Files/Pods-PhongKMMICKIFUITests/Pods-PhongKMMICKIFUITests.release production.xcconfig"; sourceTree = "<group>"; };
 		D5C050389BDC52AAFB296D63 /* Optional+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
 		F5F8B2474D5157C4356B9285 /* PhongKMMICTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhongKMMICTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD57BFA23D34A3C40D3E2D41 /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
@@ -178,7 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E5DD288CD568C028CD4E54 /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework in Frameworks */,
+				105624BF652ECD0330600F22 /* Pods_PhongKMMICKIFUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +257,10 @@
 				D067F7CB8B1319DDC60BA3BC /* Pods-PhongKMMICTests.debug staging.xcconfig */,
 				2CFCD9FF72A4C478557D5A7C /* Pods-PhongKMMICTests.release production.xcconfig */,
 				5E408EDAC1691C4BAB2E4226 /* Pods-PhongKMMICTests.release staging.xcconfig */,
+				8885601E94A1B6D96FFBD821 /* Pods-PhongKMMICKIFUITests.debug production.xcconfig */,
+				268658C462D68B97AE171092 /* Pods-PhongKMMICKIFUITests.debug staging.xcconfig */,
+				D4EC7C30990A7EC2F97938D3 /* Pods-PhongKMMICKIFUITests.release production.xcconfig */,
+				C97DE79233E575D3F6F31BBD /* Pods-PhongKMMICKIFUITests.release staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -367,7 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				3186FC9229EFC5A300BA6324 /* LogInView.swift */,
-				3160A5FC29F776F90052C223 /* LogInView+DataSource.swift */,
+				3160A5FC29F776F90052C223 /* LogInCombineViewModel.swift */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -500,7 +508,7 @@
 		635055C169484AB30B511330 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3160A5FE29F7E17F0052C223 /* ProgressView.swift */,
+				3160A5FE29F7E17F0052C223 /* ProgressAnimationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -603,8 +611,8 @@
 			isa = PBXGroup;
 			children = (
 				20A73F67761017862715D1D4 /* Pods_PhongKMMIC.framework */,
-				13B8E596D1D6A3CD0144AB6E /* Pods_PhongKMMIC_PhongKMMICKIFUITests.framework */,
 				02CEDF2021F73F4C50DE37B7 /* Pods_PhongKMMICTests.framework */,
+				054955D5FC8BA5FB01DC2E0C /* Pods_PhongKMMICKIFUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -897,7 +905,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PhongKMMIC-PhongKMMICKIFUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PhongKMMICKIFUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1080,15 +1088,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PhongKMMIC-PhongKMMICKIFUITests/Pods-PhongKMMIC-PhongKMMICKIFUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PhongKMMICKIFUITests/Pods-PhongKMMICKIFUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PhongKMMIC-PhongKMMICKIFUITests/Pods-PhongKMMIC-PhongKMMICKIFUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PhongKMMICKIFUITests/Pods-PhongKMMICKIFUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhongKMMIC-PhongKMMICKIFUITests/Pods-PhongKMMIC-PhongKMMICKIFUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhongKMMICKIFUITests/Pods-PhongKMMICKIFUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D5E9F6D1E974B671049C067B /* [CP] Embed Pods Frameworks */ = {
@@ -1159,7 +1167,7 @@
 				3186FC9B29F0DE6D00BA6324 /* PrimaryButtonModifier.swift in Sources */,
 				77C5D668A2E4E5DEC2BDEA9D /* UIView+Subviews.swift in Sources */,
 				3186FC9929F0DBCC00BA6324 /* PrimaryTextFieldModifier.swift in Sources */,
-				3160A5FD29F776F90052C223 /* LogInView+DataSource.swift in Sources */,
+				3160A5FD29F776F90052C223 /* LogInCombineViewModel.swift in Sources */,
 				611DBFE850B38FE88E68F30C /* R.generated.swift in Sources */,
 				3160A5F929F643B50052C223 /* Container.swift in Sources */,
 				B2192456CC3F4341C6E3A88E /* Typealiases.swift in Sources */,
@@ -1172,7 +1180,7 @@
 				31CCAF3229F1434100262470 /* Screen.swift in Sources */,
 				3160A5E129F281040052C223 /* ViewId.swift in Sources */,
 				3162022429E54E3400ADC0A9 /* KMMICApp.swift in Sources */,
-				3160A5FF29F7E17F0052C223 /* ProgressView.swift in Sources */,
+				3160A5FF29F7E17F0052C223 /* ProgressAnimationView.swift in Sources */,
 				3186FCAC29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift in Sources */,
 				3160A5F329F51F9F0052C223 /* LaunchArgument.swift in Sources */,
 			);
@@ -1239,7 +1247,7 @@
 		};
 		2408EF13FB28E8E44014D4FE /* Debug Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A43479D241427EDCF3250BEE /* Pods-PhongKMMIC-PhongKMMICKIFUITests.debug production.xcconfig */;
+			baseConfigurationReference = 8885601E94A1B6D96FFBD821 /* Pods-PhongKMMICKIFUITests.debug production.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1289,7 +1297,7 @@
 		};
 		32E8124B396991A0D0DA0548 /* Release Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C57E97FDA8B03535C0EC82C5 /* Pods-PhongKMMIC-PhongKMMICKIFUITests.release staging.xcconfig */;
+			baseConfigurationReference = C97DE79233E575D3F6F31BBD /* Pods-PhongKMMICKIFUITests.release staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1313,7 +1321,7 @@
 		};
 		3856D5FF494349D939B0D23D /* Debug Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B328AF4726E0923344754B8E /* Pods-PhongKMMIC-PhongKMMICKIFUITests.debug staging.xcconfig */;
+			baseConfigurationReference = 268658C462D68B97AE171092 /* Pods-PhongKMMICKIFUITests.debug staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1338,7 +1346,7 @@
 		};
 		3E2B0D649E72E2E665E41CE5 /* Release Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF8D75FD487392E90C0E6F9C /* Pods-PhongKMMIC-PhongKMMICKIFUITests.release production.xcconfig */;
+			baseConfigurationReference = D4EC7C30990A7EC2F97938D3 /* Pods-PhongKMMICKIFUITests.release production.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";

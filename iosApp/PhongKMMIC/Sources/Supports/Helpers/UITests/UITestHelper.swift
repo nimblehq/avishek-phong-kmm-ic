@@ -39,11 +39,11 @@ final class UITestHelper {
     }
 
     func clearKeychainUITest() {
-//        if clearingKeychainUITests {
-//            DispatchQueue.main.async {
-//                UITestLogout.shared.removeAccessToken()
-//            }
-//        }
+        if clearingKeychainUITests {
+            DispatchQueue.main.async {
+                UITestLogout.shared.removeAccessToken()
+            }
+        }
     }
 }
 

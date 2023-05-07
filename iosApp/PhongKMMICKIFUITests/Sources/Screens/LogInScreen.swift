@@ -9,6 +9,8 @@
 final class LogInScreen: GenericScreen {
 
     func waitForAppearance() {
-        tester().waitForView(withAccessibilityIdentifier: ViewId.logIn(.view)())
+        tester().waitForView(withAccessibilityIdentifier: ViewId.logIn(.emailField)())
+        tester().waitForView(withAccessibilityIdentifier: ViewId.logIn(.passwordField)())
+        tester().waitForView(withAccessibilityIdentifier: ViewId.logIn(.logInButton)())
     }
 }

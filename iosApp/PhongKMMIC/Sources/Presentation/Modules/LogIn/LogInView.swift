@@ -45,7 +45,6 @@ struct LogInView: View {
         }
         .ignoresSafeArea()
         .progressView($viewModel.isLoading)
-        .accessibility(.logIn(.view))
     }
 
     var emailField: some View {

@@ -1,5 +1,5 @@
 //
-//  ProgressView.swift
+//  ProgressAnimationView.swift
 //  PhongKMMIC
 //
 //  Created by Phong Vo on 25/04/2023.
