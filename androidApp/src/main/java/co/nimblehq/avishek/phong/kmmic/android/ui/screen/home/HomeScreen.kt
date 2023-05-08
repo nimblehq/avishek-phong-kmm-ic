@@ -12,7 +12,7 @@ fun HomeScreen() {
 }
 
 @Composable
-fun HomeContent(modifier: Modifier) {
+fun HomeContent(modifier: Modifier = Modifier) {
     Text(
         text = "Home under construction",
         style = MaterialTheme.typography.h1,

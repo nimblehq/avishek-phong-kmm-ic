@@ -61,7 +61,7 @@ fun SplashScreen(
     var blurRadius by remember { mutableStateOf(InitialBlurRadius) }
     var shouldShowLoginForm by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
-    var error by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf("") }
 
     val floatTweenSpec = tween<Float>(
         durationMillis = LoginFormRevealDurationInMillis,
@@ -110,7 +110,7 @@ fun SplashScreen(
     LaunchedEffect(logInViewModel.viewState) {
         logInViewModel.viewState.collect { loginViewState ->
             isLoading = loginViewState.isLoading
-            error = loginViewState.error.orEmpty()
+            errorMessage = loginViewState.error.orEmpty()
 
             when {
                 loginViewState.isSuccess -> onLoginSuccess()
@@ -144,10 +144,10 @@ fun SplashScreen(
         )
     }
 
-    if (error.isNotBlank()) {
+    if (errorMessage.isNotBlank()) {
         AlertDialog(
-            message = error,
-            onDismissRequest = { error = "" }
+            message = errorMessage,
+            onDismissRequest = { errorMessage = "" }
         )
     }
 
