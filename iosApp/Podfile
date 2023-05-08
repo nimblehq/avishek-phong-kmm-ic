@@ -13,6 +13,7 @@ target 'PhongKMMIC' do
   # UI
   pod 'Kingfisher'
   pod 'SnapKit'
+  pod 'SkeletonUI'
 
   # Storage
   pod 'KeychainAccess'
