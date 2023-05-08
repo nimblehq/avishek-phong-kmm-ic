@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 
 interface LogInUseCase {
-
     operator fun invoke(email: String, password: String): Flow<Token>
 }
 

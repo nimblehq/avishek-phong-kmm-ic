@@ -55,7 +55,7 @@ struct LogInView: View {
         .autocapitalization(.none)
         .disableAutocorrection(true)
         .keyboardType(.emailAddress)
-        .primaryTextField(error: $viewModel.isInvalidEmail)
+        .primaryTextField(hasError: $viewModel.isInvalidEmail)
         .accessibility(.logIn(.emailField))
     }
 
@@ -66,7 +66,7 @@ struct LogInView: View {
                 text: $viewModel.password
             )
         }
-        .primaryTextField(error: $viewModel.isInvalidPassword)
+        .primaryTextField(hasError: $viewModel.isInvalidPassword)
         .accessibility(.logIn(.passwordField))
     }
 

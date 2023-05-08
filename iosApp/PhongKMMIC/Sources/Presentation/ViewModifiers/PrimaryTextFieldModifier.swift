@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PrimaryTextFieldModifier: ViewModifier {
 
-    @Binding var error: Bool
+    @Binding var hasError: Bool
 
     func body(content: Content) -> some View {
         ZStack {
@@ -21,9 +21,9 @@ struct PrimaryTextFieldModifier: ViewModifier {
                 .background(Color.white.opacity(0.18))
                 .cornerRadius(10.0)
                 .layoutPriority(2.0)
-            if error {
+            if hasError {
                 RoundedRectangle(cornerRadius: 10.0)
-                    .stroke(Color.red, lineWidth: error ? 3.0 : 0.0)
+                    .stroke(Color.red, lineWidth: hasError ? 3.0 : 0.0)
             }
         }
     }
@@ -31,7 +31,7 @@ struct PrimaryTextFieldModifier: ViewModifier {
 
 extension View {
 
-    func primaryTextField(error: Binding<Bool> = .constant(false)) -> some View {
-        modifier(PrimaryTextFieldModifier(error: error))
+    func primaryTextField(hasError: Binding<Bool> = .constant(false)) -> some View {
+        modifier(PrimaryTextFieldModifier(hasError: hasError))
     }
 }

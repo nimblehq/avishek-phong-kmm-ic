@@ -3,9 +3,7 @@ package co.nimblehq.avishek.phong.kmmic.presentation.module
 import co.nimblehq.avishek.phong.kmmic.data.remote.helper.extension.toErrorMessage
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.LogInUseCase
 import co.nimblehq.avishek.phong.kmmic.helper.extension.isValidEmail
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 data class LogInViewState(
     val isSuccess: Boolean = false,
@@ -28,12 +26,11 @@ class LogInViewModel(private val logInUseCase: LogInUseCase): BaseViewModel() {
 
     fun logIn(email: String, password: String) {
         if (!validInput(email, password)) { return }
-        setLoadingState()
-        viewModelScope.launch {
-            logInUseCase(email = email, password = password)
-                .catch { error -> handleLoginError(error) }
-                .collect { loginSuccess() }
-        }
+        logInUseCase(email, password)
+            .onStart { setLoadingState() }
+            .catch { error -> handleLoginError(error) }
+            .onEach { loginSuccess() }
+            .launchIn(viewModelScope)
     }
 
     private fun validInput(email: String, password: String): Boolean {

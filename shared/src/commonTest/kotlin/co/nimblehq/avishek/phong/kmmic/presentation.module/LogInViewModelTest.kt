@@ -46,7 +46,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `when logInUseCase return success - it update view state with isSuccess true`() = runTest {
+    fun `When logInUseCase returns success, it updates view state with isSuccess as true`() = runTest {
         given(logInUseCase)
             .function(logInUseCase::invoke)
             .whenInvokedWith(any(), any())
@@ -64,7 +64,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `when logInUseCase return faile - it update view state with error message is mock`() = runTest {
+    fun `When logInUseCase returns failure, it updates view state with error message is mock`() = runTest {
         given(logInUseCase)
             .function(logInUseCase::invoke)
             .whenInvokedWith(any(), any())
@@ -82,7 +82,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `when user input invalid email - it update view state with isInvalidEmail true`() = runTest {
+    fun `When a user inputs invalid email, it updates view state with isInvalidEmail is true`() = runTest {
         given(logInUseCase)
             .function(logInUseCase::invoke)
             .whenInvokedWith(any(), any())
@@ -100,7 +100,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `when user didn't enter password - it update view state with isInvalidPassword true`() = runTest {
+    fun `When a user didn't enter password, it updates view state with isInvalidPassword is true`() = runTest {
         given(logInUseCase)
             .function(logInUseCase::invoke)
             .whenInvokedWith(any(), any())

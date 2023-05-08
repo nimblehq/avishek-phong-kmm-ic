@@ -18,6 +18,9 @@ class LogInUseCaseTest {
     @Mock
     private val mockRepository = mock(classOf<AuthenticationRepository>())
 
+    @Mock
+    private val testMockToken = mock(classOf<Token>())
+
     private lateinit var useCase: LogInUseCase
 
     private val mockThrowable = Throwable("mock")

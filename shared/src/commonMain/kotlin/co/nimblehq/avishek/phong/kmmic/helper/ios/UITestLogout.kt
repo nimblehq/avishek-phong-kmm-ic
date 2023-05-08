@@ -12,7 +12,7 @@ object UITestLogout: KoinComponent {
     fun removeAccessToken() {
         try {
             localDataSource.removeToken()
-        } catch (e: Exception) {
+        } catch (e: IllegalStateException) {
             KtorSimpleLogger(e.message ?: "An error occurred while removing access token")
         }
     }
