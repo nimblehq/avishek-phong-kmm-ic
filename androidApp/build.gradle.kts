@@ -90,25 +90,25 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.1")
-    implementation("androidx.compose.foundation:foundation:1.3.1")
-    implementation("androidx.compose.material:material:1.3.1")
-    implementation("androidx.activity:activity-compose:1.6.1")
 
-    implementation(Dependency.KOIN_CORE)
-    implementation(Dependency.KOIN_ANDROID)
-    implementation(Dependency.KOIN_COMPOSE)
+    with(Dependency) {
+        implementation(COMPOSE_UI)
+        implementation(COMPOSE_UI_TOOLING)
+        implementation(COMPOSE_MATERIAL)
+        implementation(COMPOSE_ACTIVITY)
+        implementation(COMPOSE_NAVIGATION)
+        implementation(KOIN_CORE)
+        implementation(KOIN_ANDROID)
+        implementation(KOIN_COMPOSE)
+        implementation(TIMBER)
+        implementation(FIREBASE)
 
-    implementation(Dependency.FIREBASE)
-
-    testImplementation(Dependency.JUNIT)
-    testImplementation(Dependency.MOCKK)
-    testImplementation(Dependency.KOTLIN_COROUTINES_TEST)
-    testImplementation(Dependency.KOTEST_ASSERTIONS)
-
-    androidTestImplementation(Dependency.MOCKK_ANDROID)
-    androidTestImplementation(Dependency.JUNIT_EXT)
-    androidTestImplementation(Dependency.ESPRESSO_CORE)
+        testImplementation(JUNIT)
+        testImplementation(MOCKK)
+        testImplementation(KOTLIN_COROUTINES_TEST)
+        testImplementation(KOTEST_ASSERTIONS)
+        androidTestImplementation(MOCKK_ANDROID)
+        androidTestImplementation(JUNIT_EXT)
+        androidTestImplementation(ESPRESSO_CORE)
+    }
 }
