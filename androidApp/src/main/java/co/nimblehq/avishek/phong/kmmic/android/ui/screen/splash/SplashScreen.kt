@@ -24,11 +24,15 @@ import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryButton
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryTextField
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.presentation.module.SplashViewModel
 import kotlinx.coroutines.delay
+import org.koin.androidx.compose.getViewModel
 
-private const val LogoDelayInMillis = 500L
-private const val LogoDurationInMillis = 750
-private const val LoginFormRevealDurationInMillis = 700
+const val LogoImageContentDescription = "LogoImage"
+
+const val LogoDelayInMillis = 500L
+const val LogoDurationInMillis = 750
+const val LoginFormRevealDurationInMillis = 700
 
 private val InitialLogoOffset: Offset = Offset(0f, 0f)
 private val FinalLogoOffset = Offset(0f, -230f)
@@ -45,7 +49,9 @@ private const val BottomGradientAlphaMultiplier: Float = 1 - InitialBottomGradie
 private const val ForgotTextAlpha = 0.5f
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(
+    splashViewModel: SplashViewModel = getViewModel(),
+) {
     var shouldShowLogo by remember { mutableStateOf(false) }
     var logoOffset by remember { mutableStateOf(InitialLogoOffset) }
     var logoScale by remember { mutableStateOf(InitialLogoScale) }
@@ -86,7 +92,7 @@ fun SplashScreen() {
     // Animate logo position and login form visibility
     LaunchedEffect(Unit) {
         delay(LogoDurationInMillis.toLong())
-        shouldShowLoginForm = true
+        shouldShowLoginForm = !splashViewModel.checkIfUserLoggedIn()
         blurRadius = FinalBlurRadius
         alpha = FinalAlpha
         logoOffset = FinalLogoOffset
@@ -133,7 +139,7 @@ fun SplashContent(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.bg_splash),
-                contentDescription = null,
+                contentDescription = LogoImageContentDescription,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .matchParentSize()
