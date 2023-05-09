@@ -13,6 +13,11 @@ extension Image {
 
     static func url(_ urlString: String) -> KFImage {
         let url = URL(string: urlString) ?? URL(fileURLWithPath: "")
-        return KFImage(url)
+        return KFImage(url).onFailure { error in
+            print("failed to load images: \(error.localizedDescription)")
+        }
+        .onSuccess { _ in
+            print("load done")
+        }
     }
 }

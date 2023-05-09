@@ -1,5 +1,5 @@
 //
-//  Array+SafeIndex.swift
+//  Collection+SafeIndex.swift
 //  PhongKMMIC
 //
 //  Created by Phong Vo on 08/05/2023.

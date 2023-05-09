@@ -17,13 +17,13 @@ struct HomeView: View {
             id: 0,
             title: "Career training and development",
             description: "We would like to know what are your goals ans skill you wanted to develop",
-            image: R.image.background.image
+            imageUrl: "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_"
         ),
         SurveyContentView.UIModel(
             id: 0,
             title: "Career development and training",
             description: "We would like to know what are your goals ans skill you wanted to develop",
-            image: R.image.backgroundBlur.image
+            imageUrl: "https://dhdbhh0jsld0o.cloudfront.net/m/6ea42840403875928db3_"
         )
     ]
 

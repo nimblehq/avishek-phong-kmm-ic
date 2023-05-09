@@ -16,7 +16,7 @@ struct HomeHeaderView: View {
                 Text("MONDAY, JUNE 15")
                     .foregroundColor(.white)
                     .font(.boldSmall)
-                Text("TODAY")
+                Text(R.string.localizable.homeHeaderToday)
                     .foregroundColor(.white)
                     .font(.boldLargeTitle)
             }

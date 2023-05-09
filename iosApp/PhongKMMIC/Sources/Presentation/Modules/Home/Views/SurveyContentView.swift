@@ -15,14 +15,14 @@ struct SurveyContentView: View {
     @State private var nextPage = 0
     @State private var currentVisibility: Double = 1.0
 
-    @GestureVelocity private var velocity: CGVector
+    @DragGestureVelocity private var velocity: CGVector
 
     private var draggingSpeed: Double = 700.0
     private var draggingLength: Double = 160.0
     private var draggingVisibilityMultiplier: Double = 1.2
 
-    // swiftlint:disable closure_body_length
     var body: some View {
+        // swiftlint:disable:next closure_body_length
         GeometryReader { geometryReader in
             VStack {
                 PageViewIndicator(numberOfPage: uiModels.count, currentPage: $currentPage)
@@ -51,17 +51,18 @@ struct SurveyContentView: View {
                     }
                 }
             }
-            .padding([.horizontal], 20.0)
+            .padding(.horizontal, 20.0)
             .frame(
                 width: geometryReader.size.width,
                 height: geometryReader.size.height,
                 alignment: .bottom
             )
             .background(content: {
-                if let image = uiModels[safe: currentPage]?.image {
-                    image
+                if let imageUrl = uiModels[safe: currentPage]?.imageUrl {
+                    Image.url(imageUrl)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .scaledToFill()
+                        .clipped()
                         .ignoresSafeArea(.all, edges: .all)
                 } else {
                     EmptyView()
@@ -83,6 +84,7 @@ struct SurveyContentView: View {
                     let turningVisibilityPercentage =
                         draggingLength * draggingVisibilityMultiplier / abs(value.translation.width)
                     currentVisibility = max(0.0, turningVisibilityPercentage)
+                    print(value.location)
                 }
                 .onEnded { value in
                     withAnimation(.linear(duration: 0.5)) {
@@ -128,7 +130,7 @@ extension SurveyContentView {
         let id: Int
         let title: String
         let description: String
-        let image: Image
+        let imageUrl: String
     }
 }
 
@@ -139,13 +141,13 @@ struct SurveyContentView_Previews: PreviewProvider {
             id: 0,
             title: "Career training and development",
             description: "We would like to know what are your goals ans skill you wanted to develop",
-            image: R.image.background.image
+            imageUrl: "https://image-1.uhdpaper.com/b/phone-4k/apple-2021-logo-4k-phone-wallpaper-2160x3840-uhdpaper.com-945.1_b.jpg"
         ),
         SurveyContentView.UIModel(
             id: 0,
             title: "Career development and training",
             description: "We would like to know what are your goals ans skill you wanted to develop",
-            image: R.image.backgroundBlur.image
+            imageUrl: "https://image-0.uhdpaper.com/wallpaper/apple-logo-black-background-phone-wallpaper-4k-uhdpaper.com-668@0@e.jpg"
         )
     ]
 

@@ -9,12 +9,12 @@
 import SwiftUI
 
 @propertyWrapper
-struct GestureVelocity: DynamicProperty {
+struct DragGestureVelocity: DynamicProperty {
 
     @State private var previous: DragGesture.Value?
     @State private var current: DragGesture.Value?
 
-    var projectedValue: GestureVelocity {
+    var projectedValue: DragGestureVelocity {
         self
     }
 
@@ -57,7 +57,7 @@ struct GestureVelocity: DynamicProperty {
 
 extension Gesture where Value == DragGesture.Value {
 
-    func updatingVelocity(_ velocity: GestureVelocity) -> _EndedGesture<_ChangedGesture<Self>> {
+    func updatingVelocity(_ velocity: DragGestureVelocity) -> _EndedGesture<_ChangedGesture<Self>> {
         onChanged { value in
             velocity.update(value)
         }

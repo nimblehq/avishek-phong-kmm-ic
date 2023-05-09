@@ -9,3 +9,4 @@
 "authentication.fields.email" = "Email";
 "authentication.fields.password" = "Password";
 "authentication.button.login" = "Log in";
+"home.header.today" = "TODAY";
