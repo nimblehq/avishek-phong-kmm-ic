@@ -6,17 +6,13 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
-import Combine
 import Factory
-import KMPNativeCoroutinesCombine
-import KMPNativeCoroutinesCore
 import shared
 import SwiftUI
 
 struct SplashView: View {
 
-    @InjectedObject(\.splashViewModel) private var viewModel: shared.SplashViewModel
-
+    @InjectedObject(\.splashViewModel) private var viewModel
     @State private var nimbleLogoOpacity = 0.0
 
     @EnvironmentObject private var navigator: Navigator

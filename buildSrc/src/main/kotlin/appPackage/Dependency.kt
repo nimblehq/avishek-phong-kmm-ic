@@ -84,4 +84,7 @@ object Dependency {
 
     // Logging
     const val TIMBER = "com.jakewharton.timber:timber:${Version.TIMBER}"
+
+    // Bom
+    const val BOM = "org.jetbrains.kotlin:kotlin-bom:${Version.BOM}"
 }
