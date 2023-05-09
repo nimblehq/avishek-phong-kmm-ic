@@ -84,7 +84,6 @@ struct SurveyContentView: View {
                     let turningVisibilityPercentage =
                         draggingLength * draggingVisibilityMultiplier / abs(value.translation.width)
                     currentVisibility = max(0.0, turningVisibilityPercentage)
-                    print(value.location)
                 }
                 .onEnded { value in
                     withAnimation(.linear(duration: 0.5)) {
