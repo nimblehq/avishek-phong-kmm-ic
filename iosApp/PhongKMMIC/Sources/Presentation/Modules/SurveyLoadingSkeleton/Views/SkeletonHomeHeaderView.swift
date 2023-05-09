@@ -13,9 +13,8 @@ struct SkeletonHomeHeaderView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Spacer()
-                .frame(height: 20.0)
             SkeletonTextView(width: 118.0)
+                .padding(.top, 20.0)
             HStack {
                 SkeletonTextView(width: 90.0)
                 Spacer()

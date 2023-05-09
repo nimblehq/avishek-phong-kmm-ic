@@ -11,9 +11,9 @@ import SwiftUI
 struct SkeletonHomeView: View {
 
     var body: some View {
-        VStack {}
+        Color.black
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.ignoresSafeArea())
+            .ignoresSafeArea()
         VStack {
             SkeletonHomeHeaderView()
             SkeletonSurveyContentView()
