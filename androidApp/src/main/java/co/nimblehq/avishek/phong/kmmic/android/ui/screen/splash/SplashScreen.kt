@@ -62,6 +62,8 @@ fun SplashScreen(
     var shouldShowLoginForm by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
+    var isEmailError by remember { mutableStateOf(false) }
+    var isPasswordError by remember { mutableStateOf(false) }
 
     val floatTweenSpec = tween<Float>(
         durationMillis = LoginFormRevealDurationInMillis,
@@ -109,20 +111,13 @@ fun SplashScreen(
 
     LaunchedEffect(logInViewModel.viewState) {
         logInViewModel.viewState.collect { loginViewState ->
-            isLoading = loginViewState.isLoading
-            errorMessage = loginViewState.error.orEmpty()
+            loginViewState.run {
+                isLoading = isLoading
+                errorMessage = error.orEmpty()
+                isEmailError = isInvalidEmail
+                isPasswordError = isInvalidPassword
 
-            when {
-                loginViewState.isSuccess -> onLoginSuccess()
-                loginViewState.isInvalidEmail -> {
-                    // TODO: set error message
-                }
-                loginViewState.isInvalidPassword -> {
-                    // TODO: set error message
-                }
-                else -> {
-                    // Do nothing
-                }
+                if (isSuccess) onLoginSuccess()
             }
         }
     }
@@ -137,6 +132,8 @@ fun SplashScreen(
 
     if (shouldShowLoginForm) {
         LoginForm(
+            isEmailError = isEmailError,
+            isPasswordError = isPasswordError,
             modifier = Modifier.alpha(animateAlpha),
             onLogInClick = { email, password ->
                 logInViewModel.logIn(email, password)
@@ -219,6 +216,8 @@ fun SplashContent(
 
 @Composable
 private fun LoginForm(
+    isEmailError: Boolean,
+    isPasswordError: Boolean,
     onLogInClick: (email: String, password: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -237,6 +236,7 @@ private fun LoginForm(
             onValueChange = { email = it },
             placeholder = stringResource(id = R.string.login_email),
             keyboardType = KeyboardType.Email,
+            isError = isEmailError
         )
         Box {
             PrimaryTextField(
@@ -245,6 +245,7 @@ private fun LoginForm(
                 placeholder = stringResource(id = R.string.login_password),
                 visualTransformation = PasswordVisualTransformation(),
                 imeAction = ImeAction.Done,
+                isError = isPasswordError
             )
             Text(
                 text = stringResource(id = R.string.login_forgot),
@@ -284,6 +285,8 @@ fun SplashContentPreview() {
 fun LoginFormPreview() {
     ApplicationTheme {
         LoginForm(
+            isEmailError = true,
+            isPasswordError = true,
             onLogInClick = { _, _ -> }
         )
     }
