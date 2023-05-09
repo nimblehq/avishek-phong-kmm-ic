@@ -18,19 +18,10 @@ class LogInUseCaseTest {
     @Mock
     private val mockRepository = mock(classOf<AuthenticationRepository>())
 
-    @Mock
-    private val testMockToken = mock(classOf<Token>())
-
     private lateinit var useCase: LogInUseCase
 
     private val mockThrowable = Throwable("mock")
-    private val mockToken = Token(
-        "",
-        "",
-        0,
-        "",
-        0
-    )
+    private val mockToken = Token("", "", 0, "", 0)
 
     @BeforeTest
     fun setUp() {

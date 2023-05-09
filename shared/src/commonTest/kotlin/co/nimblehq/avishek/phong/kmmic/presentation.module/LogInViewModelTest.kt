@@ -25,13 +25,7 @@ class LogInViewModelTest {
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
     private val mockThrowable = Throwable("mock")
-    private val mockToken = Token(
-        "",
-        "",
-        0,
-        "",
-        0
-    )
+    private val mockToken = Token("", "", 0, "", 0)
 
     @BeforeTest
     fun setUp() {
