@@ -39,6 +39,21 @@ class HomeViewModel(
             .launchIn(viewModelScope)
     }
 
+    private fun fetchSurvey(
+        page: Int,
+        pageSize: Int,
+        isForceLatestData: Boolean
+    ): Flow<List<Survey>> {
+        return flow {
+            getSurveysUseCase(page, pageSize, isForceLatestData = false)
+                .catch { emit(listOf()) }
+                .collect {
+                    currentPage = page+1
+                    emit(it)
+                }
+        }
+    }
+
     private fun setStateLoading() {
         _viewState.update {
             HomeViewState(isLoading = true)
