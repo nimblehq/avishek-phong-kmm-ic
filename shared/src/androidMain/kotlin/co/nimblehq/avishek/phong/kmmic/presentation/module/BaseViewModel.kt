@@ -1,15 +1,18 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.module
 
-import androidx.lifecycle.viewModelScope as lifecycleViewModelScope
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.*
 
 actual abstract class BaseViewModel : ViewModel() {
 
-    actual val viewModelScope: CoroutineScope = lifecycleViewModelScope
+    actual val viewModelScope: CoroutineScope = MainScope()
 
     fun clear() {
         viewModelScope.cancel()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        clear()
     }
 }
