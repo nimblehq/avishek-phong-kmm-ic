@@ -46,4 +46,7 @@ object Version {
 
     //BOM
     const val BOM = "1.8.0"
+
+    const val COMPOSE_ACCOMPANIST = "0.28.0"
+    const val COIL_COMPOSE = "2.2.2"
 }

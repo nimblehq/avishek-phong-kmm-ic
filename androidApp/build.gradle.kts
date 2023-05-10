@@ -127,6 +127,9 @@ dependencies {
         implementation(FIREBASE)
         implementation(platform(BOM))
 
+        implementation(ACCOMPANIST_PLACEHOLDER)
+        implementation(COIL_COMPOSE)
+
         testImplementation(JUNIT)
         testImplementation(MOCKK)
         testImplementation(KOTLIN_COROUTINES_TEST)

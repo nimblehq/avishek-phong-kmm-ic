@@ -94,4 +94,8 @@ object Dependency {
     // Realm
     const val REALM_GRADLE_PLUGIN = "io.realm.kotlin:gradle-plugin:${Version.REALM}"
     const val REALM_LIBRARY_BASE = "io.realm.kotlin:library-base:${Version.REALM}"
+
+    const val ACCOMPANIST_PLACEHOLDER =
+        "com.google.accompanist:accompanist-placeholder:${Version.COMPOSE_ACCOMPANIST}"
+    const val COIL_COMPOSE = "io.coil-kt:coil-compose:${Version.COIL_COMPOSE}"
 }
