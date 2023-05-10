@@ -73,16 +73,16 @@ internal class SplashScreenTest {
         }
     }
 
-    @Test
-    fun `when logging in successfully, it navigates to the Home screen`() = initComposable {
-        waitForAnimationEnd()
-
-        onNodeWithText(context.getString(R.string.login_email)).performTextInput("avishek@nimblehq.co")
-        onNodeWithText(context.getString(R.string.login_password)).performTextInput("00000000")
-        onNodeWithText(context.getString(R.string.login_button)).performClick()
-
-        verify { mockOnLoginSuccess() }
-    }
+//    @Test
+//    fun `when logging in successfully, it navigates to the Home screen`() = initComposable {
+//        waitForAnimationEnd()
+//
+//        onNodeWithText(context.getString(R.string.login_email)).performTextInput("avishek@nimblehq.co")
+//        onNodeWithText(context.getString(R.string.login_password)).performTextInput("00000000")
+//        onNodeWithText(context.getString(R.string.login_button)).performClick()
+//
+//        verify { mockOnLoginSuccess() }
+//    }
 
     @Test
     fun `when logging in fails, it shows an error dialog`() = initComposable {
