@@ -6,9 +6,14 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import Factory
 import SwiftUI
+import shared
 
 struct HomeView: View {
+
+    // TODO: Remove this in the integration story
+    @Injected(\.homeViewModel) private var viewModel
 
     @State private var isLoading = true
 
@@ -47,6 +52,9 @@ struct HomeView: View {
                 }
             }
             .onAppear {
+                // TODO: Remove this in the integration story
+                viewModel.fetchData()
+
                 Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                     isLoading.toggle()
                 }

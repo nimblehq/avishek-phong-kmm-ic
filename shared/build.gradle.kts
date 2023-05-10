@@ -12,6 +12,7 @@ plugins {
     id(Plugin.KOVER)
     id(Plugin.KSP).version(Version.KSP)
     id(Plugin.NATIVE_COROUTINES).version(Version.NATIVE_COROUTINES_KOTLIN)
+    id(Plugin.REALM)
 }
 
 kotlin {
@@ -67,6 +68,9 @@ kotlin {
 
                 // Koin
                 implementation(Dependency.KOIN_CORE)
+
+                // Realm
+                implementation(Dependency.REALM_LIBRARY_BASE)
             }
         }
         val commonTest by getting {

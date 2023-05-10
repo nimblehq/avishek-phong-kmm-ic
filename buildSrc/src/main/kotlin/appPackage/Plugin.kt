@@ -19,4 +19,5 @@ object Plugin {
     const val KSP = "com.google.devtools.ksp"
 
     const val MOKO_RESOURCES = "dev.icerock.mobile.multiplatform-resources"
+    const val REALM = "io.realm.kotlin"
 }

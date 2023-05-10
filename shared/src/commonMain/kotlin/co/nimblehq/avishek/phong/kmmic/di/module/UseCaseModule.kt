@@ -8,4 +8,5 @@ import org.koin.dsl.module
 val useCaseModule = module {
     singleOf(::CheckLoggedInUseCaseImpl) bind CheckLoggedInUseCase::class
     singleOf(::LogInUseCaseImpl) bind LogInUseCase::class
+    singleOf(::GetSurveysUseCaseImpl) bind GetSurveysUseCase::class
 }

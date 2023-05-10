@@ -21,7 +21,7 @@ class AuthenticationRepositoryTest {
     @Mock
     private val mockTokenLocalDataSource = mock(classOf<TokenLocalDataSource>())
     @Mock
-    private  val mockTokenRemoteDataSource = mock(classOf<TokenRemoteDataSource>())
+    private val mockTokenRemoteDataSource = mock(classOf<TokenRemoteDataSource>())
 
     private lateinit var repository: AuthenticationRepository
 
