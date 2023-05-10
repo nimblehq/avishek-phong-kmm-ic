@@ -1,3 +1,8 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.module
 
-expect abstract class BaseViewModel()
+import kotlinx.coroutines.CoroutineScope
+
+expect abstract class BaseViewModel() {
+
+    val viewModelScope: CoroutineScope
+}

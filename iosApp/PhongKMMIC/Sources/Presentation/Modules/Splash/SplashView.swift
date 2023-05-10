@@ -13,7 +13,6 @@ import SwiftUI
 struct SplashView: View {
 
     @InjectedObject(\.splashViewModel) private var viewModel
-
     @State private var nimbleLogoOpacity = 0.0
 
     @EnvironmentObject private var navigator: Navigator

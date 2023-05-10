@@ -3,13 +3,14 @@ package co.nimblehq.avishek.phong.kmmic.data.repository
 import co.nimblehq.avishek.phong.kmmic.data.local.datasource.TokenLocalDataSource
 import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.TokenRemoteDataSource
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.TokenApiModel
+import co.nimblehq.avishek.phong.kmmic.data.remote.model.toToken
 import co.nimblehq.avishek.phong.kmmic.domain.repository.AuthenticationRepository
 import io.kotest.matchers.shouldBe
-import io.mockative.Mock
-import io.mockative.classOf
-import io.mockative.given
-import io.mockative.mock
+import io.mockative.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -33,6 +34,7 @@ class AuthenticationRepositoryTest {
         "refreshToken",
         0
     )
+    private val mockThrowable = Throwable("mock")
 
     @BeforeTest
     fun setUp() {
@@ -57,5 +59,37 @@ class AuthenticationRepositoryTest {
             .thenReturn(null)
 
         repository.hasCachedToken() shouldBe false
+    }
+
+    @Test
+    fun `when logIn is called - the data source returns token`() = runTest {
+        given(mockTokenRemoteDataSource)
+            .function(mockTokenRemoteDataSource::logIn)
+            .whenInvokedWith(any())
+            .thenReturn(
+                flow { emit(mockToken) }
+            )
+
+        repository.logIn("email", "password").collect {
+            it shouldBe  mockToken.toToken()
+        }
+    }
+
+    @Test
+    fun `when login is called - the data source returns error`() = runTest {
+        given(mockTokenRemoteDataSource)
+            .function(mockTokenRemoteDataSource::logIn)
+            .whenInvokedWith(any())
+            .thenReturn(
+                flow {
+                    throw mockThrowable
+                }
+            )
+
+        repository.logIn("email", "password")
+            .catch {
+                it.message shouldBe mockThrowable.message
+            }
+            .collect()
     }
 }

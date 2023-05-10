@@ -25,7 +25,6 @@ enum ViewId {
     }
 
     enum LogIn: String {
-        case view = "logIn.view"
         case emailField = "logIn.emailField"
         case passwordField = "logIn.passwordField"
         case logInButton = "logIn.logInButton"

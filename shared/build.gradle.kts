@@ -11,6 +11,7 @@ plugins {
     id(Plugin.KOTLINX_SERIALIZATION)
     id(Plugin.KOVER)
     id(Plugin.KSP).version(Version.KSP)
+    id(Plugin.NATIVE_COROUTINES).version(Version.NATIVE_COROUTINES_KOTLIN)
 }
 
 kotlin {
@@ -47,8 +48,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Dependency.COROUTINES_CORE)
-
                 implementation(Dependency.KTOR_CORE)
                 implementation(Dependency.KTOR_SERIALIZATION)
                 implementation(Dependency.KTOR_LOGGING)

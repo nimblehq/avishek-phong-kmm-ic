@@ -115,6 +115,7 @@ dependencies {
         implementation(KOIN_COMPOSE)
         implementation(TIMBER)
         implementation(FIREBASE)
+        implementation(platform(BOM))
 
         testImplementation(JUNIT)
         testImplementation(MOCKK)

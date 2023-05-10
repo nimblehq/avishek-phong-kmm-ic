@@ -17,6 +17,7 @@ struct KMMICApp: App {
     var body: some Scene {
         WindowGroup {
             AppCoordinator()
+                .preferredColorScheme(.dark)
         }
     }
 }

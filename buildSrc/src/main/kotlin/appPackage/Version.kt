@@ -40,4 +40,7 @@ object Version {
     const val COMPOSE_ACTIVITY = "1.5.1"
     const val COMPOSE_NAVIGATION = "2.5.3"
     const val COMPOSE_UI_TEST_JUNIT = "1.4.2"
+
+    //BOM
+    const val BOM = "1.8.0"
 }
