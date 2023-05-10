@@ -31,8 +31,11 @@ struct HomeView: View {
         GeometryReader { geometryReader in
             ZStack {
                 if isLoading {
-                    // TODO: Handle loading animation here
-                    EmptyView()
+                    SkeletonHomeView()
+                        .frame(
+                            width: geometryReader.size.width,
+                            height: geometryReader.size.height
+                        )
                 } else {
                     SurveyContentView(uiModels: dummySurveys)
                     HomeHeaderView()
