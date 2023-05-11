@@ -38,13 +38,11 @@ class HomeViewModel(
 
     private var currentPage = 1
 
-
-
     fun fetchData() {
         getProfile()
             .onStart { setStateLoading() }
-            .combine(fetchSurvey(currentPage, 10, false)) { user, surveys ->
-                Pair(user, surveys)
+            .combine(fetchSurvey(currentPage, DEFAULT_PAGE_SIZE, false)) { _, _ ->
+                // TODO: Return values in a tuple
             }
             .catch {
                 // TODO: Handle error in integration story
