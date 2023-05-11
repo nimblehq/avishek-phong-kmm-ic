@@ -1,5 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.data.remote.datasource
 
+import co.nimblehq.avishek.phong.kmmic.Endpoint
 import co.nimblehq.avishek.phong.kmmic.data.remote.ApiClient
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.UserApiModel
 import io.ktor.client.request.HttpRequestBuilder
@@ -13,6 +14,6 @@ interface UserRemoteDataSource {
 class UserRemoteDataSourceImpl(private val apiClient: ApiClient) : UserRemoteDataSource {
 
     override fun getProfile(): Flow<UserApiModel> {
-        return apiClient.responseBody("api/v1/me", HttpMethod.Get)
+        return apiClient.responseBody(Endpoint.USER_PROFILE, HttpMethod.Get)
     }
 }

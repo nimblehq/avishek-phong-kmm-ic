@@ -13,7 +13,6 @@ class GetUserProfileUseCaseImpl(
 ): GetUserProfileUseCase {
 
     override operator fun invoke(): Flow<User> {
-        return userRepository
-            .getProfile()
+        return userRepository.getProfile()
     }
 }

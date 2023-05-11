@@ -11,10 +11,12 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.zip
 
 private const val DEFAULT_PAGE_SIZE = 10
 
@@ -36,11 +38,16 @@ class HomeViewModel(
 
     private var currentPage = 1
 
+
+
     fun fetchData() {
         getProfile()
             .onStart { setStateLoading() }
-            .combine(fetchSurvey(1, 10, true)) { user, surveys ->
+            .combine(fetchSurvey(currentPage, 10, false)) { user, surveys ->
                 Pair(user, surveys)
+            }
+            .catch {
+                // TODO: Handle error in integration story
             }
             .onEach {
                 handleFetchSuccess()
@@ -61,14 +68,11 @@ class HomeViewModel(
         pageSize: Int,
         isForceLatestData: Boolean
     ): Flow<List<Survey>> {
-        return flow {
-            getSurveysUseCase(page, pageSize, isForceLatestData = false)
-                .catch { emit(listOf()) }
-                .collect {
-                    currentPage = page+1
-                    emit(it)
-                }
-        }
+        return getSurveysUseCase(page, pageSize, isForceLatestData = false)
+            .catch { emit(emptyList()) }
+            .onEach {
+                currentPage = page + 1
+            }
     }
 
     private fun setStateLoading() {
