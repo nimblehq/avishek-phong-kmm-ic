@@ -11,10 +11,9 @@ import SwiftUI
 struct LogInView: View {
 
     @State private var isLoaded = false
-    @State private var email = ""
-    @State private var password = ""
 
     @StateObject private var viewModel = LogInCombineViewModel()
+    @EnvironmentObject private var navigator: Navigator
 
     var body: some View {
         ZStack {
@@ -42,6 +41,11 @@ struct LogInView: View {
                 }
             }
             .padding(.horizontal, 24.0)
+        }
+        .onReceive(viewModel.$isLogInSuccess) {
+            if $0 {
+                navigator.showScreen(screen: .home, with: .root)
+            }
         }
         .ignoresSafeArea()
         .progressView($viewModel.isLoading)

@@ -71,6 +71,9 @@ kotlin {
 
                 // Realm
                 implementation(Dependency.REALM_LIBRARY_BASE)
+
+                // Date
+                implementation(Dependency.DATE_TIME)
             }
         }
         val commonTest by getting {

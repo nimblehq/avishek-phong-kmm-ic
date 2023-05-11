@@ -19,6 +19,7 @@ final class LogInCombineViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var isInvalidEmail = false
     @Published var isInvalidPassword = false
+    @Published var isLogInSuccess = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -47,5 +48,6 @@ final class LogInCombineViewModel: ObservableObject {
         isInvalidEmail = state.isInvalidEmail
         isInvalidPassword = state.isInvalidPassword
         isLoading = state.isLoading
+        isLogInSuccess = state.isSuccess
     }
 }

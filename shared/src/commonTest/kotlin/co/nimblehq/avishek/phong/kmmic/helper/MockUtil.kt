@@ -2,9 +2,12 @@ package co.nimblehq.avishek.phong.kmmic.helper
 
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.SurveyApiModel
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
+import co.nimblehq.avishek.phong.kmmic.domain.model.User
 
 
 object MockUtil {
+
+    val mockThrowable = Throwable(message = "mockThrowable")
 
     val mockSurvey = Survey(
         "id",
@@ -21,5 +24,11 @@ object MockUtil {
         "description",
         true,
         "coverImageUrl",
+    )
+
+    val mockUser = User(
+        "email",
+        "name",
+        "avatarUrl"
     )
 }
