@@ -17,7 +17,9 @@ import io.mockative.mock
 import io.mockative.times
 import io.mockative.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -50,25 +52,19 @@ class SurveyRepositoryTest {
     }
 
     @Test
-    fun `when there is no cached data and get surveys is succeeded, it returns surveys one time`() =
+    fun `when there is no cached data and surveys are fetched successfully, it returns surveys one time`() =
         runTest {
             given(mockSurveyLocalDataSource)
                 .function(mockSurveyLocalDataSource::getSurveys)
                 .whenInvoked()
-                .thenReturn(listOf())
+                .thenReturn(emptyList())
             given(mockSurveyRemoteDataSource)
                 .function(mockSurveyRemoteDataSource::getSurveys)
                 .whenInvokedWith(any())
-                .thenReturn(
-                    flow {
-                        emit(listOf(mockSurveyApiModel))
-                    }
-                )
+                .thenReturn(flowOf(listOf(mockSurveyApiModel)))
 
-            repository.getSurveys(1, 1, false).test {
-                this.awaitItem() shouldBe listOf(mockSurveyApiModel.toSurvey())
-                this.awaitComplete()
-            }
+            repository.getSurveys(1, 1, false).first() shouldBe
+                    listOf(mockSurveyApiModel.toSurvey())
         }
 
     @Test
@@ -82,11 +78,7 @@ class SurveyRepositoryTest {
             given(mockSurveyRemoteDataSource)
                 .function(mockSurveyRemoteDataSource::getSurveys)
                 .whenInvokedWith(any())
-                .thenReturn(
-                    flow {
-                        emit(listOf(mockSurveyApiModel))
-                    }
-                )
+                .thenReturn(flowOf(listOf(mockSurveyApiModel)))
 
             repository.getSurveys(1, 1, false).test {
                 this.awaitItem() shouldBe listOf(mockSurveyRealmObject.toSurvey())
@@ -106,18 +98,14 @@ class SurveyRepositoryTest {
             given(mockSurveyRemoteDataSource)
                 .function(mockSurveyRemoteDataSource::getSurveys)
                 .whenInvokedWith(any())
-                .thenReturn(
-                    flow {
-                        emit(listOf(mockSurveyApiModel))
-                    }
-                )
+                .thenReturn(flowOf(listOf(mockSurveyApiModel)))
 
             repository.getSurveys(pageNumber = 1, pageSize = 1, isForceLatestData = true).test {
                 this.awaitItem() shouldBe listOf(mockSurveyApiModel.toSurvey())
                 this.awaitComplete()
             }
 
-            verify(mockSurveyLocalDataSource).invocation { removeAllSurvey() }
+            verify(mockSurveyLocalDataSource).invocation { removeAllSurveys() }
                 .wasInvoked(exactly = 1.times)
         }
 
@@ -127,7 +115,7 @@ class SurveyRepositoryTest {
             given(mockSurveyLocalDataSource)
                 .function(mockSurveyLocalDataSource::getSurveys)
                 .whenInvoked()
-                .thenReturn(listOf())
+                .thenReturn(emptyList())
             given(mockSurveyRemoteDataSource)
                 .function(mockSurveyRemoteDataSource::getSurveys)
                 .whenInvokedWith(any())

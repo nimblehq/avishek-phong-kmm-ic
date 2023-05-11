@@ -26,7 +26,7 @@ class SurveyRepositoryImpl(
     ): Flow<List<Survey>> {
         return flow {
             if (isForceLatestData) {
-                surveyLocalDataSource.removeAllSurvey()
+                surveyLocalDataSource.removeAllSurveys()
             } else if (pageNumber == FIRST_PAGE_NUMBER) {
                 val localSurveys = surveyLocalDataSource.getSurveys().map { it.toSurvey() }
                 if (localSurveys.isNotEmpty()) {

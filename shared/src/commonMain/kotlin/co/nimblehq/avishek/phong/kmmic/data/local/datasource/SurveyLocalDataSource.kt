@@ -8,7 +8,7 @@ import io.realm.kotlin.ext.query
 interface SurveyLocalDataSource {
     fun saveSurveys(surveys: List<SurveyRealmObject>)
     fun getSurveys(): List<SurveyRealmObject>
-    fun removeAllSurvey()
+    fun removeAllSurveys()
 }
 
 class SurveyLocalDataSourceImpl(private val realm: Realm) : SurveyLocalDataSource {
@@ -25,7 +25,7 @@ class SurveyLocalDataSourceImpl(private val realm: Realm) : SurveyLocalDataSourc
         return realm.query<SurveyRealmObject>().find()
     }
 
-    override fun removeAllSurvey() {
+    override fun removeAllSurveys() {
         realm.writeBlocking {
             val surveys = query<SurveyRealmObject>().find()
             delete(surveys)
