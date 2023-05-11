@@ -26,7 +26,7 @@ fun HomeFooter(
     pagerState: PagerState,
     pageCount: Int,
     isLoading: Boolean,
-    survey: SurveyUiModel?,
+    surveyUiModel: SurveyUiModel?,
     modifier: Modifier = Modifier,
     onSurveyClick: (SurveyUiModel?) -> Unit,
 ) {
@@ -41,7 +41,7 @@ fun HomeFooter(
             HomeFooterContent(
                 pagerState = pagerState,
                 pageCount = pageCount,
-                survey = survey,
+                surveyUiModel = surveyUiModel,
                 onSurveyClick = onSurveyClick
             )
         }
@@ -53,7 +53,7 @@ fun HomeFooter(
 private fun HomeFooterContent(
     pagerState: PagerState,
     pageCount: Int,
-    survey: SurveyUiModel?,
+    surveyUiModel: SurveyUiModel?,
     onSurveyClick: (SurveyUiModel?) -> Unit,
 ) {
     HorizontalPagerIndicator(
@@ -64,7 +64,7 @@ private fun HomeFooterContent(
         spacing = 5.dp
     )
     Spacer(modifier = Modifier.height(26.dp))
-    Crossfade(targetState = survey?.title) {
+    Crossfade(targetState = surveyUiModel?.title) {
         Text(
             text = it.orEmpty(),
             color = White,
@@ -79,7 +79,7 @@ private fun HomeFooterContent(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Crossfade(
-            targetState = survey?.description,
+            targetState = surveyUiModel?.description,
             modifier = Modifier.weight(1f)
         ) {
             Text(
@@ -92,7 +92,7 @@ private fun HomeFooterContent(
         }
         Spacer(modifier = Modifier.width(8.dp))
         NextCircleButton(
-            onClick = { onSurveyClick(survey) }
+            onClick = { onSurveyClick(surveyUiModel) }
         )
     }
 }
@@ -142,7 +142,7 @@ fun HomeFooterPreview(
                 pagerState = rememberPagerState(),
                 pageCount = 3,
                 isLoading = isLoading,
-                survey = params.surveys[0]
+                surveyUiModel = params.surveys[0]
             ) {}
         }
     }

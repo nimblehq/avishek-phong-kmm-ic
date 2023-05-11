@@ -52,13 +52,19 @@ fun HorizontalPagerIndicator(
         }
 
         Box(
-            Modifier
+            modifier = Modifier
                 .offset {
                     val position = pageIndexMapping(pagerState.currentPage)
                     val offset = pagerState.currentPageOffsetFraction
                     val next = pageIndexMapping(pagerState.currentPage + offset.sign.toInt())
+                    val maximumScrollPosition = (pageCount - 1)
+                        .coerceAtLeast(0)
+                        .toFloat()
                     val scrollPosition = ((next - position) * offset.absoluteValue + position)
-                        .coerceIn(0f, (pageCount - 1).coerceAtLeast(0).toFloat())
+                        .coerceIn(
+                            0f,
+                            maximumScrollPosition
+                        )
 
                     IntOffset(
                         x = ((spacingPx + indicatorWidthPx) * scrollPosition).toInt(),

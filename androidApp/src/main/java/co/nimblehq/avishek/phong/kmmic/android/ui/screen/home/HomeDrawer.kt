@@ -26,7 +26,7 @@ import coil.compose.AsyncImage
 
 @Composable
 fun HomeDrawer(
-    user: UserUiModel?,
+    userUiModel: UserUiModel?,
     appVersion: String,
     onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -45,12 +45,12 @@ fun HomeDrawer(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = user?.name.orEmpty(),
+                text = userUiModel?.name.orEmpty(),
                 color = White,
                 style = typography.h4
             )
             AsyncImage(
-                model = user?.avatarUrl.orEmpty(),
+                model = userUiModel?.avatarUrl.orEmpty(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -88,7 +88,7 @@ fun HomeDrawerPreview(
     with(params) {
         ApplicationTheme {
             HomeDrawer(
-                user = user,
+                userUiModel = user,
                 appVersion = appVersion,
                 onLogoutClick = {}
             )

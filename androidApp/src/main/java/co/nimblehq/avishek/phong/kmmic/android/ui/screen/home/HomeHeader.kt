@@ -23,7 +23,7 @@ import coil.compose.AsyncImage
 fun HomeHeader(
     isLoading: Boolean,
     dateTime: String,
-    user: UserUiModel?,
+    userUiModel: UserUiModel?,
     onUserAvatarClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -49,7 +49,7 @@ fun HomeHeader(
                 modifier = Modifier.placeholder(isLoading = isLoading)
             )
             AsyncImage(
-                model = user?.avatarUrl.orEmpty(),
+                model = userUiModel?.avatarUrl.orEmpty(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -72,7 +72,7 @@ fun HomeHeaderPreview(
             HomeHeader(
                 isLoading = isLoading,
                 dateTime = currentDate,
-                user = user,
+                userUiModel = user,
                 onUserAvatarClick = {}
             )
         }

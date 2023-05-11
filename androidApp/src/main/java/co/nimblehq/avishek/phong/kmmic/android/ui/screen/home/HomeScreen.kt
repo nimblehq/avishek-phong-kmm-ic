@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.extension.pagerFadeTransition
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.android.ui.theme.BlackRussian
 import coil.compose.AsyncImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,18 +30,21 @@ private const val BottomGradientAlpha: Float = 0.6f
 fun HomeScreen() {
     val scaffoldState = rememberScaffoldState()
     var isLoading by remember { mutableStateOf(true) }
+    var userUiModel by remember { mutableStateOf<UserUiModel?>(null) }
+    var surveyUiModels by remember { mutableStateOf(emptyList<SurveyUiModel>()) }
+    var currentDate by remember { mutableStateOf("") }
+    var appVersion by remember { mutableStateOf("") }
 
+    // TODO: replace this when integrating the Home screen with the API data
     LaunchedEffect(Unit) {
         delay(1000)
         isLoading = false
-    }
-
-    HomeContentWithDrawer(
-        appVersion = "v0.5.0",
-        scaffoldState = scaffoldState,
-        currentDate = "TUESDAY, MAY 10",
-        isLoading = isLoading,
-        surveys = listOf(
+        userUiModel = UserUiModel(
+            email = "avishek@nimblehq.co",
+            name = "Avishek",
+            avatarUrl = "https://cataas.com/cat/says/hello%20world!"
+        )
+        surveyUiModels = listOf(
             SurveyUiModel(
                 id = "1",
                 title = "Scarlett Bangkok",
@@ -59,12 +63,18 @@ fun HomeScreen() {
                 description = "We'd love to hear from you!",
                 coverImageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/0221e768b99dc3576210_"
             )
-        ),
-        user = UserUiModel(
-            email = "avishek@nimblehq.co",
-            name = "Avishek",
-            avatarUrl = "https://cataas.com/cat/says/hello%20world!"
         )
+        currentDate = "TUESDAY, MAY 10"
+        appVersion = "v0.5.0"
+    }
+
+    HomeContentWithDrawer(
+        appVersion = appVersion,
+        scaffoldState = scaffoldState,
+        currentDate = currentDate,
+        isLoading = isLoading,
+        surveyUiModels = surveyUiModels,
+        userUiModel = userUiModel
     )
 }
 
@@ -74,8 +84,8 @@ private fun HomeContentWithDrawer(
     initialDrawerState: DrawerValue = DrawerValue.Closed,
     scaffoldState: ScaffoldState,
     currentDate: String,
-    user: UserUiModel? = null,
-    surveys: List<SurveyUiModel>,
+    userUiModel: UserUiModel? = null,
+    surveyUiModels: List<SurveyUiModel>,
     isLoading: Boolean,
 ) {
     val drawerState = rememberDrawerState(initialDrawerState)
@@ -86,7 +96,7 @@ private fun HomeContentWithDrawer(
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
             HomeDrawer(
-                user = user,
+                userUiModel = userUiModel,
                 appVersion = appVersion,
                 onLogoutClick = {
                     scope.launch { drawerState.close() }
@@ -96,9 +106,9 @@ private fun HomeContentWithDrawer(
     ) {
         HomeContent(
             scaffoldState = scaffoldState,
-            user = user,
+            userUiModel = userUiModel,
             currentDate = currentDate,
-            surveys = surveys,
+            surveyUiModels = surveyUiModels,
             isLoading = isLoading,
             onUserAvatarClick = {
                 scope.launch { drawerState.open() }
@@ -111,19 +121,19 @@ private fun HomeContentWithDrawer(
 @Composable
 fun HomeContent(
     scaffoldState: ScaffoldState,
-    user: UserUiModel?,
+    userUiModel: UserUiModel?,
     isLoading: Boolean,
     currentDate: String,
-    surveys: List<SurveyUiModel>,
+    surveyUiModels: List<SurveyUiModel>,
     onUserAvatarClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState()
-    var survey by remember { mutableStateOf<SurveyUiModel?>(null) }
+    var surveyUiModel by remember { mutableStateOf<SurveyUiModel?>(null) }
 
-    LaunchedEffect(pagerState) {
+    LaunchedEffect(surveyUiModels) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
-            survey = surveys[page]
+            surveyUiModel = surveyUiModels.getOrNull(page)
         }
     }
 
@@ -137,9 +147,11 @@ fun HomeContent(
                 .padding(padding)
         ) {
             HorizontalPager(
-                pageCount = surveys.size,
+                pageCount = surveyUiModels.size,
                 state = pagerState,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = BlackRussian)
             ) { page ->
                 Box(
                     Modifier
@@ -148,12 +160,10 @@ fun HomeContent(
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         AsyncImage(
-                            model = user?.avatarUrl.orEmpty(),
+                            model = surveyUiModels.getOrNull(page)?.coverImageUrl,
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .matchParentSize()
-                                .blur(radius = 0.dp)
+                            modifier = Modifier.matchParentSize()
                         )
                         Box(
                             modifier = Modifier
@@ -174,7 +184,7 @@ fun HomeContent(
             HomeHeader(
                 isLoading = isLoading,
                 dateTime = currentDate,
-                user = user,
+                userUiModel = userUiModel,
                 onUserAvatarClick = onUserAvatarClick,
                 modifier = Modifier
                     .statusBarsPadding()
@@ -183,9 +193,9 @@ fun HomeContent(
 
             HomeFooter(
                 pagerState = pagerState,
-                pageCount = surveys.size,
+                pageCount = surveyUiModels.size,
                 isLoading = isLoading,
-                survey = survey,
+                surveyUiModel = surveyUiModel,
                 modifier = Modifier
                     .navigationBarsPadding()
                     .align(Alignment.BottomCenter)
@@ -210,8 +220,8 @@ fun HomeScreenPreview(
                 initialDrawerState = drawerState,
                 scaffoldState = rememberScaffoldState(),
                 currentDate = currentDate,
-                user = user,
-                surveys = surveys,
+                userUiModel = user,
+                surveyUiModels = surveys,
                 isLoading = isLoading
             )
         }
