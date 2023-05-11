@@ -2,23 +2,21 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.screen.home
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.extension.placeholder
+import co.nimblehq.avishek.phong.kmmic.android.ui.common.HorizontalPagerIndicator
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.NextCircleButton
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 
@@ -58,24 +56,14 @@ private fun HomeFooterContent(
     survey: SurveyUiModel?,
     onSurveyClick: (SurveyUiModel?) -> Unit,
 ) {
-    Row(
-        Modifier
-            .height(50.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start
-    ) {
-        repeat(pageCount) { iteration ->
-            val color = if (pagerState.currentPage == iteration) White else White.copy(alpha = 0.20f)
-            Box(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .clip(CircleShape)
-                    .background(color)
-                    .size(8.dp)
-
-            )
-        }
-    }
+    HorizontalPagerIndicator(
+        pagerState = pagerState,
+        pageCount = pageCount,
+        activeColor = White,
+        inactiveColor = White.copy(alpha = 0.20f),
+        spacing = 5.dp
+    )
+    Spacer(modifier = Modifier.height(26.dp))
     Crossfade(targetState = survey?.title) {
         Text(
             text = it.orEmpty(),

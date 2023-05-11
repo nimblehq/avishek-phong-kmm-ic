@@ -1,6 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.*
 import androidx.compose.material.*
@@ -8,15 +8,22 @@ import androidx.compose.material.pullrefresh.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.extension.pagerFadeTransition
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.OverlaidImage
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.RtlModalDrawer
+import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import coil.compose.AsyncImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+private const val TopGradientAlpha: Float = 0.01f
+private const val BottomGradientAlpha: Float = 0.6f
 
 @Composable
 fun HomeScreen() {
@@ -139,9 +146,28 @@ fun HomeContent(
                         .pagerFadeTransition(page, pagerState)
                         .fillMaxSize()
                 ) {
-                    OverlaidImage(
-                        imageUrl = surveys[page].coverImageUrl
-                    )
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        AsyncImage(
+                            model = user?.avatarUrl.orEmpty(),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .matchParentSize()
+                                .blur(radius = 0.dp)
+                        )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(
+                                    brush = Brush.verticalGradient(
+                                        colors = listOf(
+                                            Color.Black.copy(alpha = TopGradientAlpha),
+                                            Color.Black.copy(alpha = BottomGradientAlpha)
+                                        )
+                                    )
+                                )
+                        )
+                    }
                 }
             }
 
