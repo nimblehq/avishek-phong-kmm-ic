@@ -2,15 +2,19 @@ package co.nimblehq.avishek.phong.kmmic.domain.usecase
 
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 import co.nimblehq.avishek.phong.kmmic.domain.repository.SurveyRepository
+import co.nimblehq.avishek.phong.kmmic.helper.MockUtil
 import io.kotest.matchers.shouldBe
 import io.mockative.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
+@ExperimentalCoroutinesApi
 class GetSurveysUseCaseTest {
 
     @Mock
@@ -19,13 +23,6 @@ class GetSurveysUseCaseTest {
     private lateinit var useCase: GetSurveysUseCase
 
     private val mockThrowable = Throwable("mock")
-    private val mockSurvey = Survey(
-        "id",
-        "title",
-        "description",
-        true,
-        "coverImageUrl"
-    )
 
     @BeforeTest
     fun setUp() {
@@ -37,14 +34,10 @@ class GetSurveysUseCaseTest {
         given(mockRepository)
             .function(mockRepository::getSurveys)
             .whenInvokedWith(any(), any(), any())
-            .thenReturn(
-                flow {
-                    emit(listOf(mockSurvey))
-                }
-            )
+            .thenReturn(flowOf(listOf(MockUtil.mockSurvey)))
 
         useCase(1, 1, false).collect {
-            it shouldBe listOf(mockSurvey)
+            it shouldBe listOf(MockUtil.mockSurvey)
         }
     }
 

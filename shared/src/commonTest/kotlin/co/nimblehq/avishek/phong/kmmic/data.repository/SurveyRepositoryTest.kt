@@ -5,9 +5,9 @@ import co.nimblehq.avishek.phong.kmmic.data.local.datasource.SurveyLocalDataSour
 import co.nimblehq.avishek.phong.kmmic.data.local.model.SurveyRealmObject
 import co.nimblehq.avishek.phong.kmmic.data.local.model.toSurvey
 import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.SurveyRemoteDataSource
-import co.nimblehq.avishek.phong.kmmic.data.remote.model.SurveyApiModel
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.toSurvey
 import co.nimblehq.avishek.phong.kmmic.domain.repository.SurveyRepository
+import co.nimblehq.avishek.phong.kmmic.helper.MockUtil
 import io.kotest.matchers.shouldBe
 import io.mockative.Mock
 import io.mockative.any
@@ -37,14 +37,6 @@ class SurveyRepositoryTest {
     private val mockThrowable = Throwable("mock")
     private val mockSurveyRealmObject = SurveyRealmObject()
         .apply { id = "id" }
-    private val mockSurveyApiModel = SurveyApiModel(
-        "id",
-        "type",
-        "title",
-        "description",
-        true,
-        "coverImageUrl",
-    )
 
     @BeforeTest
     fun setUp() {
@@ -61,10 +53,10 @@ class SurveyRepositoryTest {
             given(mockSurveyRemoteDataSource)
                 .function(mockSurveyRemoteDataSource::getSurveys)
                 .whenInvokedWith(any())
-                .thenReturn(flowOf(listOf(mockSurveyApiModel)))
+                .thenReturn(flowOf(listOf(MockUtil.mockSurveyApiModel)))
 
-            repository.getSurveys(1, 1, false).first() shouldBe
-                    listOf(mockSurveyApiModel.toSurvey())
+            repository.getSurveys(pageNumber = 1, pageSize = 1, isForceLatestData = false).first() shouldBe
+                    listOf(MockUtil.mockSurveyApiModel.toSurvey())
         }
 
     @Test
@@ -78,11 +70,11 @@ class SurveyRepositoryTest {
             given(mockSurveyRemoteDataSource)
                 .function(mockSurveyRemoteDataSource::getSurveys)
                 .whenInvokedWith(any())
-                .thenReturn(flowOf(listOf(mockSurveyApiModel)))
+                .thenReturn(flowOf(listOf(MockUtil.mockSurveyApiModel)))
 
-            repository.getSurveys(1, 1, false).test {
+            repository.getSurveys(pageNumber = 1, pageSize = 1, isForceLatestData = false).test {
                 this.awaitItem() shouldBe listOf(mockSurveyRealmObject.toSurvey())
-                this.awaitItem() shouldBe listOf(mockSurveyApiModel.toSurvey())
+                this.awaitItem() shouldBe listOf(MockUtil.mockSurveyApiModel.toSurvey())
                 this.awaitComplete()
             }
         }
@@ -98,10 +90,10 @@ class SurveyRepositoryTest {
             given(mockSurveyRemoteDataSource)
                 .function(mockSurveyRemoteDataSource::getSurveys)
                 .whenInvokedWith(any())
-                .thenReturn(flowOf(listOf(mockSurveyApiModel)))
+                .thenReturn(flowOf(listOf(MockUtil.mockSurveyApiModel)))
 
             repository.getSurveys(pageNumber = 1, pageSize = 1, isForceLatestData = true).test {
-                this.awaitItem() shouldBe listOf(mockSurveyApiModel.toSurvey())
+                this.awaitItem() shouldBe listOf(MockUtil.mockSurveyApiModel.toSurvey())
                 this.awaitComplete()
             }
 
@@ -125,7 +117,7 @@ class SurveyRepositoryTest {
                     }
                 )
 
-            repository.getSurveys(1, 1, false).test {
+            repository.getSurveys(pageNumber = 1, pageSize = 1, isForceLatestData = false).test {
                 this.awaitError().message shouldBe mockThrowable.message
             }
         }
@@ -146,7 +138,7 @@ class SurveyRepositoryTest {
                         throw mockThrowable
                     }
                 )
-            repository.getSurveys(1, 1, false).test {
+            repository.getSurveys(pageNumber = 1, pageSize = 1, isForceLatestData = false).test {
                 this.awaitItem() shouldBe listOf(mockSurveyRealmObject.toSurvey())
                 this.awaitError().message shouldBe mockThrowable.message
             }

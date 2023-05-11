@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 
+private const val DEFAULT_PAGE_SIZE = 10
+
 data class HomeViewState(
     val isLoading: Boolean
 ) {
@@ -27,7 +29,7 @@ class HomeViewModel(
     private var currentPage = 1
 
     fun fetchData() {
-        getSurveysUseCase(currentPage, 10, isForceLatestData = false)
+        getSurveysUseCase(currentPage, DEFAULT_PAGE_SIZE, isForceLatestData = false)
             .onStart { setStateLoading() }
             .catch { emit(emptyList()) }
             .onEach {
