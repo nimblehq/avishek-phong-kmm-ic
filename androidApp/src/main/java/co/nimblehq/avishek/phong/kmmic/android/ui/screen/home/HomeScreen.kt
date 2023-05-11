@@ -2,8 +2,7 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.screen.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.pager.*
 import androidx.compose.material.*
 import androidx.compose.material.pullrefresh.*
 import androidx.compose.runtime.*
@@ -12,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import co.nimblehq.avishek.phong.kmmic.android.extension.pagerFadeTransition
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.OverlaidImage
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.RtlModalDrawer
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
@@ -69,7 +69,7 @@ private fun HomeContentWithDrawer(
     currentDate: String,
     user: UserUiModel? = null,
     surveys: List<SurveyUiModel>,
-    isLoading: Boolean
+    isLoading: Boolean,
 ) {
     val drawerState = rememberDrawerState(initialDrawerState)
     val scope = rememberCoroutineScope()
@@ -133,10 +133,16 @@ fun HomeContent(
                 pageCount = surveys.size,
                 state = pagerState,
                 modifier = Modifier.fillMaxSize()
-            ) { index ->
-                OverlaidImage(
-                    imageUrl = surveys[index].coverImageUrl
-                )
+            ) { page ->
+                Box(
+                    Modifier
+                        .pagerFadeTransition(page, pagerState)
+                        .fillMaxSize()
+                ) {
+                    OverlaidImage(
+                        imageUrl = surveys[page].coverImageUrl
+                    )
+                }
             }
 
             HomeHeader(
