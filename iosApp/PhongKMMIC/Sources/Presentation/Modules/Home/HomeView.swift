@@ -27,6 +27,7 @@ struct HomeView: View {
                         .onChange(of: selectedIndex) {
                             viewModel.loadMoreSurvey(selectedIndex: $0)
                         }
+                        .accessibility(.home(.contentView))
                     HomeHeaderView(
                         userAvatarUrl: $viewModel.userAvatarUrl,
                         today: $viewModel.today
@@ -44,7 +45,6 @@ struct HomeView: View {
         }
     }
 }
-
 
 struct HomeView_Previews: PreviewProvider {
 

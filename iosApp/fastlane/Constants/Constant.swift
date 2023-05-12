@@ -18,7 +18,7 @@ enum Constant {
 
     static let stagingFirebaseAppId = "1:1005614911399:ios:8051ebc71d585a2abe3082"
     static let productionFirebaseAppId = "1:1005614911399:ios:0442661faf675297be3082"
-    static let firebaseTesterGroups = "" //"group_name, group_name"
+    static let firebaseTesterGroups = "" // "group_name, group_name"
 
     // MARK: - Match
 

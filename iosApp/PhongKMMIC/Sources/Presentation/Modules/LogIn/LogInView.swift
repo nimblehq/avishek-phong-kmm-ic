@@ -75,12 +75,14 @@ struct LogInView: View {
     }
 
     var loginButton: some View {
-        Button(R.string.localizable.authenticationButtonLogin()) {
+        Button {
             viewModel.login()
+        } label: {
+            Text(R.string.localizable.authenticationButtonLogin())
+                .frame(maxWidth: .infinity)
+                .primaryButton()
+                .accessibility(.logIn(.logInButton))
         }
-        .frame(maxWidth: .infinity)
-        .primaryButton()
-        .accessibility(.logIn(.logInButton))
     }
 }
 

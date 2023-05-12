@@ -170,6 +170,18 @@ buildkonfig {
             "BASE_URL",
             buildKonfigProperties.getProperty("STAGING_BASE_URL")
         )
+
+        buildConfigField(
+            STRING,
+            "UI_TEST_EMAIL",
+            buildKonfigProperties.getProperty("UI_TEST_EMAIL")
+        )
+
+        buildConfigField(
+            STRING,
+            "UI_TEST_PASSWORD",
+            buildKonfigProperties.getProperty("UI_TEST_PASSWORD")
+        )
     }
 
     defaultConfigs(Flavors.PRODUCTION) {

@@ -27,6 +27,7 @@ struct SurveyContentView: View {
                 PageViewIndicator(numberOfPage: uiModels.count, currentPage: $currentIndex)
                     .frame(width: geometryReader.size.width - 40.0, alignment: .leading)
                     .padding(.bottom, 20.0)
+                    .accessibility(.home(.pageIndicator))
                 titleView
                 descriptionAndNextButtonView
             }
@@ -48,9 +49,6 @@ struct SurveyContentView: View {
                 }
             })
             .opacity(currentVisibility)
-            .onChange(of: currentIndex) { _ in
-                dump(uiModels)
-            }
         }
         .gesture(
             DragGesture(minimumDistance: 5.0, coordinateSpace: .local)
@@ -90,6 +88,7 @@ struct SurveyContentView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .multilineTextAlignment(.leading)
             .lineLimit(2)
+            .accessibility(.home(.surveyTitleLabel))
     }
 
     var descriptionAndNextButtonView: some View {
@@ -98,6 +97,7 @@ struct SurveyContentView: View {
                 .foregroundColor(.white.opacity(0.7))
                 .font(.regularBody)
                 .lineLimit(2)
+                .accessibility(.home(.surveyDescriptionLabel))
             Spacer()
             Button {
                 // TODO: Handle button taps
@@ -108,6 +108,7 @@ struct SurveyContentView: View {
                     .background(Color.white)
                     .clipShape(Circle())
             }
+            .accessibility(.home(.nextButton))
         }
     }
 

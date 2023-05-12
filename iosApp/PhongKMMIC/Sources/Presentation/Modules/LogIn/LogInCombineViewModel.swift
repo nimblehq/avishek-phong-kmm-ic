@@ -14,8 +14,14 @@ import shared
 
 final class LogInCombineViewModel: ObservableObject {
 
-    @Published var email = ""
-    @Published var password = ""
+    #if DEBUG
+        @Published var email = SharedBuildConfig.UITestConfig().email()
+        @Published var password = SharedBuildConfig.UITestConfig().password()
+    #else
+        @Published var email = ""
+        @Published var password = ""
+    #endif
+
     @Published var isLoading = false
     @Published var isInvalidEmail = false
     @Published var isInvalidPassword = false

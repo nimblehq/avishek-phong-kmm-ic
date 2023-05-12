@@ -19,9 +19,11 @@ struct HomeHeaderView: View {
                 Text(today)
                     .foregroundColor(.white)
                     .font(.boldSmall)
+                    .frame(alignment: .leading)
                 Text(R.string.localizable.homeHeaderToday)
                     .foregroundColor(.white)
                     .font(.boldLargeTitle)
+                    .frame(alignment: .leading)
             }
             Spacer()
             Image.url(userAvatarUrl)
@@ -30,6 +32,7 @@ struct HomeHeaderView: View {
                 .clipped()
                 .frame(width: 36.0, height: 36.0)
                 .cornerRadius(18.0)
+                .accessibility(.home(.userAvatar))
         }
         .padding([.top, .horizontal], 20.0)
     }
