@@ -170,46 +170,41 @@ fun SplashContent(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxSize()
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.bg_splash),
+            contentDescription = LogoImageContentDescription,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .matchParentSize()
+                .blur(animateBlur.dp)
+        )
+
+        val gradient = Brush.verticalGradient(
+            colors = listOf(
+                Black.copy(alpha = animateAlpha * InitialTopGradientAlpha),
+                Black.copy(
+                    alpha = (animateAlpha * BottomGradientAlphaMultiplier) +
+                        InitialBottomGradientAlpha
+                )
+            )
+        )
         Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier.fillMaxSize()
+            modifier = Modifier
+                .matchParentSize()
+                .background(gradient)
+        )
+
+        AnimatedVisibility(
+            visible = shouldShowLogo,
+            enter = fadeIn(animationSpec = tween(LogoDurationInMillis))
         ) {
             Image(
-                painter = painterResource(id = R.drawable.bg_splash),
-                contentDescription = LogoImageContentDescription,
-                contentScale = ContentScale.Crop,
+                painter = painterResource(id = R.drawable.logo_white),
+                contentDescription = null,
                 modifier = Modifier
-                    .matchParentSize()
-                    .blur(animateBlur.dp)
+                    .offset(animateLogoOffset.x.dp, animateLogoOffset.y.dp)
+                    .scale(animateLogoScale)
             )
-
-            val gradient = Brush.verticalGradient(
-                colors = listOf(
-                    Black.copy(alpha = animateAlpha * InitialTopGradientAlpha),
-                    Black.copy(
-                        alpha = (animateAlpha * BottomGradientAlphaMultiplier) +
-                            InitialBottomGradientAlpha
-                    )
-                )
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(gradient)
-            )
-
-            AnimatedVisibility(
-                visible = shouldShowLogo,
-                enter = fadeIn(animationSpec = tween(LogoDurationInMillis))
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.logo_white),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .offset(animateLogoOffset.x.dp, animateLogoOffset.y.dp)
-                        .scale(animateLogoScale)
-                )
-            }
         }
     }
 }
@@ -238,25 +233,23 @@ private fun LoginForm(
             keyboardType = KeyboardType.Email,
             isError = isEmailError
         )
-        Box {
-            PrimaryTextField(
-                value = password,
-                onValueChange = { password = it },
-                placeholder = stringResource(id = R.string.login_password),
-                visualTransformation = PasswordVisualTransformation(),
-                imeAction = ImeAction.Done,
-                isError = isPasswordError
-            )
-            Text(
-                text = stringResource(id = R.string.login_forgot),
-                color = MaterialTheme.colors.onSurface.copy(alpha = ForgotTextAlpha),
-                style = MaterialTheme.typography.body2,
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .align(Alignment.CenterEnd)
-                    .padding(end = 18.dp)
-            )
-        }
+        PrimaryTextField(
+            value = password,
+            onValueChange = { password = it },
+            placeholder = stringResource(id = R.string.login_password),
+            visualTransformation = PasswordVisualTransformation(),
+            imeAction = ImeAction.Done,
+            isError = isPasswordError,
+            trailingIcon = {
+                Text(
+                    text = stringResource(id = R.string.login_forgot),
+                    color = MaterialTheme.colors.onSurface.copy(alpha = ForgotTextAlpha),
+                    style = MaterialTheme.typography.body2,
+                    modifier = Modifier
+                        .padding(end = 18.dp)
+                )
+            }
+        )
         PrimaryButton(
             text = stringResource(id = R.string.login_button),
             onClick = { onLogInClick(email, password) },

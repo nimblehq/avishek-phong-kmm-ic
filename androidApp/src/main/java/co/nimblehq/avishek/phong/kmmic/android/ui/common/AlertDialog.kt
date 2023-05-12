@@ -15,7 +15,7 @@ fun AlertDialog(
     AlertDialog(
         text = { Text(text = message) },
         confirmButton = {
-            Button(
+            TextButton(
                 onClick = { onConfirmButtonClick() }
             ) {
                 Text(
