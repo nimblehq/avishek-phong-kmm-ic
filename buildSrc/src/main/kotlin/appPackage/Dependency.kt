@@ -87,4 +87,8 @@ object Dependency {
 
     // Bom
     const val BOM = "org.jetbrains.kotlin:kotlin-bom:${Version.BOM}"
+
+    // Realm
+    const val REALM_GRADLE_PLUGIN = "io.realm.kotlin:gradle-plugin:${Version.REALM}"
+    const val REALM_LIBRARY_BASE = "io.realm.kotlin:library-base:${Version.REALM}"
 }

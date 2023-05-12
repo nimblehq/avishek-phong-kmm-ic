@@ -11,6 +11,7 @@ buildscript {
         classpath(Dependency.BUILD_KONFIG)
         classpath(Dependency.KOVER)
         classpath(Dependency.GOOGLE_SERVICES)
+        classpath(Dependency.REALM_GRADLE_PLUGIN)
     }
 }
 

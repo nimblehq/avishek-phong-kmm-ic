@@ -9,4 +9,5 @@ actual val viewModelModule: Module
     get() = module {
         factoryOf(::SplashViewModel)
         factoryOf(::LogInViewModel)
+        factoryOf(::HomeViewModel)
     }

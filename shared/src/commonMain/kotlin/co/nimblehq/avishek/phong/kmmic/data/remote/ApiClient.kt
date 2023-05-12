@@ -101,7 +101,34 @@ class ApiClient(
             method = httpMethod
             setBody(requestBody)
         }
+        return getResponseBody(requestBuilder)
+    }
 
+    inline fun <reified T, reified P> responseBodyWithParams(
+        path: String,
+        httpMethod: HttpMethod,
+        queryParams: P
+    ): Flow<T> {
+        val requestBuilder = HttpRequestBuilder().apply {
+            path(path)
+            method = httpMethod
+            setQueryParameters(queryParams)
+        }
+        return getResponseBody(requestBuilder)
+    }
+
+    inline fun <reified T> responseBody(
+        path: String,
+        httpMethod: HttpMethod
+    ): Flow<T> {
+        val requestBuilder = HttpRequestBuilder().apply {
+            path(path)
+            method = httpMethod
+        }
+        return getResponseBody(requestBuilder)
+    }
+
+    inline fun <reified T> getResponseBody(requestBuilder: HttpRequestBuilder): Flow<T> {
         return flow {
             val body = httpClient.request(
                 requestBuilder.apply {
@@ -128,7 +155,10 @@ class ApiClient(
             method = httpMethod
             setBody(requestBody)
         }
+        return getEmptyResponseBody(requestBuilder)
+    }
 
+    fun getEmptyResponseBody(requestBuilder: HttpRequestBuilder): Flow<Unit> {
         return flow {
             val body = httpClient.request(
                 requestBuilder.apply {

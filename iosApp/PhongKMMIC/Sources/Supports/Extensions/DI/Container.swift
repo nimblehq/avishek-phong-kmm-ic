@@ -18,4 +18,8 @@ extension Container {
     var logInViewModel: Factory<LogInViewModel> {
         Factory(self) { KoinApplication.inject(\.logInViewModel) }
     }
+
+    var homeViewModel: Factory<HomeViewModel> {
+        Factory(self) { KoinApplication.inject(\.homeViewModel) }
+    }
 }

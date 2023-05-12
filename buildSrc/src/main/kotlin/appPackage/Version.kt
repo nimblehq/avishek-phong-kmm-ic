@@ -33,6 +33,7 @@ object Version {
     const val ESPRESSO_CORE = "3.4.0"
     const val MOCKK = "1.13.3"
     const val ROBOLECTRIC = "4.9.1"
+    const val REALM = "1.3.0"
 
     // COMPOSE
     const val COMPOSE = "1.3.2"
