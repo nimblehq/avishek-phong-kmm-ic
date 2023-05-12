@@ -22,8 +22,6 @@ class GetSurveysUseCaseTest {
 
     private lateinit var useCase: GetSurveysUseCase
 
-    private val mockThrowable = Throwable("mock")
-
     @BeforeTest
     fun setUp() {
         useCase = GetSurveysUseCaseImpl(mockRepository)
@@ -48,13 +46,13 @@ class GetSurveysUseCaseTest {
             .whenInvokedWith(any(), any(), any())
             .thenReturn(
                 flow {
-                    throw mockThrowable
+                    throw MockUtil.mockThrowable
                 }
             )
 
         useCase(1, 1, false)
             .catch {
-                it.message shouldBe mockThrowable.message
+                it.message shouldBe MockUtil.mockThrowable.message
             }
             .collect()
     }
