@@ -113,7 +113,7 @@ fun SplashScreen(
     LaunchedEffect(logInViewModel.viewState) {
         logInViewModel.viewState.collect { loginViewState ->
             loginViewState.run {
-                isLoading = isLoading
+                isLoading = this.isLoading
                 errorMessage = error.orEmpty()
                 isEmailError = isInvalidEmail
                 isPasswordError = isInvalidPassword
