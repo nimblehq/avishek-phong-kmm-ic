@@ -48,4 +48,6 @@ object MockUtil {
         "name",
         "avatarUrl"
     )
+
+    val mockVersion = "v0.1.0 (1562903885)"
 }

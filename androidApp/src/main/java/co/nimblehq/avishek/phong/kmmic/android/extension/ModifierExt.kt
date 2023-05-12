@@ -16,7 +16,7 @@ fun Modifier.placeholder(
     shapeValue: Dp = 100.dp,
 ) = placeholder(
     visible = isLoading,
-    color = White.copy(alpha = 0.5f),
+    color = White.copy(alpha = 0.12f),
     shape = RoundedCornerShape(shapeValue),
     highlight = PlaceholderHighlight.shimmer(
         highlightColor = White.copy(alpha = 0.7f)

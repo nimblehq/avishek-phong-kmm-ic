@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.extension.placeholder
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyHeaderUiModel
 import coil.compose.AsyncImage
 
 @Composable
 fun HomeHeader(
     isLoading: Boolean,
-    dateTime: String,
-    userUiModel: UserUiModel?,
+    surveyHeaderUiModel: SurveyHeaderUiModel?,
     onUserAvatarClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -31,7 +31,7 @@ fun HomeHeader(
         modifier = modifier.padding(horizontal = 20.dp)
     ) {
         Text(
-            text = dateTime.uppercase(),
+            text = surveyHeaderUiModel?.dateText.orEmpty().uppercase(),
             color = White,
             style = typography.subtitle1,
             modifier = Modifier
@@ -51,7 +51,7 @@ fun HomeHeader(
                 modifier = Modifier.placeholder(isLoading = isLoading)
             )
             AsyncImage(
-                model = userUiModel?.avatarUrl.orEmpty(),
+                model = surveyHeaderUiModel?.imageUrl.orEmpty(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -73,8 +73,7 @@ fun HomeHeaderPreview(
         ApplicationTheme() {
             HomeHeader(
                 isLoading = isLoading,
-                dateTime = currentDate,
-                userUiModel = user,
+                surveyHeaderUiModel = surveyHeader,
                 onUserAvatarClick = {}
             )
         }

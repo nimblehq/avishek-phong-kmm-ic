@@ -45,7 +45,7 @@ kotlin {
         xcodeConfigurationToNativeBuildType[XcodeConfiguration.RELEASE_PRODUCTION] =
             NativeBuildType.RELEASE
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -148,7 +148,16 @@ android {
             }
         }
     }
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
+}
+
 val buildKonfigProperties = rootDir.loadGradleProperties("buildKonfig.properties")
 buildkonfig {
     packageName = "co.nimblehq.avishek.phong.kmmic"
@@ -169,6 +178,16 @@ buildkonfig {
             STRING,
             "BASE_URL",
             buildKonfigProperties.getProperty("STAGING_BASE_URL")
+        )
+        buildConfigField(
+            STRING,
+            "VERSION_NAME",
+            "${Version.ANDROID_VERSION_NAME}"
+        )
+        buildConfigField(
+            STRING,
+            "VERSION_CODE",
+            "${Version.ANDROID_VERSION_CODE}"
         )
 
         buildConfigField(

@@ -8,6 +8,7 @@ import kotlinx.datetime.LocalDate
 data class SurveyHeaderUiModel (
     val imageUrl: String?,
     val dateText: String,
+    val name: String
 )
 
 fun User.toSurveyHeaderUiModel(
@@ -20,6 +21,7 @@ fun User.toSurveyHeaderUiModel(
     )
     return SurveyHeaderUiModel(
         imageUrl = avatarUrl,
-        dateText = formattedDate
+        dateText = formattedDate,
+        name = name
     )
 }
