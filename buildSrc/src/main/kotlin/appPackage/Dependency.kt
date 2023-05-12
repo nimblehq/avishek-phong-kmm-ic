@@ -79,6 +79,8 @@ object Dependency {
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Version.COMPOSE_MATERIAL}"
     const val COMPOSE_ACTIVITY = "androidx.activity:activity-compose:${Version.COMPOSE_ACTIVITY}"
     const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:${Version.COMPOSE_NAVIGATION}"
+    const val COMPOSE_LIFECYCLE_RUNTIME =
+        "androidx.lifecycle:lifecycle-runtime-compose:${Version.COMPOSE_LIFECYCLE_RUNTIME}"
     const val COMPOSE_UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4:${Version.COMPOSE_UI_TEST_JUNIT}"
     const val COMPOSE_UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:${Version.COMPOSE_UI_TEST_JUNIT}"
 

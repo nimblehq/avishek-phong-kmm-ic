@@ -39,6 +39,7 @@ object Version {
     const val COMPOSE_MATERIAL = "1.3.1"
     const val COMPOSE_ACTIVITY = "1.5.1"
     const val COMPOSE_NAVIGATION = "2.5.3"
+    const val COMPOSE_LIFECYCLE_RUNTIME = "2.6.0-alpha03"
     const val COMPOSE_UI_TEST_JUNIT = "1.4.2"
 
     //BOM

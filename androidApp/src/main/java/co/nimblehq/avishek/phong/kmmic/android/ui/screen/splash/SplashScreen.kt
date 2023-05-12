@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
@@ -61,10 +62,7 @@ fun SplashScreen(
     var alpha by remember { mutableStateOf(InitialAlpha) }
     var blurRadius by remember { mutableStateOf(InitialBlurRadius) }
     var shouldShowLoginForm by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf("") }
-    var isEmailError by remember { mutableStateOf(false) }
-    var isPasswordError by remember { mutableStateOf(false) }
+    val viewState by logInViewModel.viewState.collectAsStateWithLifecycle()
 
     val floatTweenSpec = tween<Float>(
         durationMillis = LoginFormRevealDurationInMillis,
@@ -110,19 +108,6 @@ fun SplashScreen(
         }
     }
 
-    LaunchedEffect(logInViewModel.viewState) {
-        logInViewModel.viewState.collect { loginViewState ->
-            loginViewState.run {
-                isLoading = this.isLoading
-                errorMessage = error.orEmpty()
-                isEmailError = isInvalidEmail
-                isPasswordError = isInvalidPassword
-
-                if (isSuccess) onLoginSuccess()
-            }
-        }
-    }
-
     SplashContent(
         shouldShowLogo = shouldShowLogo,
         animateAlpha = animateAlpha,
@@ -133,8 +118,8 @@ fun SplashScreen(
 
     if (shouldShowLoginForm) {
         LoginForm(
-            isEmailError = isEmailError,
-            isPasswordError = isPasswordError,
+            isEmailError = viewState.isInvalidEmail,
+            isPasswordError = viewState.isInvalidPassword,
             modifier = Modifier.alpha(animateAlpha),
             onLogInClick = { email, password ->
                 logInViewModel.logIn(email, password)
@@ -142,19 +127,23 @@ fun SplashScreen(
         )
     }
 
-    if (errorMessage.isNotBlank()) {
+    if (viewState.error?.isNotBlank() == true) {
         AlertDialog(
-            message = errorMessage,
-            onDismissRequest = { errorMessage = "" }
+            message = viewState.error.orEmpty(),
+            onDismissRequest = { logInViewModel.clearError() }
         )
     }
 
-    if (isLoading) {
+    if (viewState.isLoading) {
         CircularProgressIndicator(
             modifier = Modifier
                 .fillMaxSize()
                 .wrapContentSize()
         )
+    }
+
+    if(viewState.isSuccess) {
+        onLoginSuccess()
     }
 }
 

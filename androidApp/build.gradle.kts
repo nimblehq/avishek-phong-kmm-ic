@@ -119,6 +119,7 @@ dependencies {
         implementation(COMPOSE_MATERIAL)
         implementation(COMPOSE_ACTIVITY)
         implementation(COMPOSE_NAVIGATION)
+        implementation(COMPOSE_LIFECYCLE_RUNTIME)
         implementation(KOIN_CORE)
         implementation(KOIN_ANDROID)
         implementation(KOIN_COMPOSE)
