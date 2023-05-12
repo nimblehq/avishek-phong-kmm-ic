@@ -48,6 +48,7 @@ private const val BottomGradientAlphaMultiplier: Float = 1 - InitialBottomGradie
 
 private const val ForgotTextAlpha = 0.5f
 
+@Suppress("LongMethod")
 @Composable
 fun SplashScreen(
     splashViewModel: SplashViewModel = getViewModel(),
