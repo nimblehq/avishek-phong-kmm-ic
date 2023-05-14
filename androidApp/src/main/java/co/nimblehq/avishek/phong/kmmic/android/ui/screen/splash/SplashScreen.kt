@@ -3,10 +3,10 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,10 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.nimblehq.avishek.phong.kmmic.android.R
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryButton
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryTextField
+import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.presentation.module.LogInViewModel
 import co.nimblehq.avishek.phong.kmmic.presentation.module.SplashViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
@@ -48,9 +49,12 @@ private const val BottomGradientAlphaMultiplier: Float = 1 - InitialBottomGradie
 
 private const val ForgotTextAlpha = 0.5f
 
+@Suppress("LongMethod")
 @Composable
 fun SplashScreen(
     splashViewModel: SplashViewModel = getViewModel(),
+    logInViewModel: LogInViewModel = getViewModel(),
+    onLoginSuccess: () -> Unit,
 ) {
     var shouldShowLogo by remember { mutableStateOf(false) }
     var logoOffset by remember { mutableStateOf(InitialLogoOffset) }
@@ -58,6 +62,7 @@ fun SplashScreen(
     var alpha by remember { mutableStateOf(InitialAlpha) }
     var blurRadius by remember { mutableStateOf(InitialBlurRadius) }
     var shouldShowLoginForm by remember { mutableStateOf(false) }
+    val viewState by logInViewModel.viewState.collectAsStateWithLifecycle()
 
     val floatTweenSpec = tween<Float>(
         durationMillis = LoginFormRevealDurationInMillis,
@@ -83,20 +88,24 @@ fun SplashScreen(
         )
     )
 
-    // Animate logo visibility
     LaunchedEffect(Unit) {
         delay(LogoDelayInMillis)
         shouldShowLogo = true
     }
 
-    // Animate logo position and login form visibility
     LaunchedEffect(Unit) {
         delay(LogoDurationInMillis.toLong())
-        shouldShowLoginForm = !splashViewModel.checkIfUserLoggedIn()
-        blurRadius = FinalBlurRadius
-        alpha = FinalAlpha
-        logoOffset = FinalLogoOffset
-        logoScale = FinalLogoScale
+
+        if (splashViewModel.checkIfUserLoggedIn()) {
+            delay(LogoDurationInMillis.toLong())
+            onLoginSuccess()
+        } else {
+            shouldShowLoginForm = true
+            blurRadius = FinalBlurRadius
+            alpha = FinalAlpha
+            logoOffset = FinalLogoOffset
+            logoScale = FinalLogoScale
+        }
     }
 
     SplashContent(
@@ -109,14 +118,32 @@ fun SplashScreen(
 
     if (shouldShowLoginForm) {
         LoginForm(
+            isEmailError = viewState.isInvalidEmail,
+            isPasswordError = viewState.isInvalidPassword,
             modifier = Modifier.alpha(animateAlpha),
-            onLogInClick = { email, passsword ->
-                // TODO: implement in the integrate PR
-            },
-            onForgotClick = {
-                // TODO: implement in the integrate PR
+            onLogInClick = { email, password ->
+                logInViewModel.logIn(email, password)
             }
         )
+    }
+
+    if (viewState.error?.isNotBlank() == true) {
+        AlertDialog(
+            message = viewState.error.orEmpty(),
+            onDismissRequest = { logInViewModel.clearError() }
+        )
+    }
+
+    if (viewState.isLoading) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize()
+        )
+    }
+
+    if(viewState.isSuccess) {
+        onLoginSuccess()
     }
 }
 
@@ -133,54 +160,50 @@ fun SplashContent(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxSize()
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.bg_splash),
+            contentDescription = LogoImageContentDescription,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .matchParentSize()
+                .blur(animateBlur.dp)
+        )
+
+        val gradient = Brush.verticalGradient(
+            colors = listOf(
+                Black.copy(alpha = animateAlpha * InitialTopGradientAlpha),
+                Black.copy(
+                    alpha = (animateAlpha * BottomGradientAlphaMultiplier) +
+                        InitialBottomGradientAlpha
+                )
+            )
+        )
         Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier.fillMaxSize()
+            modifier = Modifier
+                .matchParentSize()
+                .background(gradient)
+        )
+
+        AnimatedVisibility(
+            visible = shouldShowLogo,
+            enter = fadeIn(animationSpec = tween(LogoDurationInMillis))
         ) {
             Image(
-                painter = painterResource(id = R.drawable.bg_splash),
-                contentDescription = LogoImageContentDescription,
-                contentScale = ContentScale.Crop,
+                painter = painterResource(id = R.drawable.logo_white),
+                contentDescription = null,
                 modifier = Modifier
-                    .matchParentSize()
-                    .blur(animateBlur.dp)
+                    .offset(animateLogoOffset.x.dp, animateLogoOffset.y.dp)
+                    .scale(animateLogoScale)
             )
-
-            val gradient = Brush.verticalGradient(
-                colors = listOf(
-                    Black.copy(alpha = animateAlpha * InitialTopGradientAlpha),
-                    Black.copy(
-                        alpha = (animateAlpha * BottomGradientAlphaMultiplier) +
-                            InitialBottomGradientAlpha
-                    )
-                )
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(gradient)
-            )
-
-            AnimatedVisibility(
-                visible = shouldShowLogo,
-                enter = fadeIn(animationSpec = tween(LogoDurationInMillis))
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.logo_white),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .offset(animateLogoOffset.x.dp, animateLogoOffset.y.dp)
-                        .scale(animateLogoScale)
-                )
-            }
         }
     }
 }
 
 @Composable
 private fun LoginForm(
+    isEmailError: Boolean,
+    isPasswordError: Boolean,
     onLogInClick: (email: String, password: String) -> Unit,
-    onForgotClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var email by remember { mutableStateOf("") }
@@ -198,6 +221,7 @@ private fun LoginForm(
             onValueChange = { email = it },
             placeholder = stringResource(id = R.string.login_email),
             keyboardType = KeyboardType.Email,
+            isError = isEmailError
         )
         PrimaryTextField(
             value = password,
@@ -205,6 +229,7 @@ private fun LoginForm(
             placeholder = stringResource(id = R.string.login_password),
             visualTransformation = PasswordVisualTransformation(),
             imeAction = ImeAction.Done,
+            isError = isPasswordError,
             trailingIcon = {
                 Text(
                     text = stringResource(id = R.string.login_forgot),
@@ -212,14 +237,14 @@ private fun LoginForm(
                     style = MaterialTheme.typography.body2,
                     modifier = Modifier
                         .padding(end = 18.dp)
-                        .clickable { onForgotClick() }
                 )
-            },
+            }
         )
         PrimaryButton(
             text = stringResource(id = R.string.login_button),
             onClick = { onLogInClick(email, password) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         )
     }
 }
@@ -243,8 +268,9 @@ fun SplashContentPreview() {
 fun LoginFormPreview() {
     ApplicationTheme {
         LoginForm(
-            onLogInClick = { _, _ -> },
-            onForgotClick = {}
+            isEmailError = true,
+            isPasswordError = true,
+            onLogInClick = { _, _ -> }
         )
     }
 }

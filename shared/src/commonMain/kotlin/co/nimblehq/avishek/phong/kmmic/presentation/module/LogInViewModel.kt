@@ -10,23 +10,22 @@ data class LogInViewState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val isInvalidEmail: Boolean = false,
-    var isInvalidPassword: Boolean = false
+    var isInvalidPassword: Boolean = false,
 ) {
     constructor() : this(false)
 
     constructor(error: String?) : this(false, false, error)
 }
 
-class LogInViewModel(private val logInUseCase: LogInUseCase): BaseViewModel() {
+class LogInViewModel(private val logInUseCase: LogInUseCase) : BaseViewModel() {
 
-    private val mutableViewState: MutableStateFlow<LogInViewState> =
+    private val _viewState: MutableStateFlow<LogInViewState> =
         MutableStateFlow(LogInViewState())
-
-    val viewState: StateFlow<LogInViewState> = mutableViewState
+    val viewState: StateFlow<LogInViewState> = _viewState
 
     fun logIn(email: String, password: String) {
-        if (!validInput(email, password)) { return }
-        logInUseCase(email, password)
+        if (!validInput(email, password)) return
+        logInUseCase(email = email, password = password)
             .onStart { setLoadingState() }
             .catch { error -> handleLoginError(error) }
             .onEach { loginSuccess() }
@@ -36,8 +35,8 @@ class LogInViewModel(private val logInUseCase: LogInUseCase): BaseViewModel() {
     private fun validInput(email: String, password: String): Boolean {
         val isInvalidEmail = !email.isValidEmail()
         val isInvalidPassword = password.isEmpty()
-        if (isInvalidEmail or isInvalidPassword)  {
-            mutableViewState.update {
+        if (isInvalidEmail or isInvalidPassword) {
+            _viewState.update {
                 LogInViewState(
                     isInvalidEmail = isInvalidEmail,
                     isInvalidPassword = isInvalidPassword
@@ -49,18 +48,22 @@ class LogInViewModel(private val logInUseCase: LogInUseCase): BaseViewModel() {
     }
 
     private fun setLoadingState() {
-        mutableViewState.update {
+        _viewState.update {
             LogInViewState(isLoading = true)
         }
     }
 
     private fun handleLoginError(error: Throwable) {
-        mutableViewState.update {
+        _viewState.update {
             LogInViewState(isLoading = false, error = error.toErrorMessage())
         }
     }
 
     private fun loginSuccess() {
-        mutableViewState.update { LogInViewState(isSuccess = true, isLoading = false) }
+        _viewState.update { LogInViewState(isSuccess = true, isLoading = false) }
+    }
+
+    fun clearError() {
+        _viewState.update { _viewState.value.copy(error = "") }
     }
 }

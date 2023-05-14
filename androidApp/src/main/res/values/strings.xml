@@ -5,4 +5,5 @@
     <string name="login_password">Password</string>
     <string name="login_forgot">Forgot?</string>
     <string name="login_button">Log in</string>
+    <string name="ok">OK</string>
 </resources>

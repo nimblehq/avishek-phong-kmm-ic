@@ -8,5 +8,5 @@ sealed class AppDestination(val route: String = "") {
 
     object Splash : AppDestination("splash")
 
-    object Login : AppDestination("login")
+    object Home : AppDestination("home")
 }

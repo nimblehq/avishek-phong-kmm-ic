@@ -1,5 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.common
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.KeyboardActions
@@ -31,6 +32,7 @@ fun PrimaryTextField(
     imeAction: ImeAction = ImeAction.Next,
     contentDescription: String = "",
     singleLine: Boolean = true,
+    isError: Boolean = false,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
     val focusManager = LocalFocusManager.current
@@ -57,6 +59,11 @@ fun PrimaryTextField(
             .heightIn(min = TextFieldHeight)
             .clip(shapes.large)
             .semantics { this.contentDescription = contentDescription }
+            .border(
+                width = 1.dp,
+                color = if (isError) Color.Red else Color.Transparent,
+                shape = shapes.large
+            )
     )
 }
 
@@ -84,5 +91,16 @@ fun PrimaryTextFieldPreview() {
         value = "",
         placeholder = "Email",
         onValueChange = {}
+    )
+}
+
+@Preview
+@Composable
+fun PrimaryTextFieldWithErrorPreview() {
+    PrimaryTextField(
+        value = "",
+        placeholder = "Email",
+        onValueChange = {},
+        isError = true
     )
 }

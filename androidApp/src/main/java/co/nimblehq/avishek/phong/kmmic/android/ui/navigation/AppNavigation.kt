@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import co.nimblehq.avishek.phong.kmmic.android.ui.screen.home.HomeScreen
 import co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash.SplashScreen
 
 @Composable
@@ -18,7 +19,23 @@ fun AppNavHost(
         modifier = modifier
     ) {
         composable(AppDestination.Splash) {
-            SplashScreen()
+            SplashScreen(
+                onLoginSuccess = {
+                    navController.navigate(
+                        route = AppDestination.Home.route,
+                        navOptions = navOptions {
+                            popUpTo(route = AppDestination.Splash.route) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
+                    )
+                }
+            )
+        }
+
+        composable(AppDestination.Home) {
+            HomeScreen()
         }
     }
 }
