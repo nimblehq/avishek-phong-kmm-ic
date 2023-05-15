@@ -8,7 +8,6 @@ import androidx.compose.material.pullrefresh.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -28,7 +27,6 @@ private const val BottomGradientAlpha: Float = 0.6f
 
 @Composable
 fun HomeScreen() {
-    val scaffoldState = rememberScaffoldState()
     var isLoading by remember { mutableStateOf(true) }
     var userUiModel by remember { mutableStateOf<UserUiModel?>(null) }
     var surveyUiModels by remember { mutableStateOf(emptyList<SurveyUiModel>()) }
@@ -70,7 +68,6 @@ fun HomeScreen() {
 
     HomeContentWithDrawer(
         appVersion = appVersion,
-        scaffoldState = scaffoldState,
         currentDate = currentDate,
         isLoading = isLoading,
         surveyUiModels = surveyUiModels,
@@ -82,7 +79,6 @@ fun HomeScreen() {
 private fun HomeContentWithDrawer(
     appVersion: String,
     initialDrawerState: DrawerValue = DrawerValue.Closed,
-    scaffoldState: ScaffoldState,
     currentDate: String,
     userUiModel: UserUiModel? = null,
     surveyUiModels: List<SurveyUiModel>,
@@ -105,7 +101,6 @@ private fun HomeContentWithDrawer(
         }
     ) {
         HomeContent(
-            scaffoldState = scaffoldState,
             userUiModel = userUiModel,
             currentDate = currentDate,
             surveyUiModels = surveyUiModels,
@@ -120,7 +115,6 @@ private fun HomeContentWithDrawer(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeContent(
-    scaffoldState: ScaffoldState,
     userUiModel: UserUiModel?,
     isLoading: Boolean,
     currentDate: String,
@@ -128,6 +122,7 @@ fun HomeContent(
     onUserAvatarClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val scaffoldState = rememberScaffoldState()
     val pagerState = rememberPagerState()
     var surveyUiModel by remember { mutableStateOf<SurveyUiModel?>(null) }
 
@@ -158,26 +153,24 @@ fun HomeContent(
                         .pagerFadeTransition(page, pagerState)
                         .fillMaxSize()
                 ) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        AsyncImage(
-                            model = surveyUiModels.getOrNull(page)?.coverImageUrl,
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.matchParentSize()
-                        )
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(
-                                    brush = Brush.verticalGradient(
-                                        colors = listOf(
-                                            Color.Black.copy(alpha = TopGradientAlpha),
-                                            Color.Black.copy(alpha = BottomGradientAlpha)
-                                        )
+                    AsyncImage(
+                        model = surveyUiModels.getOrNull(page)?.coverImageUrl,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.matchParentSize()
+                    )
+                    Box(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .background(
+                                brush = Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color.Black.copy(alpha = TopGradientAlpha),
+                                        Color.Black.copy(alpha = BottomGradientAlpha)
                                     )
                                 )
-                        )
-                    }
+                            )
+                    )
                 }
             }
 
@@ -218,7 +211,6 @@ fun HomeScreenPreview(
             HomeContentWithDrawer(
                 appVersion = appVersion,
                 initialDrawerState = drawerState,
-                scaffoldState = rememberScaffoldState(),
                 currentDate = currentDate,
                 userUiModel = user,
                 surveyUiModels = surveys,

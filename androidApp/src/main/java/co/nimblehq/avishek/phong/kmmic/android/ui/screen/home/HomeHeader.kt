@@ -30,16 +30,18 @@ fun HomeHeader(
     Column(
         modifier = modifier.padding(horizontal = 20.dp)
     ) {
-        Spacer(modifier = Modifier.height(28.dp))
         Text(
             text = dateTime.uppercase(),
             color = White,
             style = typography.subtitle1,
-            modifier = Modifier.placeholder(isLoading = isLoading)
+            modifier = Modifier
+                .padding(top = 28.dp)
+                .placeholder(isLoading = isLoading)
         )
-        Spacer(modifier = Modifier.height(4.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(

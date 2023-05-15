@@ -3,7 +3,7 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.common
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
+import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
@@ -20,8 +22,8 @@ import kotlin.math.sign
 @Composable
 fun HorizontalPagerIndicator(
     pagerState: PagerState,
-    modifier: Modifier = Modifier,
     pageCount: Int,
+    modifier: Modifier = Modifier,
     pageIndexMapping: (Int) -> Int = { it },
     activeColor: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
     inactiveColor: Color = activeColor.copy(ContentAlpha.disabled),
@@ -79,6 +81,21 @@ fun HorizontalPagerIndicator(
                     )
                     else Modifier
                 )
+        )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Preview
+@Composable
+fun HorizontalPagerIndicatorPreview() {
+    ApplicationTheme {
+        HorizontalPagerIndicator(
+            pagerState = rememberPagerState(),
+            pageCount = 5,
+            activeColor = Color.White,
+            inactiveColor = Color.White.copy(alpha = 0.20f),
+            spacing = 5.dp
         )
     }
 }

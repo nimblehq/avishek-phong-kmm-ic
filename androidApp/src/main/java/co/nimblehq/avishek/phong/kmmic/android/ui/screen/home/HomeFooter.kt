@@ -27,8 +27,8 @@ fun HomeFooter(
     pageCount: Int,
     isLoading: Boolean,
     surveyUiModel: SurveyUiModel?,
-    modifier: Modifier = Modifier,
     onSurveyClick: (SurveyUiModel?) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -63,8 +63,11 @@ private fun HomeFooterContent(
         inactiveColor = White.copy(alpha = 0.20f),
         spacing = 5.dp
     )
-    Spacer(modifier = Modifier.height(26.dp))
-    Crossfade(targetState = surveyUiModel?.title) {
+
+    Crossfade(
+        targetState = surveyUiModel?.title,
+        modifier = Modifier.padding(top = 26.dp)
+    ) {
         Text(
             text = it.orEmpty(),
             color = White,
@@ -73,10 +76,11 @@ private fun HomeFooterContent(
             overflow = TextOverflow.Ellipsis
         )
     }
-    Spacer(modifier = Modifier.height(10.dp))
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.Bottom,
+        modifier = Modifier.padding(top = 2.dp)
     ) {
         Crossfade(
             targetState = surveyUiModel?.description,
@@ -90,8 +94,9 @@ private fun HomeFooterContent(
                 overflow = TextOverflow.Ellipsis
             )
         }
-        Spacer(modifier = Modifier.width(8.dp))
+
         NextCircleButton(
+            modifier = Modifier.padding(start = 8.dp),
             onClick = { onSurveyClick(surveyUiModel) }
         )
     }
@@ -104,28 +109,32 @@ private fun HomeFooterPlaceholderContent() {
             .size(30.dp, 14.dp)
             .placeholder(true)
     )
-    Spacer(modifier = Modifier.height(10.dp))
+
     Spacer(
         modifier = Modifier
-            .size(240.dp, 18.dp)
+            .size(240.dp, 28.dp)
+            .padding(top = 10.dp)
             .placeholder(true)
     )
-    Spacer(modifier = Modifier.height(5.dp))
+
     Spacer(
         modifier = Modifier
-            .size(120.dp, 18.dp)
+            .size(120.dp, 23.dp)
+            .padding(top = 5.dp)
             .placeholder(true)
     )
-    Spacer(modifier = Modifier.height(10.dp))
+
     Spacer(
         modifier = Modifier
-            .size(300.dp, 18.dp)
+            .size(300.dp, 28.dp)
+            .padding(top = 10.dp)
             .placeholder(true)
     )
-    Spacer(modifier = Modifier.height(5.dp))
+
     Spacer(
         modifier = Modifier
-            .size(200.dp, 18.dp)
+            .size(200.dp, 23.dp)
+            .padding(top = 5.dp)
             .placeholder(true)
     )
 }
@@ -142,8 +151,9 @@ fun HomeFooterPreview(
                 pagerState = rememberPagerState(),
                 pageCount = 3,
                 isLoading = isLoading,
-                surveyUiModel = params.surveys[0]
-            ) {}
+                surveyUiModel = params.surveys[0],
+                onSurveyClick = {}
+            )
         }
     }
 }

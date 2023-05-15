@@ -1,12 +1,10 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Divider
+import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.typography
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,14 +31,14 @@ fun HomeDrawer(
 ) {
     Column(
         modifier
-            .statusBarsPadding()
             .fillMaxSize()
             .background(Nero90)
             .padding(horizontal = 20.dp)
     ) {
-        Spacer(modifier = Modifier.height(80.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 80.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -58,25 +56,32 @@ fun HomeDrawer(
                     .clip(CircleShape)
             )
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        Divider(color = White.copy(alpha = 0.2f))
-        Spacer(modifier = Modifier.height(35.dp))
-        Text(
-            text = stringResource(id = R.string.home_logout),
-            color = White.copy(alpha = 0.5f),
-            style = typography.body1.copy(fontSize = 20.sp),
-            textAlign = TextAlign.Start,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onLogoutClick() }
+
+        Divider(
+            color = White.copy(alpha = 0.2f),
+            modifier = Modifier.padding(top = 20.dp)
         )
+
+        TextButton(onClick = onLogoutClick) {
+            Text(
+                text = stringResource(id = R.string.home_logout),
+                color = White.copy(alpha = 0.5f),
+                style = typography.body1.copy(fontSize = 20.sp),
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 35.dp)
+            )
+        }
+
         Spacer(modifier = Modifier.weight(1f))
+
         Text(
             text = appVersion,
             color = White.copy(alpha = 0.5f),
-            style = typography.subtitle1.copy(fontSize = 11.sp)
+            style = typography.subtitle1.copy(fontSize = 11.sp),
+            modifier = Modifier.padding(bottom = 40.dp)
         )
-        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 
