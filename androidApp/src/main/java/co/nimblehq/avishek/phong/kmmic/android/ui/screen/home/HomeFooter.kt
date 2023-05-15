@@ -1,7 +1,7 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.home
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -11,13 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.extension.placeholder
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.HorizontalPagerIndicator
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.NextCircleButton
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -95,10 +96,18 @@ private fun HomeFooterContent(
             )
         }
 
-        NextCircleButton(
-            modifier = Modifier.padding(start = 8.dp),
-            onClick = { onSurveyClick(surveyUiModel) }
-        )
+        FloatingActionButton(
+            backgroundColor = White,
+            onClick = { onSurveyClick(surveyUiModel) },
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .size(56.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_right),
+                contentDescription = null
+            )
+        }
     }
 }
 
