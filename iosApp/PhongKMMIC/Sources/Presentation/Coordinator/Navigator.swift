@@ -13,16 +13,16 @@ final class Navigator: ObservableObject {
 
     @Published var routes: Routes<Screen> = [.root(.splash, embedInNavigationView: true)]
 
-    func showScreen(screen: Screen, with transition: Transition) {
+    func showScreen(screen: Screen, with transition: Transition, isAnimated: Bool = true) {
         switch transition {
         case .root:
             routes = [.root(screen, embedInNavigationView: true)]
         case .push:
-            routes.push(screen)
+            push(screen: screen, isAnimated: isAnimated)
         case .presentSheet:
             routes.presentSheet(screen)
         case .presentCover:
-            routes.presentCover(screen, embedInNavigationView: true)
+            presentCover(screen: screen, isAnimated: isAnimated)
         }
     }
 
@@ -30,8 +30,14 @@ final class Navigator: ObservableObject {
         routes.goBack()
     }
 
-    func goBackToRoot() {
-        routes.goBackToRoot()
+    func goBackToRoot(isAnimated: Bool = true) {
+        if isAnimated {
+            routes.goBackToRoot()
+        } else {
+            withoutAnimation {
+                routes.goBackToRoot()
+            }
+        }
     }
 
     func pop() {
@@ -40,5 +46,36 @@ final class Navigator: ObservableObject {
 
     func dismiss() {
         routes.dismiss()
+    }
+
+    private func push(screen: Screen, isAnimated: Bool) {
+        if isAnimated {
+            routes.push(screen)
+        } else {
+            withoutAnimation {
+                routes.push(screen)
+            }
+        }
+    }
+
+    private func presentCover(screen: Screen, isAnimated: Bool) {
+        if isAnimated {
+            routes.presentCover(screen, embedInNavigationView: true)
+        } else {
+            withoutAnimation {
+                routes.presentCover(screen, embedInNavigationView: true)
+            }
+        }
+    }
+}
+
+extension Navigator {
+
+    func withoutAnimation(action: () -> Void) {
+        var transaction = Transaction()
+        transaction.disablesAnimations = true
+        withTransaction(transaction) {
+            action()
+        }
     }
 }

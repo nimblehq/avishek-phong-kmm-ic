@@ -12,18 +12,17 @@ struct SurveyDetailView: View {
 
     @EnvironmentObject private var navigator: Navigator
 
+    @State private var backgroundScale = 1.0
+
     var body: some View {
         ZStack {
             GeometryReader { geometryReader in
                 Image.url("https://dhdbhh0jsld0o.cloudfront.net/m/4670c0dca0ed82de564a_l")
                     .resizable()
                     .scaledToFill()
-                    .clipped()
-                    .animation(.linear(duration: 1.0), value: 1.0)
-                    .frame(
-                        width: geometryReader.size.width,
-                        height: geometryReader.size.height
-                    )
+                    .frame(width: geometryReader.size.width, height: geometryReader.size.height)
+                    .scaleEffect(backgroundScale, anchor: .topTrailing)
+                BlackGradientOverlay()
             }
             .ignoresSafeArea()
 
@@ -56,16 +55,32 @@ struct SurveyDetailView: View {
             }
             .padding(.top, 26.0)
             .padding(.horizontal, 20.0)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        navigator.pop()
-                    } label: {
-                        R.image.whiteLeftChevron.image
-                    }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    didTapBackButton()
+                } label: {
+                    R.image.whiteLeftChevron.image
                 }
             }
-            .navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden(true)
+        .onLoad {
+            DispatchQueue.main.async {
+                withAnimation(.easeIn(duration: 0.4)) {
+                    backgroundScale = 1.4
+                }
+            }
+        }
+    }
+
+    private func didTapBackButton() {
+        withAnimation(.easeIn(duration: 0.4)) {
+            backgroundScale = 1.0
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.navigator.goBackToRoot(isAnimated: false)
         }
     }
 }

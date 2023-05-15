@@ -37,7 +37,7 @@ struct HomeView: View {
                     )
                 }
             }
-            .onAppear {
+            .onLoad {
                 viewModel.fetchData()
             }
         }
@@ -56,7 +56,7 @@ struct HomeView: View {
     }
 
     private func openSurveyDetail(surveyId: String) {
-        navigator.showScreen(screen: .surveyDetail, with: .push)
+        navigator.showScreen(screen: .surveyDetail, with: .presentCover, isAnimated: false)
     }
 }
 
