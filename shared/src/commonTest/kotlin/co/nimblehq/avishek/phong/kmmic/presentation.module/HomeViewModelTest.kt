@@ -56,7 +56,7 @@ class HomeViewModelTest {
     fun tearDown() {
         Dispatchers.resetMain()
         mainThreadSurrogate.close()
-        viewModel.viewModelScope.cancel()
+        viewModel.clear()
     }
 
     @Test

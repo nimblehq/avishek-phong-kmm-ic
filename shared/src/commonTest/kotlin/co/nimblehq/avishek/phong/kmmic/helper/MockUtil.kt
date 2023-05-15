@@ -19,42 +19,11 @@ object MockUtil {
     )
 
     val mockSurveys = listOf<Survey>(
-        Survey(
-            "id-1",
-            "title",
-            "description",
-            true,
-            "coverImageUrl"
-        ),
-        Survey(
-            "id-2",
-            "title",
-            "description",
-            true,
-            "coverImageUrl"
-        ),
-        Survey(
-            "id-3",
-            "title",
-            "description",
-            true,
-            "coverImageUrl"
-        ),
-        Survey(
-            "id-4",
-            "title",
-            "description",
-            true,
-            "coverImageUrl"
-        ),
-        Survey(
-            "id-5",
-            "title",
-            "description",
-            true,
-            "coverImageUrl"
-        )
-
+        mockSurvey.copy(id = "id-1"),
+        mockSurvey.copy(id = "id-2"),
+        mockSurvey.copy(id = "id-3"),
+        mockSurvey.copy(id = "id-4"),
+        mockSurvey.copy(id = "id-5"),
     )
 
     val mockSurveyApiModel = SurveyApiModel(

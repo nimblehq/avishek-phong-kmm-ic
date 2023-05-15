@@ -9,6 +9,7 @@ import co.nimblehq.avishek.phong.kmmic.domain.usecase.GetSurveysUseCase
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.GetUserProfileUseCase
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyHeaderUiModel
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toSurveyHeaderUiModel
 import kotlinx.coroutines.flow.*
 
 private const val LOAD_MORE_THRESHOLD = 2
@@ -80,7 +81,11 @@ class HomeViewModel(
         pageSize: Int,
         isForceLatestData: Boolean
     ): Flow<List<Survey>> {
-        return getSurveysUseCase(page, pageSize, isForceLatestData = false)
+        return getSurveysUseCase(
+            pageNumber = page,
+            pageSize =  pageSize,
+            isForceLatestData = false
+        )
             .catch { emit(emptyList()) }
             .onEach {
                 currentPage = page + 1
@@ -89,37 +94,42 @@ class HomeViewModel(
 
     private fun handleFetchUserProfileSuccess(user: User?) {
         val today = dateTime.today()
-        val formattedToday = dateTimeFormatter.getFormattedString(
-            today,
-            DateFormat.WeekDayMonthDay
-        )
+        val headerUiModel = user?.toSurveyHeaderUiModel(today, dateTimeFormatter)
 
-        val headerUiModel = SurveyHeaderUiModel(
-            user?.avatarUrl.orEmpty(),
-            formattedToday
-        )
         _viewState.update {
-            HomeViewState(false, headerUiModel)
+            HomeViewState(isLoading = false, headerUiModel)
         }
     }
 
     private fun handleFetchMoreSurveySuscess(surveys: List<Survey>) {
         val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
-            HomeViewState(false, it.headerUiModel, it.surveys + surveyUiModels)
+            HomeViewState(
+                isLoading = false,
+                headerUiModel = it.headerUiModel,
+                surveys = it.surveys + surveyUiModels
+            )
         }
     }
 
     private fun handleFetchSurveysSuccess(surveys: List<Survey>) {
         val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
-            HomeViewState(false, it.headerUiModel, surveyUiModels)
+            HomeViewState(
+                isLoading = false,
+                headerUiModel = it.headerUiModel,
+                surveys = surveyUiModels
+            )
         }
     }
 
     private fun setStateLoading() {
         _viewState.update {
-            HomeViewState(true, it.headerUiModel, it.surveys)
+            HomeViewState(
+                isLoading = true,
+                headerUiModel = it.headerUiModel,
+                surveys = it.surveys
+            )
         }
     }
 }

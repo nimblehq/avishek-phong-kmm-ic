@@ -7,7 +7,7 @@ actual abstract class BaseViewModel : ViewModel() {
 
     actual val viewModelScope: CoroutineScope = MainScope()
 
-    fun clear() {
+    actual fun clear() {
         viewModelScope.cancel()
     }
 
