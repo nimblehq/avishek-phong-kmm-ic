@@ -10,6 +10,8 @@ import SwiftUI
 
 struct HomeView: View {
 
+    @EnvironmentObject private var navigator: Navigator
+
     @StateObject private var viewModel = HomeCombineViewModel()
     @State private var selectedIndex = 0
 
@@ -23,11 +25,7 @@ struct HomeView: View {
                             height: geometryReader.size.height
                         )
                 } else {
-                    SurveyContentView(uiModels: $viewModel.surveys, currentIndex: $selectedIndex)
-                        .onChange(of: selectedIndex) {
-                            viewModel.loadMoreSurvey(selectedIndex: $0)
-                        }
-                        .accessibility(.home(.contentView))
+                    surveyContentView
                     HomeHeaderView(
                         userAvatarUrl: $viewModel.userAvatarUrl,
                         today: $viewModel.today
@@ -43,6 +41,22 @@ struct HomeView: View {
                 viewModel.fetchData()
             }
         }
+    }
+
+    private var surveyContentView: some View {
+        SurveyContentView(
+            uiModels: $viewModel.surveys,
+            currentIndex: $selectedIndex,
+            didTapNextButtonHandler: { openSurveyDetail(surveyId: $0) }
+        )
+        .onChange(of: selectedIndex) {
+            viewModel.loadMoreSurvey(selectedIndex: $0)
+        }
+        .accessibility(.home(.contentView))
+    }
+
+    private func openSurveyDetail(surveyId: String) {
+        navigator.showScreen(screen: .surveyDetail, with: .push)
     }
 }
 

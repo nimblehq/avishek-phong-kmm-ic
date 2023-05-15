@@ -21,6 +21,8 @@ struct SurveyContentView: View {
     private var draggingLength: Double = 160.0
     private var draggingVisibilityMultiplier: Double = 1.2
 
+    private var didTapNextButtonHandler: ((String) -> Void)?
+
     var body: some View {
         GeometryReader { geometryReader in
             VStack {
@@ -100,8 +102,8 @@ struct SurveyContentView: View {
                 .accessibility(.home(.surveyDescriptionLabel))
             Spacer()
             Button {
-                // TODO: Handle button taps
-                print("Next button was tapped")
+                guard let surveyId = uiModels[safe: currentIndex]?.id else { return }
+                didTapNextButtonHandler?(surveyId)
             } label: {
                 R.image.rightChevron.image
                     .frame(width: 56.0, height: 56.0)
@@ -112,9 +114,14 @@ struct SurveyContentView: View {
         }
     }
 
-    init(uiModels: Binding<[SurveyUiModel]>, currentIndex: Binding<Int>) {
+    init(
+        uiModels: Binding<[SurveyUiModel]>,
+        currentIndex: Binding<Int>,
+        didTapNextButtonHandler: ((String) -> Void)?
+    ) {
         _uiModels = uiModels
         _currentIndex = currentIndex
+        self.didTapNextButtonHandler = didTapNextButtonHandler
     }
 
     private func setCurrentPageToNextPage() {
