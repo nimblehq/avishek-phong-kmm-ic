@@ -3,8 +3,8 @@ object Version {
     const val ANDROID_MIN_SDK_VERSION = 23
     const val ANDROID_TARGET_SDK_VERSION = 33
 
-    const val ANDROID_VERSION_CODE = 2
-    const val ANDROID_VERSION_NAME = "0.3.0"
+    const val ANDROID_VERSION_CODE = 4
+    const val ANDROID_VERSION_NAME = "0.5.0"
 
     const val JSON_API = "0.1.0"
     const val BUILD_KONFIG = "0.13.3"
@@ -21,6 +21,9 @@ object Version {
     const val KOVER = "0.6.1"
     const val KOIN = "3.2.0"
     const val KOIN_ANDROID = "3.3.0"
+    const val GOOGLE_SERVICES = "4.3.15"
+    const val FIREBASE = "31.5.0"
+    const val TIMBER = "4.7.1"
 
     const val MOCKATIVE = "1.2.6"
     const val KOTEST = "5.5.1"
@@ -28,8 +31,18 @@ object Version {
     const val JUNIT = "4.13.2"
     const val JUNIT_EXT = "1.1.3"
     const val ESPRESSO_CORE = "3.4.0"
-    const val MOCKK = "1.13.2"
+    const val MOCKK = "1.13.3"
+    const val ROBOLECTRIC = "4.9.1"
+    const val REALM = "1.3.0"
 
-    const val GOOGLE_SERVICES = "4.3.15"
-    const val FIREBASE = "31.5.0"
+    // COMPOSE
+    const val COMPOSE = "1.3.2"
+    const val COMPOSE_MATERIAL = "1.3.1"
+    const val COMPOSE_ACTIVITY = "1.5.1"
+    const val COMPOSE_NAVIGATION = "2.5.3"
+    const val COMPOSE_LIFECYCLE_RUNTIME = "2.6.0-alpha03"
+    const val COMPOSE_UI_TEST_JUNIT = "1.4.2"
+
+    //BOM
+    const val BOM = "1.8.0"
 }

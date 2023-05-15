@@ -11,6 +11,8 @@ plugins {
     id(Plugin.KOTLINX_SERIALIZATION)
     id(Plugin.KOVER)
     id(Plugin.KSP).version(Version.KSP)
+    id(Plugin.NATIVE_COROUTINES).version(Version.NATIVE_COROUTINES_KOTLIN)
+    id(Plugin.REALM)
 }
 
 kotlin {
@@ -47,8 +49,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Dependency.COROUTINES_CORE)
-
                 implementation(Dependency.KTOR_CORE)
                 implementation(Dependency.KTOR_SERIALIZATION)
                 implementation(Dependency.KTOR_LOGGING)
@@ -68,6 +68,9 @@ kotlin {
 
                 // Koin
                 implementation(Dependency.KOIN_CORE)
+
+                // Realm
+                implementation(Dependency.REALM_LIBRARY_BASE)
             }
         }
         val commonTest by getting {
@@ -85,6 +88,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Dependency.KTOR_ANDROID)
+                implementation(Dependency.KOIN_ANDROID)
             }
         }
         val androidTest by getting

@@ -16,6 +16,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         #if DEBUG
             UITestHelper.shared.speedUpUITestAnimation()
+            UITestHelper.shared.clearKeychainUITest()
         #endif
         return true
     }

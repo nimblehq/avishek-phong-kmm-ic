@@ -20,6 +20,8 @@ struct AppCoordinator: View {
                 SplashView()
             case .login:
                 LogInView()
+            case .home:
+                HomeView()
             }
         }
         .environmentObject(navigator)

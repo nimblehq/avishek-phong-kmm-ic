@@ -20,15 +20,39 @@
                ReferencedContainer = "container:PhongKMMIC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5F4F56DDE48B1268C3B2874"
+               BuildableName = "PhongKMMICKIFUITests.xctest"
+               BlueprintName = "PhongKMMICKIFUITests"
+               ReferencedContainer = "container:PhongKMMIC.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug Staging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldUseLaunchSchemeArgsEnv = "NO"
       codeCoverageEnabled = "YES"
       onlyGenerateCoverageForSpecifiedTargets = "YES">
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "clearKeychain"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "fastAnimation"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"

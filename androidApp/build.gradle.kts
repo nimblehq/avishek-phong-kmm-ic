@@ -17,6 +17,7 @@ android {
         targetSdk = Version.ANDROID_TARGET_SDK_VERSION
         versionCode = Version.ANDROID_VERSION_CODE
         versionName = Version.ANDROID_VERSION_NAME
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         compose = true
@@ -77,12 +78,24 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     testOptions {
+        unitTests {
+            // Robolectric resource processing/loading https://github.com/robolectric/robolectric/pull/4736
+            isIncludeAndroidResources = true
+        }
         unitTests.all {
-            if (it.name != "testDebugUnitTest") {
+            if (it.name != "testStagingDebugUnitTest") {
                 it.extensions.configure(kotlinx.kover.api.KoverTaskExtension::class) {
                     isDisabled.set(true)
                 }
+            }
+        }
+        animationsDisabled = true
+        // https://github.com/mockk/mockk/issues/297#issuecomment-901924678
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
             }
         }
     }
@@ -90,25 +103,39 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.1")
-    implementation("androidx.compose.foundation:foundation:1.3.1")
-    implementation("androidx.compose.material:material:1.3.1")
-    implementation("androidx.activity:activity-compose:1.6.1")
 
-    implementation(Dependency.KOIN_CORE)
-    implementation(Dependency.KOIN_ANDROID)
-    implementation(Dependency.KOIN_COMPOSE)
+    modules {
+        module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {
+            replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk7 is now part of kotlin-stdlib")
+        }
+        module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") {
+            replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk8 is now part of kotlin-stdlib")
+        }
+    }
 
-    implementation(Dependency.FIREBASE)
+    with(Dependency) {
+        implementation(COMPOSE_UI)
+        implementation(COMPOSE_UI_TOOLING)
+        implementation(COMPOSE_MATERIAL)
+        implementation(COMPOSE_ACTIVITY)
+        implementation(COMPOSE_NAVIGATION)
+        implementation(COMPOSE_LIFECYCLE_RUNTIME)
+        implementation(KOIN_CORE)
+        implementation(KOIN_ANDROID)
+        implementation(KOIN_COMPOSE)
+        implementation(TIMBER)
+        implementation(FIREBASE)
+        implementation(platform(BOM))
 
-    testImplementation(Dependency.JUNIT)
-    testImplementation(Dependency.MOCKK)
-    testImplementation(Dependency.KOTLIN_COROUTINES_TEST)
-    testImplementation(Dependency.KOTEST_ASSERTIONS)
-
-    androidTestImplementation(Dependency.MOCKK_ANDROID)
-    androidTestImplementation(Dependency.JUNIT_EXT)
-    androidTestImplementation(Dependency.ESPRESSO_CORE)
+        testImplementation(JUNIT)
+        testImplementation(MOCKK)
+        testImplementation(KOTLIN_COROUTINES_TEST)
+        testImplementation(KOTEST_ASSERTIONS)
+        testImplementation(COMPOSE_UI_TEST_JUNIT)
+        debugImplementation(COMPOSE_UI_TEST_MANIFEST)
+        testImplementation(ROBOLECTRIC)
+        androidTestImplementation(MOCKK_ANDROID)
+        androidTestImplementation(JUNIT_EXT)
+        androidTestImplementation(ESPRESSO_CORE)
+    }
 }

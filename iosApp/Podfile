@@ -13,6 +13,7 @@ target 'PhongKMMIC' do
   # UI
   pod 'Kingfisher'
   pod 'SnapKit'
+  pod 'SkeletonUI'
 
   # Storage
   pod 'KeychainAccess'
@@ -24,6 +25,7 @@ target 'PhongKMMIC' do
   pod 'R.swift'
   pod 'Factory'
   pod 'FlowStacks'
+  pod 'KMPNativeCoroutinesCombine', '0.12.6'  # Combine implementation
 
   # Development
   pod 'SwiftLint'
@@ -39,6 +41,7 @@ target 'PhongKMMIC' do
   end
 
   target 'PhongKMMICKIFUITests' do
+    inherit! :search_paths
     testing_pods
     pod 'KIF', :configurations => ['Debug Staging', 'Debug Production']
     pod 'KIF/IdentifierTests', :configurations => ['Debug Staging', 'Debug Production']

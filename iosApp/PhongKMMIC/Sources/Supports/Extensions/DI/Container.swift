@@ -14,4 +14,12 @@ extension Container {
     var splashViewModel: Factory<SplashViewModel> {
         Factory(self) { KoinApplication.inject(\.splashViewModel) }
     }
+
+    var logInViewModel: Factory<LogInViewModel> {
+        Factory(self) { KoinApplication.inject(\.logInViewModel) }
+    }
+
+    var homeViewModel: Factory<HomeViewModel> {
+        Factory(self) { KoinApplication.inject(\.homeViewModel) }
+    }
 }
