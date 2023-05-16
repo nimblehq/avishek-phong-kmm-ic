@@ -14,6 +14,7 @@ target 'PhongKMMIC' do
   pod 'Kingfisher'
   pod 'SnapKit'
   pod 'SkeletonUI'
+  pod 'SwiftUIPager'
 
   # Storage
   pod 'KeychainAccess'

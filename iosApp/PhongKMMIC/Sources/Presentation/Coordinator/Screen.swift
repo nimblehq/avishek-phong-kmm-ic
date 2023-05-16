@@ -12,4 +12,5 @@ enum Screen {
     case login
     case home
     case surveyDetail
+    case surveyQuestions
 }
