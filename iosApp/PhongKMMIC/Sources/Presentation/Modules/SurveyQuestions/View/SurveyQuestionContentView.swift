@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct SurveyQuestionContentView: View {
 
     var body: some View {
@@ -22,8 +23,10 @@ struct SurveyQuestionContentView: View {
                 .font(.boldTitle)
                 .foregroundColor(Color.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            // TODO: replace this black box with answers
-            Color.black.opacity(0.8)
+            Spacer()
+            // TODO: Replace with correct answer type based on a response from the API
+            EmojiAnswerView(type: .like, count: 5)
+            Spacer()
         }
     }
 }
