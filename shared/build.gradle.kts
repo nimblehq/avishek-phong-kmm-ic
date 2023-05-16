@@ -71,6 +71,9 @@ kotlin {
 
                 // Realm
                 implementation(Dependency.REALM_LIBRARY_BASE)
+
+                // Date
+                implementation(Dependency.DATE_TIME)
             }
         }
         val commonTest by getting {
@@ -166,6 +169,18 @@ buildkonfig {
             STRING,
             "BASE_URL",
             buildKonfigProperties.getProperty("STAGING_BASE_URL")
+        )
+
+        buildConfigField(
+            STRING,
+            "UI_TEST_EMAIL",
+            buildKonfigProperties.getProperty("UI_TEST_EMAIL")
+        )
+
+        buildConfigField(
+            STRING,
+            "UI_TEST_PASSWORD",
+            buildKonfigProperties.getProperty("UI_TEST_PASSWORD")
         )
     }
 

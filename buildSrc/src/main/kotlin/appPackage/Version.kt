@@ -17,6 +17,7 @@ object Version {
     const val BUILD_GRADLE_VERSION = "7.2.2"
     const val KOTLIN_VERSION = "1.7.10"
     const val KOTLIN_SERIALIZATION = "1.7.10"
+    const val DATE_TIME = "0.4.0"
     const val KSP = "1.7.10-1.0.6"
     const val KOVER = "0.6.1"
     const val KOIN = "3.2.0"

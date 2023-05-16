@@ -6,12 +6,13 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 
 struct SurveyContentView: View {
 
-    var uiModels: [UIModel]
-    @State private var currentPage = 0
+    @Binding var uiModels: [SurveyUiModel]
+    @Binding var currentIndex: Int
     @State private var currentVisibility: Double = 1.0
 
     @DragGestureVelocity private var velocity: CGVector
@@ -23,9 +24,10 @@ struct SurveyContentView: View {
     var body: some View {
         GeometryReader { geometryReader in
             VStack {
-                PageViewIndicator(numberOfPage: uiModels.count, currentPage: $currentPage)
+                PageViewIndicator(numberOfPage: uiModels.count, currentPage: $currentIndex)
                     .frame(width: geometryReader.size.width - 40.0, alignment: .leading)
-                    .padding([.bottom], 20.0)
+                    .padding(.bottom, 20.0)
+                    .accessibility(.home(.pageIndicator))
                 titleView
                 descriptionAndNextButtonView
             }
@@ -36,7 +38,7 @@ struct SurveyContentView: View {
                 alignment: .bottom
             )
             .background(content: {
-                if let imageUrl = uiModels[safe: currentPage]?.imageUrl {
+                if let imageUrl = uiModels[safe: currentIndex]?.largeImageUrl {
                     Image.url(imageUrl)
                         .resizable()
                         .scaledToFill()
@@ -80,20 +82,22 @@ struct SurveyContentView: View {
     }
 
     var titleView: some View {
-        Text(uiModels[safe: currentPage]?.title ?? "")
+        Text(uiModels[safe: currentIndex]?.title ?? "")
             .foregroundColor(.white)
             .font(.boldTitle)
             .frame(maxWidth: .infinity, alignment: .leading)
             .multilineTextAlignment(.leading)
             .lineLimit(2)
+            .accessibility(.home(.surveyTitleLabel))
     }
 
     var descriptionAndNextButtonView: some View {
         HStack {
-            Text(uiModels[safe: currentPage]?.description ?? "")
+            Text(uiModels[safe: currentIndex]?.description_ ?? "")
                 .foregroundColor(.white.opacity(0.7))
                 .font(.regularBody)
                 .lineLimit(2)
+                .accessibility(.home(.surveyDescriptionLabel))
             Spacer()
             Button {
                 // TODO: Handle button taps
@@ -104,54 +108,20 @@ struct SurveyContentView: View {
                     .background(Color.white)
                     .clipShape(Circle())
             }
+            .accessibility(.home(.nextButton))
         }
     }
 
-    init(uiModels: [UIModel]) {
-        self.uiModels = uiModels
+    init(uiModels: Binding<[SurveyUiModel]>, currentIndex: Binding<Int>) {
+        _uiModels = uiModels
+        _currentIndex = currentIndex
     }
 
     private func setCurrentPageToNextPage() {
-        currentPage = min(uiModels.count - 1, currentPage + 1)
+        currentIndex = min(uiModels.count - 1, currentIndex + 1)
     }
 
     private func setCurrentPageToPreviousPage() {
-        currentPage = max(0, currentPage - 1)
-    }
-}
-
-extension SurveyContentView {
-
-    struct UIModel {
-
-        let id: Int
-        let title: String
-        let description: String
-        let imageUrl: String
-    }
-}
-
-struct SurveyContentView_Previews: PreviewProvider {
-
-    static let uiModels = [
-        SurveyContentView.UIModel(
-            id: 0,
-            title: "Career training and development",
-            description: "We would like to know what are your goals ans skill you wanted to develop",
-            imageUrl: "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_"
-        ),
-        SurveyContentView.UIModel(
-            id: 0,
-            title: "Career development and training",
-            description: "We would like to know what are your goals ans skill you wanted to develop",
-            imageUrl: "https://dhdbhh0jsld0o.cloudfront.net/m/6ea42840403875928db3_"
-        )
-    ]
-
-    static var previews: some View {
-        SurveyContentView(
-            uiModels: uiModels
-        )
-        .preferredColorScheme(.dark)
+        currentIndex = max(0, currentIndex - 1)
     }
 }

@@ -37,6 +37,8 @@ struct SplashView: View {
                 .onAnimationCompleted(for: nimbleLogoOpacity) {
                     if !viewModel.checkIfUserLoggedIn() {
                         navigator.showScreen(screen: .login, with: .root)
+                    } else {
+                        navigator.showScreen(screen: .home, with: .root)
                     }
                 }
         }

@@ -38,5 +38,5 @@ fun SurveyRealmObject.toSurvey() = Survey(
     title,
     description,
     isActive,
-    coverImageUrl,
+    coverImageUrl
 )

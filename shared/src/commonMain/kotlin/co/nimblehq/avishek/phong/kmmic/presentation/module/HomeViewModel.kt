@@ -2,53 +2,68 @@ package co.nimblehq.avishek.phong.kmmic.presentation.module
 
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 import co.nimblehq.avishek.phong.kmmic.domain.model.User
+import co.nimblehq.avishek.phong.kmmic.domain.platform.datetime.DateFormat
+import co.nimblehq.avishek.phong.kmmic.domain.platform.datetime.DateTime
+import co.nimblehq.avishek.phong.kmmic.domain.platform.datetime.DateTimeFormatter
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.GetSurveysUseCase
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.GetUserProfileUseCase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.flow.zip
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyHeaderUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toSurveyHeaderUiModel
+import kotlinx.coroutines.flow.*
 
-private const val DEFAULT_PAGE_SIZE = 10
+private const val LOAD_MORE_THRESHOLD = 2
+private const val DEFAULT_PAGE_SIZE = 5
 
 data class HomeViewState(
-    val isLoading: Boolean
+    val isLoading: Boolean,
+    val headerUiModel: SurveyHeaderUiModel? = null,
+    var surveys: List<SurveyUiModel> = listOf()
 ) {
     constructor() : this (true)
 }
 
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
-    private val getSurveysUseCase: GetSurveysUseCase
+    private val getSurveysUseCase: GetSurveysUseCase,
+    private val dateTime: DateTime,
+    private val dateTimeFormatter: DateTimeFormatter,
 ) : BaseViewModel() {
 
-    private val _viewState: MutableStateFlow<HomeViewState> =
-        MutableStateFlow(HomeViewState())
+    private val _viewState: MutableStateFlow<HomeViewState> = MutableStateFlow(HomeViewState())
 
     val viewState: StateFlow<HomeViewState> = _viewState
 
+    private var previousSelectedIndex = 0
     private var currentPage = 1
 
     fun fetchData() {
         getProfile()
             .onStart { setStateLoading() }
-            .combine(fetchSurvey(currentPage, DEFAULT_PAGE_SIZE, false)) { _, _ ->
-                // TODO: Return values in a tuple
-            }
-            .catch {
-                // TODO: Handle error in integration story
+            .combine(fetchSurvey(
+                page = currentPage,
+                pageSize = DEFAULT_PAGE_SIZE,
+                isForceLatestData = false
+            )) { user, surveys ->
+                Pair(user, surveys)
             }
             .onEach {
-                handleFetchSuccess()
+                handleFetchUserProfileSuccess(it.first)
+                handleFetchSurveysSuccess(it.second)
+            }
+            .launchIn(viewModelScope)
+    }
+
+    fun fetchMoreSurveysIfNeeded(selectedIndex: Int) {
+        if (selectedIndex != _viewState.value.surveys.count() - 1 - LOAD_MORE_THRESHOLD
+            || previousSelectedIndex >= selectedIndex) {
+            previousSelectedIndex = selectedIndex
+            return
+        }
+        previousSelectedIndex = selectedIndex
+        fetchSurvey(currentPage, DEFAULT_PAGE_SIZE, false)
+            .onEach {
+                handleFetchMoreSurveySuccess(it)
             }
             .launchIn(viewModelScope)
     }
@@ -66,22 +81,55 @@ class HomeViewModel(
         pageSize: Int,
         isForceLatestData: Boolean
     ): Flow<List<Survey>> {
-        return getSurveysUseCase(page, pageSize, isForceLatestData = false)
+        return getSurveysUseCase(
+            pageNumber = page,
+            pageSize =  pageSize,
+            isForceLatestData = false
+        )
             .catch { emit(emptyList()) }
             .onEach {
                 currentPage = page + 1
             }
     }
 
-    private fun setStateLoading() {
+    private fun handleFetchUserProfileSuccess(user: User?) {
+        val today = dateTime.today()
+        val headerUiModel = user?.toSurveyHeaderUiModel(today, dateTimeFormatter)
+
         _viewState.update {
-            HomeViewState(isLoading = true)
+            HomeViewState(isLoading = false, headerUiModel)
         }
     }
 
-    private fun handleFetchSuccess() {
+    private fun handleFetchMoreSurveySuccess(surveys: List<Survey>) {
+        val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
-            HomeViewState(isLoading = false)
+            HomeViewState(
+                isLoading = false,
+                headerUiModel = it.headerUiModel,
+                surveys = it.surveys + surveyUiModels
+            )
+        }
+    }
+
+    private fun handleFetchSurveysSuccess(surveys: List<Survey>) {
+        val surveyUiModels = surveys.map { SurveyUiModel(it) }
+        _viewState.update {
+            HomeViewState(
+                isLoading = false,
+                headerUiModel = it.headerUiModel,
+                surveys = surveyUiModels
+            )
+        }
+    }
+
+    private fun setStateLoading() {
+        _viewState.update {
+            HomeViewState(
+                isLoading = true,
+                headerUiModel = it.headerUiModel,
+                surveys = it.surveys
+            )
         }
     }
 }

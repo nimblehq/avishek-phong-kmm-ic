@@ -49,6 +49,9 @@
 		3186FCA329F0E19900BA6324 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3186FCA229F0E19800BA6324 /* Font+Extension.swift */; };
 		3186FCA829F124CA00BA6324 /* KoinApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3186FCA729F124CA00BA6324 /* KoinApplication.swift */; };
 		3186FCAC29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3186FCAB29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift */; };
+		31A4E6CF2A0DDDC900A53B98 /* HomeCombineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6CE2A0DDDC900A53B98 /* HomeCombineViewModel.swift */; };
+		31A4E6D12A0E396A00A53B98 /* HomeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6D02A0E396A00A53B98 /* HomeSpec.swift */; };
+		31A4E6D32A0E3A2500A53B98 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6D22A0E3A2500A53B98 /* HomeScreen.swift */; };
 		31CCAF3229F1434100262470 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3129F1434100262470 /* Screen.swift */; };
 		31CCAF3429F1437400262470 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3329F1437400262470 /* AppCoordinator.swift */; };
 		31CCAF3629F1485400262470 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3529F1485400262470 /* Transition.swift */; };
@@ -164,6 +167,9 @@
 		3186FCA229F0E19800BA6324 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		3186FCA729F124CA00BA6324 /* KoinApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinApplication.swift; sourceTree = "<group>"; };
 		3186FCAB29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SplashViewModel+ObservableObject.swift"; sourceTree = "<group>"; };
+		31A4E6CE2A0DDDC900A53B98 /* HomeCombineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCombineViewModel.swift; sourceTree = "<group>"; };
+		31A4E6D02A0E396A00A53B98 /* HomeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSpec.swift; sourceTree = "<group>"; };
+		31A4E6D22A0E3A2500A53B98 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		31CCAF3129F1434100262470 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		31CCAF3329F1437400262470 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31CCAF3529F1485400262470 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -341,6 +347,7 @@
 			children = (
 				3160A5E229F290310052C223 /* GenericScreen.swift */,
 				3160A5EE29F515C80052C223 /* LogInScreen.swift */,
+				31A4E6D22A0E3A2500A53B98 /* HomeScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -366,6 +373,7 @@
 			children = (
 				3160A5EA29F515730052C223 /* SplashSpec.swift */,
 				3160A60029F8D0E20052C223 /* LogInSpec.swift */,
+				31A4E6D02A0E396A00A53B98 /* HomeSpec.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -400,6 +408,7 @@
 			children = (
 				317664652A06CACE000DFD24 /* Views */,
 				317664612A038AD6000DFD24 /* HomeView.swift */,
+				31A4E6CE2A0DDDC900A53B98 /* HomeCombineViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1214,11 +1223,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31A4E6D32A0E3A2500A53B98 /* HomeScreen.swift in Sources */,
 				3160A60129F8D0E20052C223 /* LogInSpec.swift in Sources */,
 				3160A5EF29F515C80052C223 /* LogInScreen.swift in Sources */,
 				3160A60329F8D3A00052C223 /* LaunchArgument.swift in Sources */,
 				3160A5ED29F515910052C223 /* SplashSpec.swift in Sources */,
 				3160A5E529F294D30052C223 /* GenericScreen.swift in Sources */,
+				31A4E6D12A0E396A00A53B98 /* HomeSpec.swift in Sources */,
 				7A64B246013934FEE87CA7A1 /* KIF+Swift.swift in Sources */,
 				3160A5E729F295440052C223 /* ViewId.swift in Sources */,
 			);
@@ -1230,6 +1241,7 @@
 			files = (
 				317664822A09F6F3000DFD24 /* SkeletonHomeView.swift in Sources */,
 				3160A5F629F51FC80052C223 /* AppDelegate.swift in Sources */,
+				31A4E6CF2A0DDDC900A53B98 /* HomeCombineViewModel.swift in Sources */,
 				84C3B5ACC1291A99F1B957D1 /* Constants+API.swift in Sources */,
 				FA2178E2737B9CA31A70F844 /* Constants.swift in Sources */,
 				3160A5FB29F6625D0052C223 /* Navigator.swift in Sources */,

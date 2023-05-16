@@ -26,7 +26,7 @@ fun SurveyApiModel.toSurvey() = Survey(
     title,
     description,
     isActive,
-    coverImageUrl,
+    coverImageUrl
 )
 
 fun SurveyApiModel.toSurveyRealmObject() = SurveyRealmObject(
