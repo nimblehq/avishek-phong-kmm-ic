@@ -7,12 +7,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import co.nimblehq.avishek.phong.kmmic.android.ui.screen.home.HomeScreen
 import co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash.SplashScreen
+import co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail.SurveyDetailScreen
+import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
+    val homeViewModel: HomeViewModel = getViewModel()
     NavHost(
         navController = navController,
         startDestination = AppDestination.Splash.route,
@@ -35,7 +39,25 @@ fun AppNavHost(
         }
 
         composable(AppDestination.Home) {
-            HomeScreen()
+            HomeScreen(homeViewModel = homeViewModel) { surveyUiModel ->
+                navController.navigate(
+                    route = "${AppDestination.SurveyDetail.route}/${surveyUiModel.id}"
+                )
+            }
+        }
+
+        composable(
+            route = AppDestination.SurveyDetail.routeWithArgs,
+            arguments = AppDestination.SurveyDetail.arguments
+        ) { navBackStackEntry ->
+            val surveyId = navBackStackEntry.arguments?.getString(AppDestination.SurveyDetail.surveyId)
+            surveyId?.let {
+                SurveyDetailScreen(
+                    homeViewModel = homeViewModel,
+                    surveyId = it,
+                    onBackClick = navController::popBackStack
+                )
+            }
         }
     }
 }

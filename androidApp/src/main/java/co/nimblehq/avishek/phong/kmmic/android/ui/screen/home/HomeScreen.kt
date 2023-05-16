@@ -33,6 +33,7 @@ private const val BottomGradientAlpha: Float = 0.6f
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = getViewModel(),
+    onSurveyClick: (SurveyUiModel) -> Unit
 ) {
     val viewState by homeViewModel.viewState.collectAsStateWithLifecycle()
     val appVersion by homeViewModel.appVersion.collectAsStateWithLifecycle()
@@ -47,11 +48,11 @@ fun HomeScreen(
         },
         onPageChange = {
             homeViewModel.fetchMoreSurveysIfNeeded(it)
-        }
+        },
+        onSurveyClick = onSurveyClick
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HomeContentWithDrawer(
     appVersion: String,
@@ -60,6 +61,7 @@ private fun HomeContentWithDrawer(
     surveyUiModels: List<SurveyUiModel>,
     isLoading: Boolean,
     onRefresh: () -> Unit,
+    onSurveyClick: (SurveyUiModel) -> Unit,
     onPageChange: (page: Int) -> Unit,
 ) {
     val drawerState = rememberDrawerState(initialDrawerState)
@@ -87,6 +89,7 @@ private fun HomeContentWithDrawer(
             onUserAvatarClick = {
                 scope.launch { drawerState.open() }
             },
+            onSurveyClick = onSurveyClick
         )
     }
 }
@@ -98,6 +101,7 @@ fun HomeContent(
     isLoading: Boolean,
     surveyUiModels: List<SurveyUiModel>,
     onUserAvatarClick: () -> Unit,
+    onSurveyClick: (surveyUiModel: SurveyUiModel) -> Unit,
     onRefresh: () -> Unit,
     onPageChange: (page: Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -188,7 +192,7 @@ fun HomeContent(
                                 .align(Alignment.BottomCenter)
                                 .padding(bottom = 54.dp),
                             onSurveyClick = {
-                                // TODO: implement in the integrate task
+                                onSurveyClick(it)
                             }
                         )
                     }
@@ -218,7 +222,8 @@ fun HomeScreenPreview(
                 surveyUiModels = surveys,
                 isLoading = isLoading,
                 onRefresh = {},
-                onPageChange = {}
+                onPageChange = {},
+                onSurveyClick = {}
             )
         }
     }
