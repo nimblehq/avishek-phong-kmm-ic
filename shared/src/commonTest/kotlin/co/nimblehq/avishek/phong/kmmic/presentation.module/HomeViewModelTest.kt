@@ -50,6 +50,10 @@ class HomeViewModelTest {
             mockDateTimeFormatter
         )
         Dispatchers.setMain(mainThreadSurrogate)
+        given(mockDateTimeFormatter)
+            .function(mockDateTimeFormatter::getFormattedString)
+            .whenInvokedWith(any(), any())
+            .thenReturn("Monday, May 12")
     }
 
     @AfterTest
@@ -70,11 +74,6 @@ class HomeViewModelTest {
             .function(mockGetSurveysUseCase::invoke)
             .whenInvokedWith(any(), any(), any())
             .thenReturn(flowOf(listOf(MockUtil.mockSurvey)))
-
-        given(mockDateTimeFormatter)
-            .function(mockDateTimeFormatter::getFormattedString)
-            .whenInvokedWith(any(), any())
-            .thenReturn("Monday, May 12")
 
         viewModel.fetchData()
 
@@ -101,11 +100,6 @@ class HomeViewModelTest {
             .whenInvokedWith(any(), any(), any())
             .thenReturn(flowOf(listOf(MockUtil.mockSurvey)))
 
-        given(mockDateTimeFormatter)
-            .function(mockDateTimeFormatter::getFormattedString)
-            .whenInvokedWith(any(), any())
-            .thenReturn("Monday, May 12")
-
         viewModel.fetchData()
 
         viewModel.viewState.takeWhile { !it.isLoading }.collect {
@@ -130,11 +124,6 @@ class HomeViewModelTest {
                     throw MockUtil.mockThrowable
                 }
             )
-
-        given(mockDateTimeFormatter)
-            .function(mockDateTimeFormatter::getFormattedString)
-            .whenInvokedWith(any(), any())
-            .thenReturn("Monday, May 12")
 
         viewModel.fetchData()
 
@@ -164,11 +153,6 @@ class HomeViewModelTest {
                     throw MockUtil.mockThrowable
                 }
             )
-
-        given(mockDateTimeFormatter)
-            .function(mockDateTimeFormatter::getFormattedString)
-            .whenInvokedWith(any(), any())
-            .thenReturn("Monday, May 12")
 
         viewModel.fetchData()
 

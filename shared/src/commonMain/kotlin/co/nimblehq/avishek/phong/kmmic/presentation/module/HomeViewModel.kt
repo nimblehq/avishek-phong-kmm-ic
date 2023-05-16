@@ -63,7 +63,7 @@ class HomeViewModel(
         previousSelectedIndex = selectedIndex
         fetchSurvey(currentPage, DEFAULT_PAGE_SIZE, false)
             .onEach {
-                handleFetchMoreSurveySuscess(it)
+                handleFetchMoreSurveySuccess(it)
             }
             .launchIn(viewModelScope)
     }
@@ -101,7 +101,7 @@ class HomeViewModel(
         }
     }
 
-    private fun handleFetchMoreSurveySuscess(surveys: List<Survey>) {
+    private fun handleFetchMoreSurveySuccess(surveys: List<Survey>) {
         val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
             HomeViewState(
