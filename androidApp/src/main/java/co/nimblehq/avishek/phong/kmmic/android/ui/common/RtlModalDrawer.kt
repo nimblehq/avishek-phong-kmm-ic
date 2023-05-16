@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.LayoutDirection
 @Composable
 fun RtlModalDrawer(
     drawerContent: @Composable ColumnScope.() -> Unit,
-    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     modifier: Modifier = Modifier,
+    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     gesturesEnabled: Boolean = true,
     drawerShape: Shape = MaterialTheme.shapes.large,
     drawerElevation: Dp = DrawerDefaults.Elevation,
