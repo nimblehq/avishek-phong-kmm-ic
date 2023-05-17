@@ -1,5 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -23,19 +24,31 @@ import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryButton
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
 import coil.compose.AsyncImage
+import kotlinx.coroutines.*
 
 private const val TopGradientAlpha: Float = 0.01f
 private const val BottomGradientAlpha: Float = 0.6f
 private const val InitialImageScale: Float = 1f
+private const val FinalImageScale: Float = 1.5f
 const val ImageScaleAnimationDurationInMillis = 700
 
 @Composable
 fun SurveyStartContent(
     surveyUiModel: SurveyUiModel,
     onStartClick: () -> Unit,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
 ) {
     var shouldShowContent by remember { mutableStateOf(false) }
+    var imageScale by remember { mutableStateOf(InitialImageScale) }
+    val scope = rememberCoroutineScope()
+
+    val backNavigationHandler: suspend CoroutineScope.() -> Unit = {
+        imageScale = InitialImageScale
+        shouldShowContent = false
+        delay(ImageScaleAnimationDurationInMillis.toLong())
+        onBackClick()
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -43,7 +56,6 @@ fun SurveyStartContent(
         Box(
             Modifier.matchParentSize()
         ) {
-            var imageScale by remember { mutableStateOf(InitialImageScale) }
             val floatTweenSpec = tween<Float>(
                 durationMillis = ImageScaleAnimationDurationInMillis
             )
@@ -51,7 +63,6 @@ fun SurveyStartContent(
                 targetValue = imageScale,
                 floatTweenSpec
             )
-            imageScale = 1.5f
             AsyncImage(
                 model = surveyUiModel.largeImageUrl,
                 contentDescription = null,
@@ -75,7 +86,12 @@ fun SurveyStartContent(
         }
 
         LaunchedEffect(Unit) {
+            imageScale = FinalImageScale
             shouldShowContent = true
+        }
+
+        BackHandler(true) {
+            scope.launch(block = backNavigationHandler)
         }
 
         AnimatedVisibility(
@@ -90,7 +106,9 @@ fun SurveyStartContent(
                 modifier = Modifier.matchParentSize()
             ) {
                 BackButton(
-                    onClick = onBackClick,
+                    onClick = {
+                        scope.launch(block = backNavigationHandler)
+                    },
                     modifier = Modifier.padding(12.dp)
                 )
 
