@@ -25,7 +25,7 @@ struct SurveyQuestionContentView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer(minLength: 150.0)
                 // TODO: Replace with correct answer type based on a response from the API
-                SingleFormAnswerView()
+                MultipleFormsAnswerView()
             }
         }
     }
