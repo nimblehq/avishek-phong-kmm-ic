@@ -22,6 +22,8 @@ struct AppCoordinator: View {
                 LogInView()
             case .home:
                 HomeView()
+            case .surveyDetail:
+                SurveyDetailView()
             }
         }
         .environmentObject(navigator)

@@ -11,4 +11,5 @@ enum Screen {
     case splash
     case login
     case home
+    case surveyDetail
 }
