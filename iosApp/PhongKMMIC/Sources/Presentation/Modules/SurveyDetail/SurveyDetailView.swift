@@ -40,7 +40,7 @@ struct SurveyDetailView: View {
                 HStack {
                     Spacer()
                     Button {
-                        print("Start survey was tapped")
+                        navigator.showScreen(screen: .surveyQuestions, with: .push)
                     } label: {
                         Text(R.string.localizable.surveyDetailStartSurvey())
                             .frame(alignment: .center)

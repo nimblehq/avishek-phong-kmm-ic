@@ -11,3 +11,8 @@
 "authentication.button.login" = "Log in";
 "home.header.today" = "TODAY";
 "survey.detail.startSurvey" = "Start Survey";
+
+"surveyQuestionScreen.exitAlert.message" = "Are you sure you want to quit the survey?";
+"alert.warning.title" = "Warning!";
+"alert.yesButton.title" = "Yes";
+"alert.cancelButton.title" = "Cancel";
