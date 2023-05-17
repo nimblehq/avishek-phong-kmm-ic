@@ -14,6 +14,7 @@ struct SurveyQuestionsView: View {
     @EnvironmentObject private var navigator: Navigator
 
     @StateObject private var page: Page = .first()
+    @State private var isAlertShown = false
 
     var body: some View {
         ZStack {
@@ -50,19 +51,25 @@ struct SurveyQuestionsView: View {
             }
             .padding(.horizontal, 20.0)
         }
+        .alert(isPresented: $isAlertShown, content: {
+            Alert(
+                title: Text(R.string.localizable.alertWarningTitle()),
+                message: Text(R.string.localizable.surveyQuestionScreenExitAlertMessage()),
+                primaryButton: .default(Text(R.string.localizable.alertYesButtonTitle())) {
+                    navigator.goBackToRoot()
+                },
+                secondaryButton: .cancel(Text(R.string.localizable.alertCancelButtonTitle())) {}
+            )
+        })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    didTapCloseButton()
+                    isAlertShown = true
                 } label: {
                     R.image.close.image
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
-    }
-
-    private func didTapCloseButton() {
-        navigator.goBackToRoot()
     }
 }
