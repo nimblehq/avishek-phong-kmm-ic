@@ -1,6 +1,5 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -9,8 +8,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -29,13 +26,6 @@ fun SurveyDetailScreen(
             },
             onBackClick = onBackClick
         )
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-private fun PagerState.scrollToNextPage(scope: CoroutineScope) {
-    scope.launch {
-        animateScrollToPage(currentPage + 1)
     }
 }
 
