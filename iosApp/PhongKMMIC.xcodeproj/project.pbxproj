@@ -59,6 +59,7 @@
 		31A4E6E82A121B2200A53B98 /* SurveyQuestionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6E72A121B2200A53B98 /* SurveyQuestionContentView.swift */; };
 		31A4E6EB2A13277D00A53B98 /* EmojiAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */; };
 		31A4E6ED2A13626700A53B98 /* MultipleChoiceAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6EC2A13626700A53B98 /* MultipleChoiceAnswerView.swift */; };
+		31A4E6EF2A136D9300A53B98 /* NpsAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6EE2A136D9300A53B98 /* NpsAnswerView.swift */; };
 		31CCAF3229F1434100262470 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3129F1434100262470 /* Screen.swift */; };
 		31CCAF3429F1437400262470 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3329F1437400262470 /* AppCoordinator.swift */; };
 		31CCAF3629F1485400262470 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3529F1485400262470 /* Transition.swift */; };
@@ -184,6 +185,7 @@
 		31A4E6E72A121B2200A53B98 /* SurveyQuestionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyQuestionContentView.swift; sourceTree = "<group>"; };
 		31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiAnswerView.swift; sourceTree = "<group>"; };
 		31A4E6EC2A13626700A53B98 /* MultipleChoiceAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceAnswerView.swift; sourceTree = "<group>"; };
+		31A4E6EE2A136D9300A53B98 /* NpsAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpsAnswerView.swift; sourceTree = "<group>"; };
 		31CCAF3129F1434100262470 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		31CCAF3329F1437400262470 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31CCAF3529F1485400262470 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 			children = (
 				31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */,
 				31A4E6EC2A13626700A53B98 /* MultipleChoiceAnswerView.swift */,
+				31A4E6EE2A136D9300A53B98 /* NpsAnswerView.swift */,
 			);
 			path = Answer;
 			sourceTree = "<group>";
@@ -1336,6 +1339,7 @@
 				3160A5E129F281040052C223 /* ViewId.swift in Sources */,
 				3162022429E54E3400ADC0A9 /* KMMICApp.swift in Sources */,
 				3160A5FF29F7E17F0052C223 /* ProgressAnimationView.swift in Sources */,
+				31A4E6EF2A136D9300A53B98 /* NpsAnswerView.swift in Sources */,
 				3186FCAC29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift in Sources */,
 				31A4E6E82A121B2200A53B98 /* SurveyQuestionContentView.swift in Sources */,
 				3160A5F329F51F9F0052C223 /* LaunchArgument.swift in Sources */,
