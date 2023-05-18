@@ -151,10 +151,7 @@ class SurveyRepositoryTest {
                 .whenInvokedWith(any())
                 .thenReturn(flow { emit(MockUtil.mockSurveyApiModel) })
 
-            repository.getSurvey("id").test {
-                this.awaitItem() shouldBe MockUtil.mockSurveyApiModel.toSurvey()
-                this.awaitComplete()
-            }
+            repository.getSurvey("id").first() shouldBe MockUtil.mockSurveyApiModel.toSurvey()
         }
 
     @Test

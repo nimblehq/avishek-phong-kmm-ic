@@ -1,7 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.domain.model
 
 interface Answerable {
-
     val id: String
     val content: String?
     val placeholder: String?

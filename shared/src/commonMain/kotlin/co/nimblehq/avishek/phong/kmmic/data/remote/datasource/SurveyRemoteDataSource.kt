@@ -20,6 +20,6 @@ class SurveyRemoteDataSourceImpl(private val apiClient: ApiClient) : SurveyRemot
     }
 
     override fun getSurvey(id: String): Flow<SurveyApiModel> {
-        return apiClient.responseBody(Endpoint.SURVEYS + "/${id}", HttpMethod.Get)
+        return apiClient.responseBody(Endpoint.SURVEYS + "/$id", HttpMethod.Get)
     }
 }

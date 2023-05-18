@@ -12,6 +12,7 @@ import io.mockative.mock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -23,7 +24,7 @@ class GetSurveyDetailUseCaseTest {
 
     @Mock
     private val mockRepository = mock(classOf<SurveyRepository>())
-
+    private val expectedSurvey = MockUtil.mockSurveyApiModel.toSurvey()
     private lateinit var useCase: GetSurveyDetailUseCase
 
     @BeforeTest
@@ -36,11 +37,9 @@ class GetSurveyDetailUseCaseTest {
         given(mockRepository)
             .function(mockRepository::getSurvey)
             .whenInvokedWith(any())
-            .thenReturn(flowOf(MockUtil.mockSurveyApiModel.toSurvey()))
+            .thenReturn(flowOf(expectedSurvey))
 
-        useCase("survey_id").collect {
-            it shouldBe MockUtil.mockSurveyApiModel.toSurvey()
-        }
+        useCase("survey_id").first() shouldBe expectedSurvey
     }
 
     @Test
