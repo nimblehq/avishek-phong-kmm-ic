@@ -68,6 +68,8 @@
 		31CCAF3229F1434100262470 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3129F1434100262470 /* Screen.swift */; };
 		31CCAF3429F1437400262470 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3329F1437400262470 /* AppCoordinator.swift */; };
 		31CCAF3629F1485400262470 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3529F1485400262470 /* Transition.swift */; };
+		31F4CA102A15E6B2003CB46B /* SurveyDetailSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F4CA0F2A15E6B2003CB46B /* SurveyDetailSpec.swift */; };
+		31F4CA122A15FE6A003CB46B /* SurveyDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F4CA112A15FE6A003CB46B /* SurveyDetailScreen.swift */; };
 		611DBFE850B38FE88E68F30C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C08433DD81FE83462A1C6 /* R.generated.swift */; };
 		71192B8729C3777843712CE5 /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C64E7A91D374FB49F5DF818 /* AutoMockable.generated.swift */; };
 		77C5D668A2E4E5DEC2BDEA9D /* UIView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7501383C06FFD93FF3A1A958 /* UIView+Subviews.swift */; };
@@ -199,6 +201,8 @@
 		31CCAF3129F1434100262470 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		31CCAF3329F1437400262470 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31CCAF3529F1485400262470 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
+		31F4CA0F2A15E6B2003CB46B /* SurveyDetailSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailSpec.swift; sourceTree = "<group>"; };
+		31F4CA112A15FE6A003CB46B /* SurveyDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailScreen.swift; sourceTree = "<group>"; };
 		334282891C0D36A6D4327B36 /* KIF+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KIF+Swift.swift"; sourceTree = "<group>"; };
 		39E3FD88B495FB06587EC1DB /* Pods-PhongKMMIC.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhongKMMIC.debug staging.xcconfig"; path = "Target Support Files/Pods-PhongKMMIC/Pods-PhongKMMIC.debug staging.xcconfig"; sourceTree = "<group>"; };
 		4377D1457F31E54B7249CC1F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				3160A5E229F290310052C223 /* GenericScreen.swift */,
 				3160A5EE29F515C80052C223 /* LogInScreen.swift */,
 				31A4E6D22A0E3A2500A53B98 /* HomeScreen.swift */,
+				31F4CA112A15FE6A003CB46B /* SurveyDetailScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -402,6 +407,7 @@
 				3160A5EA29F515730052C223 /* SplashSpec.swift */,
 				3160A60029F8D0E20052C223 /* LogInSpec.swift */,
 				31A4E6D02A0E396A00A53B98 /* HomeSpec.swift */,
+				31F4CA0F2A15E6B2003CB46B /* SurveyDetailSpec.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -1296,7 +1302,9 @@
 			files = (
 				31A4E6D32A0E3A2500A53B98 /* HomeScreen.swift in Sources */,
 				3160A60129F8D0E20052C223 /* LogInSpec.swift in Sources */,
+				31F4CA122A15FE6A003CB46B /* SurveyDetailScreen.swift in Sources */,
 				3160A5EF29F515C80052C223 /* LogInScreen.swift in Sources */,
+				31F4CA102A15E6B2003CB46B /* SurveyDetailSpec.swift in Sources */,
 				3160A60329F8D3A00052C223 /* LaunchArgument.swift in Sources */,
 				3160A5ED29F515910052C223 /* SplashSpec.swift in Sources */,
 				3160A5E529F294D30052C223 /* GenericScreen.swift in Sources */,

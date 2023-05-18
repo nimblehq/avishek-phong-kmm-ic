@@ -31,7 +31,7 @@ final class HomeSpec: QuickSpec {
                     homeScreen.waitForAppearance()
                 }
 
-                context("") {
+                context("when swipe left multitple times") {
 
                     beforeEach {
                         for _ in 0 ..< 5 {
@@ -39,7 +39,7 @@ final class HomeSpec: QuickSpec {
                         }
                     }
 
-                    it("") {
+                    it("show new surveys") {
                         self.tester().waitForView(withAccessibilityIdentifier: ViewId.home(.contentView)())
                     }
                 }

@@ -23,6 +23,7 @@ struct SurveyDetailView: View {
                     .scaledToFill()
                     .frame(width: geometryReader.size.width, height: geometryReader.size.height)
                     .scaleEffect(backgroundScale, anchor: .topTrailing)
+                    .accessibility(.surveyDetail(.backgroundImage))
                 BlackGradientOverlay()
             }
             .ignoresSafeArea()
@@ -36,6 +37,7 @@ struct SurveyDetailView: View {
                 } label: {
                     R.image.whiteLeftChevron.image
                 }
+                .accessibility(.general(.backButton))
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -47,6 +49,7 @@ struct SurveyDetailView: View {
                 }
             }
         }
+        .progressView($viewModel.isLoading)
     }
 
     private var contentView: some View {
@@ -54,11 +57,13 @@ struct SurveyDetailView: View {
             Text(viewModel.title)
                 .font(.boldTitle)
                 .foregroundColor(Color.white)
+                .accessibility(.surveyDetail(.title))
 
             Text(viewModel.description)
                 .font(.regularBody)
                 .foregroundColor(Color.white.opacity(0.7))
                 .padding(.top, 16.0)
+                .accessibility(.surveyDetail(.description))
 
             Spacer()
             HStack {
@@ -76,6 +81,7 @@ struct SurveyDetailView: View {
                 .background(Color.white)
                 .foregroundColor(Color.black)
                 .cornerRadius(10.0)
+                .accessibility(.surveyDetail(.startButton))
             }
         }
         .padding(.top, 26.0)

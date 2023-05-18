@@ -23,7 +23,7 @@ data class SurveyDetailViewState(
 }
 
 class SurveyDetailViewModel(
-    private val getSurveysUseCase: GetSurveyDetailUseCase
+    private val getSurveyUseCase: GetSurveyDetailUseCase
 ): BaseViewModel() {
 
     private val _viewState: MutableStateFlow<SurveyDetailViewState> =
@@ -31,12 +31,11 @@ class SurveyDetailViewModel(
     val viewSate: StateFlow<SurveyDetailViewState> = _viewState
 
     fun fetchSurveyDetail(id: String) {
-        getSurveysUseCase(id)
+        getSurveyUseCase(id)
             .onStart { setLoadingState() }
             .catch { handleApiError(it) }
             .onEach { handleFetchSuccess(it) }
             .launchIn(viewModelScope)
-
     }
 
     private fun setLoadingState() {
@@ -47,13 +46,17 @@ class SurveyDetailViewModel(
 
     private fun handleApiError(error: Throwable) {
         _viewState.update {
-            SurveyDetailViewState(isLoading = false, errorMessage = error.toErrorMessage())
+            SurveyDetailViewState(errorMessage = error.message)
         }
     }
 
     private fun handleFetchSuccess(survey: Survey) {
         _viewState.update {
-            SurveyDetailViewState(isLoading = false, errorMessage = null, survey = survey)
+            SurveyDetailViewState(
+                isLoading = false,
+                errorMessage = null,
+                survey = survey
+            )
         }
     }
 }

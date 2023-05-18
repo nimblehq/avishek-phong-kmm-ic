@@ -19,6 +19,7 @@ final class SurveyDetailCombineViewModel: ObservableObject {
     @Published var title: String?
     @Published var description: String?
 
+    private var survey: Survey?
     @Injected(\.surveyDetailViewModel) private var surveyDetailViewModel
     @Published private(set) var viewState = SurveyDetailViewState()
     private var cancellables = Set<AnyCancellable>()
@@ -45,6 +46,7 @@ final class SurveyDetailCombineViewModel: ObservableObject {
     }
 
     private func updateState(_ state: SurveyDetailViewState) {
+        survey = state.survey
         isLoading = state.isLoading
         errorMessage = state.errorMessage
     }
