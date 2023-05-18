@@ -28,7 +28,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                                 id = (it + 1).toString(),
                                 text = "Text ${it + 1}",
                                 displayOrder = it,
-                                placeholder = null
+                                placeholder = "Your thoughts"
                             )
                         },
                         userInputs = emptySet()
@@ -55,7 +55,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                                 id = (it + 1).toString(),
                                 text = "Text ${it + 1}",
                                 displayOrder = it,
-                                placeholder = null
+                                placeholder = "Your thoughts"
                             )
                         },
                         userInputs = emptySet()
@@ -82,7 +82,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                                 id = (it + 1).toString(),
                                 text = "Text ${it + 1}",
                                 displayOrder = it,
-                                placeholder = null
+                                placeholder = "Your thoughts"
                             )
                         },
                         userInputs = emptySet()
@@ -109,7 +109,34 @@ class SurveyDetailScreenPreviewParameterProvider :
                                 id = (it + 1).toString(),
                                 text = "Text ${it + 1}",
                                 displayOrder = it,
-                                placeholder = null
+                                placeholder = "Your thoughts"
+                            )
+                        },
+                        userInputs = emptySet()
+                    )
+                )
+            )
+        ),
+        Params(
+            isLoading = false,
+            survey = SurveyUiModel(
+                id = "1",
+                title = "Scarlett Bangkok",
+                description = "We'd love to hear from you!",
+                imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_",
+                questionUiModels = listOf(
+                    QuestionUiModel(
+                        id = "1",
+                        step = "1/1",
+                        displayOrder = 1,
+                        questionTitle = "How fulfilled did you feel during this WFH period?",
+                        displayType = TEXTAREA,
+                        answers = List(5) {
+                            SurveyAnswerUiModel(
+                                id = (it + 1).toString(),
+                                text = "Text ${it + 1}",
+                                displayOrder = it,
+                                placeholder = "Your thoughts"
                             )
                         },
                         userInputs = emptySet()

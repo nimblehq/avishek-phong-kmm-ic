@@ -180,6 +180,12 @@ private fun AnswerContent(
                 isRangeSelectable = displayType != SMILEY,
                 modifier = modifier
             )
+            TEXTAREA -> TextArea(
+                surveyAnswerUiModel = questionUiModel.answers.first(),
+                modifier = modifier
+                    .padding(horizontal = 24.dp)
+                    .heightIn(168.dp)
+            )
             else -> Unit
         }
     }
