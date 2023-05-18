@@ -46,9 +46,9 @@ class HomeViewModel(
             .combine(fetchSurvey(page = currentPage)) { user, surveys ->
                 Pair(user, surveys)
             }
-            .onEach {
-                handleFetchUserProfileSuccess(it.first)
-                handleFetchSurveysSuccess(it.second)
+            .onEach { (user, surveys) ->
+                handleFetchUserProfileSuccess(user)
+                handleFetchSurveysSuccess(surveys)
             }
             .launchIn(viewModelScope)
 
@@ -77,9 +77,6 @@ class HomeViewModel(
             isForceLatestData = true
         )
             .onStart { setStateLoading() }
-            .catch {
-                // TODO: handle error
-            }
             .onEach {
                 handleFetchSurveysSuccess(it)
             }
