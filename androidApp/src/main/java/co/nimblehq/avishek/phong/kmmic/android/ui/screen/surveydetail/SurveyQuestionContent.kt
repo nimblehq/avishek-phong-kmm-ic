@@ -190,6 +190,10 @@ private fun AnswerContent(
                 surveyAnswerUiModels = questionUiModel.answers,
                 modifier = modifier.padding(horizontal = 24.dp)
             )
+            CHOICE -> MultiChoiceForm(
+                surveyAnswerUiModels = questionUiModel.answers,
+                modifier = modifier.padding(horizontal = 24.dp)
+            )
             else -> Unit
         }
     }
