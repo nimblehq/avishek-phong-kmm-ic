@@ -55,6 +55,7 @@
 		31A4E6DB2A11C92B00A53B98 /* SurveyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6DA2A11C92B00A53B98 /* SurveyDetailView.swift */; };
 		31A4E6E02A11E9FC00A53B98 /* BlackGradientOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6DF2A11E9FC00A53B98 /* BlackGradientOverlay.swift */; };
 		31A4E6E22A11F01A00A53B98 /* OnLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6E12A11F01A00A53B98 /* OnLoadModifier.swift */; };
+		31A4E6F92A14E18200A53B98 /* SurveyDetailCombineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6F82A14E18100A53B98 /* SurveyDetailCombineViewModel.swift */; };
 		31A4E6E52A12137500A53B98 /* SurveyQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6E42A12137500A53B98 /* SurveyQuestionsView.swift */; };
 		31A4E6E82A121B2200A53B98 /* SurveyQuestionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6E72A121B2200A53B98 /* SurveyQuestionContentView.swift */; };
 		31A4E6EB2A13277D00A53B98 /* EmojiAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */; };
@@ -185,6 +186,7 @@
 		31A4E6DA2A11C92B00A53B98 /* SurveyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailView.swift; sourceTree = "<group>"; };
 		31A4E6DF2A11E9FC00A53B98 /* BlackGradientOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackGradientOverlay.swift; sourceTree = "<group>"; };
 		31A4E6E12A11F01A00A53B98 /* OnLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnLoadModifier.swift; sourceTree = "<group>"; };
+		31A4E6F82A14E18100A53B98 /* SurveyDetailCombineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailCombineViewModel.swift; sourceTree = "<group>"; };
 		31A4E6E42A12137500A53B98 /* SurveyQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyQuestionsView.swift; sourceTree = "<group>"; };
 		31A4E6E72A121B2200A53B98 /* SurveyQuestionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyQuestionContentView.swift; sourceTree = "<group>"; };
 		31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiAnswerView.swift; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 			isa = PBXGroup;
 			children = (
 				31A4E6DA2A11C92B00A53B98 /* SurveyDetailView.swift */,
+				31A4E6F82A14E18100A53B98 /* SurveyDetailCombineViewModel.swift */,
 			);
 			path = SurveyDetail;
 			sourceTree = "<group>";
@@ -1359,6 +1362,7 @@
 				3186FCAC29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift in Sources */,
 				31A4E6E82A121B2200A53B98 /* SurveyQuestionContentView.swift in Sources */,
 				3160A5F329F51F9F0052C223 /* LaunchArgument.swift in Sources */,
+				31A4E6F92A14E18200A53B98 /* SurveyDetailCombineViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
