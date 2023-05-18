@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
-import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.DROPDOWN
-import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
+import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.*
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.*
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
 
@@ -170,6 +170,14 @@ private fun AnswerContent(
             DROPDOWN -> Spinner(
                 surveyAnswerUiModels = answers,
                 modifier = modifier.padding(horizontal = 40.dp)
+            )
+            STAR,
+            HEART,
+            SMILEY,
+            -> RatingBar(
+                emojis = displayType.toEmojis(answers.size),
+                isRangeSelectable = displayType != SMILEY,
+                modifier = modifier
             )
             else -> Unit
         }
