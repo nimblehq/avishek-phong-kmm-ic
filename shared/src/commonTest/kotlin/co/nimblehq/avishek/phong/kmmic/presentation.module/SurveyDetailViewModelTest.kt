@@ -1,5 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.module
 
+import app.cash.turbine.test
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.GetSurveyDetailUseCase
 import co.nimblehq.avishek.phong.kmmic.helper.MockUtil
 import io.kotest.matchers.shouldBe
@@ -10,11 +11,8 @@ import io.mockative.given
 import io.mockative.mock
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.takeWhile
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -28,7 +26,6 @@ class SurveyDetailViewModelTest {
 
     @Mock
     val getSurveyDetailUseCase = mock(classOf<GetSurveyDetailUseCase>())
-
     private lateinit var viewModel: SurveyDetailViewModel
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
@@ -54,11 +51,18 @@ class SurveyDetailViewModelTest {
 
         viewModel.fetchSurveyDetail("survey_id")
 
-        viewModel.viewSate.takeWhile { !it.isLoading }
-            .collect {
-                it.isLoading shouldBe false
-                it.errorMessage shouldBe null
-                it.survey?.id shouldBe MockUtil.mockSurvey.id
+        viewModel.viewSate
+            .test {
+                awaitItem() shouldBe SurveyDetailViewState(
+                    isLoading = true,
+                    errorMessage = null,
+                    survey = null
+                )
+                awaitItem() shouldBe SurveyDetailViewState(
+                    isLoading = false,
+                    errorMessage = null,
+                    survey = MockUtil.mockSurvey
+                )
             }
     }
 
@@ -75,10 +79,18 @@ class SurveyDetailViewModelTest {
 
         viewModel.fetchSurveyDetail("survey_id")
 
-        viewModel.viewSate.takeWhile { !it.isLoading }
-            .catch {
-                it.message shouldBe MockUtil.mockThrowable.message
+        viewModel.viewSate
+            .test {
+                awaitItem() shouldBe SurveyDetailViewState(
+                    isLoading = true,
+                    errorMessage = null,
+                    survey = null
+                )
+                awaitItem() shouldBe SurveyDetailViewState(
+                    isLoading = false,
+                    errorMessage = MockUtil.mockThrowable.message,
+                    survey = null
+                )
             }
-            .collect()
     }
 }
