@@ -15,6 +15,7 @@ enum ViewId {
     case general(General)
     case home(Home)
     case surveyDetail(SurveyDetail)
+    case surveyQuestion(SurveyQuestion)
 
     enum General: String {
 
@@ -55,6 +56,14 @@ enum ViewId {
         case startButton = "surveyDetail.startButton"
     }
 
+    enum SurveyQuestion: String {
+        case backgroundImage = "surveyQuestions.backgroundImage"
+        case questionTitle = "surveyQuestions.questionTitle"
+        case nextButton = "surveyQuestions.nextButton"
+        case submitButton = "surveyQuestions.submitButton"
+        case answerContent = "surveyQuestions.answerContent"
+    }
+
     func callAsFunction() -> String {
         switch self {
         case let .general(general):
@@ -67,6 +76,8 @@ enum ViewId {
             return home.rawValue
         case let .surveyDetail(surveyDetail):
             return surveyDetail.rawValue
+        case let .surveyQuestion(surveyQuestion):
+            return surveyQuestion.rawValue
         }
     }
 }

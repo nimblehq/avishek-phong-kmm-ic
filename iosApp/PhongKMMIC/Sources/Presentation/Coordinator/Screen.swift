@@ -14,5 +14,5 @@ enum Screen {
     case login
     case home
     case surveyDetail(survey: Survey)
-    case surveyQuestions
+    case surveyQuestions(survey: Survey)
 }

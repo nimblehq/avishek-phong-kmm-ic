@@ -5,6 +5,7 @@ import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
 import co.nimblehq.avishek.phong.kmmic.presentation.module.LogInViewModel
 import co.nimblehq.avishek.phong.kmmic.presentation.module.SplashViewModel
 import co.nimblehq.avishek.phong.kmmic.presentation.module.SurveyDetailViewModel
+import co.nimblehq.avishek.phong.kmmic.presentation.module.SurveyQuestionViewModel
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 
@@ -17,4 +18,6 @@ val Koin.logInViewModel: LogInViewModel
 val Koin.homeViewModel: HomeViewModel
     get() = get()
 val Koin.surveyDetailViewModel: SurveyDetailViewModel
+    get() = get()
+val Koin.surveyQuestionViewModel: SurveyQuestionViewModel
     get() = get()

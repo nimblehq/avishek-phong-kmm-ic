@@ -6,22 +6,25 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 
 struct MultipleChoiceAnswerView: View {
 
     @State private var selectedIndex: Int?
+    @ObservedObject var question: QuestionUiModel
 
     var body: some View {
         VStack {
-            ForEach(0 ..< 10, id: \.self) { index in
+            ForEach(0 ..< question.answers.count, id: \.self) { index in
+                let answer = question.answers[safe: index]?.text ?? ""
                 Button {
                     selectedIndex = index
-                    // TODO: replace with actual logic when a user slected an answer
-                    print("selected answer at: \(index)")
+                    guard let id = question.answers[safe: index]?.id else { return }
+                    question.userInputs = [AnswerInput(id: id, content: nil)]
                 } label: {
                     HStack {
-                        Text("Answer number: \(index)")
+                        Text(answer)
                             .lineLimit(1)
                             .font(getFontForAnswer(at: index))
                             .foregroundColor(getTextColorForAnswer(at: index))
@@ -30,8 +33,7 @@ struct MultipleChoiceAnswerView: View {
                     }
                 }
                 .frame(height: 56.0)
-                // TODO: replace with actual count of answer
-                if index != 10 - 1 {
+                if index != question.answers.count - 1 {
                     Divider()
                         .frame(minHeight: 0.5)
                         .background(Color.white)
@@ -39,6 +41,10 @@ struct MultipleChoiceAnswerView: View {
             }
         }
         .padding(.horizontal, 60.0)
+    }
+
+    init(question: QuestionUiModel) {
+        self.question = question
     }
 
     private func getFontForAnswer(at index: Int) -> Font {

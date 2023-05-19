@@ -6,6 +6,7 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 
 struct EmojiAnswerView: View {
@@ -16,13 +17,24 @@ struct EmojiAnswerView: View {
 
     @State private var selectedIndex: Int?
 
+    @ObservedObject var question: QuestionUiModel
+
     var body: some View {
+        if emojis.isEmpty {
+            EmptyView()
+        } else {
+            contentView
+        }
+    }
+
+    private var contentView: some View {
         HStack(spacing: 16.0) {
             Spacer()
             ForEach(0 ..< emojis.count, id: \.self) { index in
                 Button {
                     selectedIndex = index
-                    print("Did select emoji at: \(index)")
+                    guard let id = question.answers[safe: index]?.id else { return }
+                    question.userInputs = [AnswerInput(id: id, content: nil)]
                 } label: {
                     Text(emojis[index])
                         .font(.boldTitle)
@@ -33,10 +45,17 @@ struct EmojiAnswerView: View {
         }
     }
 
-    init(type: EmojiType, count: Int) {
+    init(question: QuestionUiModel, count: Int = 5) {
+        self.question = question
+        guard let type = question.displayType.toEmojiType() else {
+            emojis = []
+            type = .unknown
+            hightLightStyle = .leftItems
+            return
+        }
         self.type = type
-        emojis = type(count: count)
         hightLightStyle = type.highlightStyle
+        emojis = type.callAsFunction(count: count)
     }
 
     private func getOpacityForItem(at index: Int) -> CGFloat {
@@ -71,6 +90,7 @@ extension EmojiAnswerView {
         case smile
         case heart
         case star
+        case unknown
 
         func callAsFunction(count: Int) -> [String] {
             let items: [String]
@@ -83,6 +103,8 @@ extension EmojiAnswerView {
                 items = Array(repeatElement("❤️", count: count))
             case .star:
                 items = Array(repeatElement("⭐️", count: count))
+            case .unknown:
+                items = []
             }
             return items
         }
@@ -95,12 +117,5 @@ extension EmojiAnswerView {
                 return .leftItems
             }
         }
-    }
-}
-
-struct EmojiAnswerView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        EmojiAnswerView(type: .smile, count: 5)
     }
 }

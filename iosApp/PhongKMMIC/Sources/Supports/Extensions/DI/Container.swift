@@ -26,4 +26,8 @@ extension Container {
     var surveyDetailViewModel: Factory<SurveyDetailViewModel> {
         Factory(self) { KoinApplication.inject(\.surveyDetailViewModel) }
     }
+
+    var surveyQuestionViewModel: Factory<SurveyQuestionViewModel> {
+        Factory(self) { KoinApplication.inject(\.surveyQuestionViewModel) }
+    }
 }
