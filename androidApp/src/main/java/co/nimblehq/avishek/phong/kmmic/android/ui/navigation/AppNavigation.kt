@@ -25,6 +25,7 @@ fun AppNavHost(
         composable(AppDestination.Splash) {
             SplashScreen(
                 onLoginSuccess = {
+                    homeViewModel.fetchData()
                     navController.navigate(
                         route = AppDestination.Home.route,
                         navOptions = navOptions {

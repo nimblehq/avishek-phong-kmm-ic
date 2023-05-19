@@ -36,10 +36,6 @@ class HomeViewModel(
     private var previousSelectedIndex = 0
     private var currentPage = 1
 
-    init {
-        fetchData()
-    }
-
     fun fetchData() {
         getProfile()
             .onStart { setStateLoading() }

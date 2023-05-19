@@ -25,15 +25,14 @@ import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyHeaderUiModel
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.getViewModel
 
 private const val TopGradientAlpha: Float = 0.01f
 private const val BottomGradientAlpha: Float = 0.6f
 
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = getViewModel(),
-    onSurveyClick: (SurveyUiModel) -> Unit
+    homeViewModel: HomeViewModel,
+    onSurveyClick: (SurveyUiModel) -> Unit,
 ) {
     val viewState by homeViewModel.viewState.collectAsStateWithLifecycle()
     val appVersion by homeViewModel.appVersion.collectAsStateWithLifecycle()
@@ -106,11 +105,12 @@ fun HomeContent(
     onPageChange: (page: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var isFirstLaunch by remember { mutableStateOf(true) }
     val scaffoldState = rememberScaffoldState()
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
     val refreshingState = rememberPullRefreshState(
-        refreshing = isLoading,
+        refreshing = if(isFirstLaunch) false else isLoading,
         onRefresh = {
             onRefresh()
             scope.launch {
@@ -119,6 +119,9 @@ fun HomeContent(
         }
     )
     var surveyUiModel by remember { mutableStateOf<SurveyUiModel?>(null) }
+    if (isFirstLaunch) {
+        isFirstLaunch = false
+    }
 
     LaunchedEffect(surveyUiModels) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
