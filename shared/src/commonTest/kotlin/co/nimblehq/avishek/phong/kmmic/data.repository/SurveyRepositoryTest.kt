@@ -142,4 +142,28 @@ class SurveyRepositoryTest {
                 this.awaitError().message shouldBe MockUtil.mockThrowable.message
             }
         }
+
+    @Test
+    fun `when get detail survey is succeeded, it returns survey`() =
+        runTest {
+            given(mockSurveyRemoteDataSource)
+                .function(mockSurveyRemoteDataSource::getSurvey)
+                .whenInvokedWith(any())
+                .thenReturn(flow { emit(MockUtil.mockSurveyApiModel) })
+
+            repository.getSurvey("id").first() shouldBe MockUtil.mockSurveyApiModel.toSurvey()
+        }
+
+    @Test
+    fun `when get detail survey is failed, it returns error`() =
+        runTest {
+            given(mockSurveyRemoteDataSource)
+                .function(mockSurveyRemoteDataSource::getSurvey)
+                .whenInvokedWith(any())
+                .thenReturn(flow { throw MockUtil.mockThrowable })
+
+            repository.getSurvey("id").test {
+                this.awaitError().message shouldBe MockUtil.mockThrowable.message
+            }
+        }
 }

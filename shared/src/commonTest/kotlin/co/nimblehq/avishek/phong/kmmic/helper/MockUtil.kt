@@ -1,5 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.helper
 
+import co.nimblehq.avishek.phong.kmmic.data.remote.model.QuestionApiModel
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.SurveyApiModel
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.UserApiModel
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
@@ -33,6 +34,17 @@ object MockUtil {
         "description",
         true,
         "coverImageUrl",
+        listOf(
+            QuestionApiModel(
+                id = "id",
+                text = "text",
+                displayOrder = 0,
+                displayType = "intro",
+                pick = "pick",
+                coverImageUrl = "coverImageUrl",
+                answers = emptyList()
+            )
+        )
     )
 
     val mockUser = User(
