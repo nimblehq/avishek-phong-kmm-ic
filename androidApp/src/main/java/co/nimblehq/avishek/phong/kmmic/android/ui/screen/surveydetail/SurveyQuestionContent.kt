@@ -194,6 +194,10 @@ private fun AnswerContent(
                 surveyAnswerUiModels = questionUiModel.answers,
                 modifier = modifier.padding(horizontal = 24.dp)
             )
+            NPS -> NpsBar(
+                surveyAnswerUiModels = questionUiModel.answers,
+                modifier = modifier
+            )
             else -> Unit
         }
     }
