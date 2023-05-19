@@ -18,7 +18,7 @@ struct SurveyDetailView: View {
     var body: some View {
         ZStack {
             GeometryReader { geometryReader in
-                Image.url(viewModel.backgroundImageUrl)
+                Image.url(viewModel.surveyUiModel.largeImageUrl)
                     .resizable()
                     .scaledToFill()
                     .frame(width: geometryReader.size.width, height: geometryReader.size.height)
@@ -42,7 +42,6 @@ struct SurveyDetailView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onLoad {
-            viewModel.fetchSurvey()
             DispatchQueue.main.async {
                 withAnimation(.easeIn(duration: 0.4)) {
                     backgroundScale = 1.4
@@ -54,12 +53,12 @@ struct SurveyDetailView: View {
 
     private var contentView: some View {
         VStack(alignment: .leading) {
-            Text(viewModel.title)
+            Text(viewModel.surveyUiModel.title)
                 .font(.boldTitle)
                 .foregroundColor(Color.white)
                 .accessibility(.surveyDetail(.title))
 
-            Text(viewModel.description)
+            Text(viewModel.surveyUiModel.description_)
                 .font(.regularBody)
                 .foregroundColor(Color.white.opacity(0.7))
                 .padding(.top, 16.0)
@@ -69,8 +68,8 @@ struct SurveyDetailView: View {
             HStack {
                 Spacer()
                 Button {
+                    viewModel.fetchSurveyDetail()
                     // TODO: navigate user to survey questions view
-                    print("Start survey was tapped")
                 } label: {
                     Text(R.string.localizable.surveyDetailStartSurvey())
                         .frame(alignment: .center)
@@ -88,7 +87,7 @@ struct SurveyDetailView: View {
         .padding(.horizontal, 20.0)
     }
 
-    init(survey: SurveyUiModel) {
+    init(survey: Survey) {
         viewModel = SurveyDetailCombineViewModel(survey: survey)
     }
 

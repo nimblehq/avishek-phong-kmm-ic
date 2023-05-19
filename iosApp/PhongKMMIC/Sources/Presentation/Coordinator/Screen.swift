@@ -13,6 +13,6 @@ enum Screen {
     case splash
     case login
     case home
-    case surveyDetail(survey: SurveyUiModel)
+    case surveyDetail(survey: Survey)
     case surveyQuestions
 }

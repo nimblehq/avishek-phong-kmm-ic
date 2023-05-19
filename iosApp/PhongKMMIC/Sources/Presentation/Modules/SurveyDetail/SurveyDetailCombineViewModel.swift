@@ -15,19 +15,17 @@ final class SurveyDetailCombineViewModel: ObservableObject {
 
     @Published var isLoading = false
     @Published var errorMessage: String?
-    @Published var backgroundImageUrl: String = ""
-    @Published var title: String?
-    @Published var description: String?
+    @Published var surveyUiModel: SurveyUiModel
 
     private var survey: Survey?
     @Injected(\.surveyDetailViewModel) private var surveyDetailViewModel
     @Published private(set) var viewState = SurveyDetailViewState()
     private var cancellables = Set<AnyCancellable>()
+    private let surveyId: String
 
-    init(survey: SurveyUiModel) {
-        backgroundImageUrl = survey.largeImageUrl
-        title = survey.title
-        description = survey.description_
+    init(survey: Survey) {
+        surveyUiModel = SurveyUiModel(survey: survey)
+        surveyId = survey.id
 
         createPublisher(for: surveyDetailViewModel.viewSateNative)
             .catch { error -> Just<SurveyDetailViewState> in
@@ -41,8 +39,8 @@ final class SurveyDetailCombineViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func fetchSurvey() {
-        surveyDetailViewModel.fetchSurveyDetail(id: "")
+    func fetchSurveyDetail() {
+        surveyDetailViewModel.fetchSurveyDetail(id: surveyId)
     }
 
     private func updateState(_ state: SurveyDetailViewState) {

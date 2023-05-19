@@ -12,14 +12,17 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 
 data class SurveyDetailViewState(
-    val isLoading: Boolean = false,
+    val isLoading: Boolean,
     val errorMessage: String? = null,
     val survey: Survey? = null
 
 ) {
-    constructor() : this(false)
-
-    constructor(errorMessage: String?) : this(isLoading = false, errorMessage = errorMessage)
+    constructor() : this(isLoading = false)
+    constructor(errorMessage: String?) : this(
+        isLoading = false,
+        errorMessage = errorMessage,
+        survey = null
+    )
 }
 
 class SurveyDetailViewModel(

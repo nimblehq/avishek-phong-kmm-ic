@@ -21,7 +21,7 @@ struct SurveyContentView: View {
     private var draggingLength: Double = 160.0
     private var draggingVisibilityMultiplier: Double = 1.2
 
-    private var didTapNextButtonHandler: ((SurveyUiModel) -> Void)?
+    private var didTapNextButtonHandler: ((String) -> Void)?
 
     var body: some View {
         GeometryReader { geometryReader in
@@ -102,8 +102,8 @@ struct SurveyContentView: View {
                 .accessibility(.home(.surveyDescriptionLabel))
             Spacer()
             Button {
-                guard let survey = uiModels[safe: currentIndex] else { return }
-                didTapNextButtonHandler?(survey)
+                guard let surveyId = uiModels[safe: currentIndex]?.id else { return }
+                didTapNextButtonHandler?(surveyId)
             } label: {
                 R.image.rightChevron.image
                     .frame(width: 56.0, height: 56.0)
@@ -117,7 +117,7 @@ struct SurveyContentView: View {
     init(
         uiModels: Binding<[SurveyUiModel]>,
         currentIndex: Binding<Int>,
-        didTapNextButtonHandler: ((SurveyUiModel) -> Void)?
+        didTapNextButtonHandler: ((String) -> Void)?
     ) {
         _uiModels = uiModels
         _currentIndex = currentIndex

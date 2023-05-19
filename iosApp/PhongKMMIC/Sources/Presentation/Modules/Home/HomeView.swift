@@ -48,7 +48,7 @@ struct HomeView: View {
         SurveyContentView(
             uiModels: $viewModel.surveys,
             currentIndex: $selectedIndex,
-            didTapNextButtonHandler: { openSurveyDetail(survey: $0) }
+            didTapNextButtonHandler: { openSurveyDetail(id: $0) }
         )
         .onChange(of: selectedIndex) {
             viewModel.loadMoreSurvey(selectedIndex: $0)
@@ -56,7 +56,8 @@ struct HomeView: View {
         .accessibility(.home(.contentView))
     }
 
-    private func openSurveyDetail(survey: SurveyUiModel) {
+    private func openSurveyDetail(id: String) {
+        guard let survey = viewModel.getSurveyWith(id: id) else { return }
         navigator.showScreen(
             screen: .surveyDetail(survey: survey),
             with: .presentCover,
