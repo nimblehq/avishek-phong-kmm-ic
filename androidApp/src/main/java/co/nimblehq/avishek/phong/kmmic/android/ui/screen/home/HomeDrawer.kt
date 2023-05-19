@@ -20,11 +20,12 @@ import androidx.compose.ui.unit.sp
 import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.Nero90
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyHeaderUiModel
 import coil.compose.AsyncImage
 
 @Composable
 fun HomeDrawer(
-    userUiModel: UserUiModel?,
+    surveyHeaderUiModel: SurveyHeaderUiModel?,
     appVersion: String,
     onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -43,12 +44,12 @@ fun HomeDrawer(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = userUiModel?.name.orEmpty(),
+                text = surveyHeaderUiModel?.name.orEmpty(),
                 color = White,
                 style = typography.h4
             )
             AsyncImage(
-                model = userUiModel?.avatarUrl.orEmpty(),
+                model = surveyHeaderUiModel?.imageUrl.orEmpty(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -93,7 +94,7 @@ fun HomeDrawerPreview(
     with(params) {
         ApplicationTheme {
             HomeDrawer(
-                userUiModel = user,
+                surveyHeaderUiModel = surveyHeader,
                 appVersion = appVersion,
                 onLogoutClick = {}
             )

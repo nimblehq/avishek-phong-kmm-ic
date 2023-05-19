@@ -20,6 +20,7 @@ import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.extension.placeholder
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.HorizontalPagerIndicator
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
