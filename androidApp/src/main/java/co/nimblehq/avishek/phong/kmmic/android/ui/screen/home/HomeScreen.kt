@@ -103,7 +103,6 @@ fun HomeContent(
     modifier: Modifier = Modifier,
 ) {
     val scaffoldState = rememberScaffoldState()
-
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
     val refreshingState = rememberPullRefreshState(
