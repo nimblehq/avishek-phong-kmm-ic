@@ -50,40 +50,35 @@ fun SurveyStartContent(
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
+        val floatTweenSpec = tween<Float>(
+            durationMillis = ImageScaleAnimationDurationInMillis
+        )
+        val animateImageScale by animateFloatAsState(
+            targetValue = imageScale,
+            floatTweenSpec
+        )
+        AsyncImage(
+            model = surveyUiModel.largeImageUrl,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .matchParentSize()
+                .scale(animateImageScale)
+        )
         Box(
-            Modifier.matchParentSize()
-        ) {
-            val floatTweenSpec = tween<Float>(
-                durationMillis = ImageScaleAnimationDurationInMillis
-            )
-            val animateImageScale by animateFloatAsState(
-                targetValue = imageScale,
-                floatTweenSpec
-            )
-            AsyncImage(
-                model = surveyUiModel.largeImageUrl,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .scale(animateImageScale)
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Black.copy(alpha = TopGradientAlpha),
-                                Color.Black.copy(alpha = BottomGradientAlpha)
-                            )
+            modifier = Modifier
+                .matchParentSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Black.copy(alpha = TopGradientAlpha),
+                            Color.Black.copy(alpha = BottomGradientAlpha)
                         )
                     )
-            )
-        }
+                )
+        )
 
         LaunchedEffect(Unit) {
             imageScale = FinalImageScale

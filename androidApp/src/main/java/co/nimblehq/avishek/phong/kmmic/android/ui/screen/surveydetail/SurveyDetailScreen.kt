@@ -16,8 +16,8 @@ fun SurveyDetailScreen(
     surveyId: String,
     onBackClick: () -> Unit,
 ) {
-    val viewState = homeViewModel.viewState.collectAsStateWithLifecycle()
-    val surveyUiModel = viewState.value.surveys.find { it.id == surveyId }
+    val viewState by homeViewModel.viewState.collectAsStateWithLifecycle()
+    val surveyUiModel = viewState.surveys.find { it.id == surveyId }
 
     surveyUiModel?.let {
         SurveyStartContent(surveyUiModel = it,
