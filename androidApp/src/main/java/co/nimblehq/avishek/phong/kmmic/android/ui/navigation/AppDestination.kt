@@ -11,12 +11,12 @@ sealed class AppDestination(val route: String = "") {
     object Home : AppDestination("home")
     object SurveyDetail : AppDestination("survey-detail") {
 
-        const val surveyId = "surveyId"
-        val routeWithArgs = "$route/{$surveyId}"
+        const val SurveyIdArg = "surveyId"
+        val routeWithArgs = "$route/{$SurveyIdArg}"
 
         override val arguments: List<NamedNavArgument>
             get() = listOf(
-                navArgument(surveyId) { type = NavType.StringType }
+                navArgument(SurveyIdArg) { type = NavType.StringType }
             )
     }
 }

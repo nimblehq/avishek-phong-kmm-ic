@@ -12,9 +12,9 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SurveyDetailScreen(
-    homeViewModel: HomeViewModel,
+    homeViewModel: HomeViewModel = getViewModel(),
     surveyId: String,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
 ) {
     val viewState = homeViewModel.viewState.collectAsStateWithLifecycle()
     val surveyUiModel = viewState.value.surveys.find { it.id == surveyId }

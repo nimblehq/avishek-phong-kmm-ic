@@ -51,14 +51,11 @@ fun AppNavHost(
             route = AppDestination.SurveyDetail.routeWithArgs,
             arguments = AppDestination.SurveyDetail.arguments
         ) { navBackStackEntry ->
-            val surveyId = navBackStackEntry.arguments?.getString(AppDestination.SurveyDetail.surveyId)
-            surveyId?.let {
-                SurveyDetailScreen(
-                    homeViewModel = homeViewModel,
-                    surveyId = it,
-                    onBackClick = navController::popBackStack
-                )
-            }
+            SurveyDetailScreen(
+                homeViewModel = homeViewModel,
+                surveyId = navBackStackEntry.arguments?.getString(AppDestination.SurveyDetail.SurveyIdArg).orEmpty(),
+                onBackClick = navController::popBackStack
+            )
         }
     }
 }

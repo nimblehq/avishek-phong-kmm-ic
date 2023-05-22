@@ -14,12 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.R
-import co.nimblehq.avishek.phong.kmmic.android.ui.common.BackButton
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryButton
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
@@ -105,11 +105,14 @@ fun SurveyStartContent(
             Column(
                 modifier = Modifier.matchParentSize()
             ) {
-                BackButton(
-                    onClick = {
-                        scope.launch(block = backNavigationHandler)
-                    },
-                    modifier = Modifier.padding(12.dp)
+                Image(
+                    painter = painterResource(id = R.drawable.ic_arrow_left),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .wrapContentSize()
+                        .clickable { scope.launch(block = backNavigationHandler) }
+                        .padding(all = 8.dp)
                 )
 
                 Text(

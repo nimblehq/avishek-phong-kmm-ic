@@ -25,13 +25,14 @@ import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyHeaderUiModel
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 
 private const val TopGradientAlpha: Float = 0.01f
 private const val BottomGradientAlpha: Float = 0.6f
 
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel,
+    homeViewModel: HomeViewModel = getViewModel(),
     onSurveyClick: (SurveyUiModel) -> Unit,
 ) {
     val viewState by homeViewModel.viewState.collectAsStateWithLifecycle()
