@@ -49,6 +49,21 @@
 		3186FCA329F0E19900BA6324 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3186FCA229F0E19800BA6324 /* Font+Extension.swift */; };
 		3186FCA829F124CA00BA6324 /* KoinApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3186FCA729F124CA00BA6324 /* KoinApplication.swift */; };
 		3186FCAC29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3186FCAB29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift */; };
+		31A4E6CF2A0DDDC900A53B98 /* HomeCombineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6CE2A0DDDC900A53B98 /* HomeCombineViewModel.swift */; };
+		31A4E6D12A0E396A00A53B98 /* HomeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6D02A0E396A00A53B98 /* HomeSpec.swift */; };
+		31A4E6D32A0E3A2500A53B98 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6D22A0E3A2500A53B98 /* HomeScreen.swift */; };
+		31A4E6DB2A11C92B00A53B98 /* SurveyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6DA2A11C92B00A53B98 /* SurveyDetailView.swift */; };
+		31A4E6E02A11E9FC00A53B98 /* BlackGradientOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6DF2A11E9FC00A53B98 /* BlackGradientOverlay.swift */; };
+		31A4E6E22A11F01A00A53B98 /* OnLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6E12A11F01A00A53B98 /* OnLoadModifier.swift */; };
+		31A4E6E52A12137500A53B98 /* SurveyQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6E42A12137500A53B98 /* SurveyQuestionsView.swift */; };
+		31A4E6E82A121B2200A53B98 /* SurveyQuestionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6E72A121B2200A53B98 /* SurveyQuestionContentView.swift */; };
+		31A4E6EB2A13277D00A53B98 /* EmojiAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */; };
+		31A4E6ED2A13626700A53B98 /* MultipleChoiceAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6EC2A13626700A53B98 /* MultipleChoiceAnswerView.swift */; };
+		31A4E6F72A147B7E00A53B98 /* MultipleFormsAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6F62A147B7E00A53B98 /* MultipleFormsAnswerView.swift */; };
+		31A4E6F32A13E39E00A53B98 /* SingleFormAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6F22A13E39E00A53B98 /* SingleFormAnswerView.swift */; };
+		31A4E6F52A13EA5000A53B98 /* TextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6F42A13EA5000A53B98 /* TextEditor.swift */; };
+		31A4E6F12A137D2500A53B98 /* SpinnerAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6F02A137D2500A53B98 /* SpinnerAnswerView.swift */; };
+		31A4E6EF2A136D9300A53B98 /* NpsAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4E6EE2A136D9300A53B98 /* NpsAnswerView.swift */; };
 		31CCAF3229F1434100262470 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3129F1434100262470 /* Screen.swift */; };
 		31CCAF3429F1437400262470 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3329F1437400262470 /* AppCoordinator.swift */; };
 		31CCAF3629F1485400262470 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCAF3529F1485400262470 /* Transition.swift */; };
@@ -164,6 +179,21 @@
 		3186FCA229F0E19800BA6324 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		3186FCA729F124CA00BA6324 /* KoinApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinApplication.swift; sourceTree = "<group>"; };
 		3186FCAB29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SplashViewModel+ObservableObject.swift"; sourceTree = "<group>"; };
+		31A4E6CE2A0DDDC900A53B98 /* HomeCombineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCombineViewModel.swift; sourceTree = "<group>"; };
+		31A4E6D02A0E396A00A53B98 /* HomeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSpec.swift; sourceTree = "<group>"; };
+		31A4E6D22A0E3A2500A53B98 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		31A4E6DA2A11C92B00A53B98 /* SurveyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailView.swift; sourceTree = "<group>"; };
+		31A4E6DF2A11E9FC00A53B98 /* BlackGradientOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackGradientOverlay.swift; sourceTree = "<group>"; };
+		31A4E6E12A11F01A00A53B98 /* OnLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnLoadModifier.swift; sourceTree = "<group>"; };
+		31A4E6E42A12137500A53B98 /* SurveyQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyQuestionsView.swift; sourceTree = "<group>"; };
+		31A4E6E72A121B2200A53B98 /* SurveyQuestionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyQuestionContentView.swift; sourceTree = "<group>"; };
+		31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiAnswerView.swift; sourceTree = "<group>"; };
+		31A4E6EC2A13626700A53B98 /* MultipleChoiceAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceAnswerView.swift; sourceTree = "<group>"; };
+		31A4E6F62A147B7E00A53B98 /* MultipleFormsAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleFormsAnswerView.swift; sourceTree = "<group>"; };
+		31A4E6F22A13E39E00A53B98 /* SingleFormAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleFormAnswerView.swift; sourceTree = "<group>"; };
+		31A4E6F42A13EA5000A53B98 /* TextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditor.swift; sourceTree = "<group>"; };
+		31A4E6F02A137D2500A53B98 /* SpinnerAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerAnswerView.swift; sourceTree = "<group>"; };
+		31A4E6EE2A136D9300A53B98 /* NpsAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpsAnswerView.swift; sourceTree = "<group>"; };
 		31CCAF3129F1434100262470 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		31CCAF3329F1437400262470 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31CCAF3529F1485400262470 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -328,6 +358,8 @@
 		2C32AE50139780CA9EDCB9CB /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				31A4E6E32A1212A700A53B98 /* SurveyQuestions */,
+				31A4E6D92A11C84600A53B98 /* SurveyDetail */,
 				3176647B2A09F6F3000DFD24 /* SurveyLoadingSkeleton */,
 				317664602A038AC8000DFD24 /* Home */,
 				3186FC9129EFAB7400BA6324 /* LogIn */,
@@ -341,6 +373,7 @@
 			children = (
 				3160A5E229F290310052C223 /* GenericScreen.swift */,
 				3160A5EE29F515C80052C223 /* LogInScreen.swift */,
+				31A4E6D22A0E3A2500A53B98 /* HomeScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -366,6 +399,7 @@
 			children = (
 				3160A5EA29F515730052C223 /* SplashSpec.swift */,
 				3160A60029F8D0E20052C223 /* LogInSpec.swift */,
+				31A4E6D02A0E396A00A53B98 /* HomeSpec.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -400,6 +434,7 @@
 			children = (
 				317664652A06CACE000DFD24 /* Views */,
 				317664612A038AD6000DFD24 /* HomeView.swift */,
+				31A4E6CE2A0DDDC900A53B98 /* HomeCombineViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -464,6 +499,7 @@
 				3186FC9829F0DBCC00BA6324 /* PrimaryTextFieldModifier.swift */,
 				3186FC9A29F0DE6D00BA6324 /* PrimaryButtonModifier.swift */,
 				3160A5D929F26F260052C223 /* AnimationCompletionModifier.swift */,
+				31A4E6E12A11F01A00A53B98 /* OnLoadModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -509,6 +545,45 @@
 				3186FCAB29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		31A4E6D92A11C84600A53B98 /* SurveyDetail */ = {
+			isa = PBXGroup;
+			children = (
+				31A4E6DA2A11C92B00A53B98 /* SurveyDetailView.swift */,
+			);
+			path = SurveyDetail;
+			sourceTree = "<group>";
+		};
+		31A4E6E32A1212A700A53B98 /* SurveyQuestions */ = {
+			isa = PBXGroup;
+			children = (
+				31A4E6E62A121B0E00A53B98 /* View */,
+				31A4E6E42A12137500A53B98 /* SurveyQuestionsView.swift */,
+			);
+			path = SurveyQuestions;
+			sourceTree = "<group>";
+		};
+		31A4E6E62A121B0E00A53B98 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				31A4E6E92A13276C00A53B98 /* Answer */,
+				31A4E6E72A121B2200A53B98 /* SurveyQuestionContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		31A4E6E92A13276C00A53B98 /* Answer */ = {
+			isa = PBXGroup;
+			children = (
+				31A4E6EA2A13277D00A53B98 /* EmojiAnswerView.swift */,
+				31A4E6EC2A13626700A53B98 /* MultipleChoiceAnswerView.swift */,
+				31A4E6F62A147B7E00A53B98 /* MultipleFormsAnswerView.swift */,
+				31A4E6F22A13E39E00A53B98 /* SingleFormAnswerView.swift */,
+				31A4E6F02A137D2500A53B98 /* SpinnerAnswerView.swift */,
+				31A4E6EE2A136D9300A53B98 /* NpsAnswerView.swift */,
+			);
+			path = Answer;
 			sourceTree = "<group>";
 		};
 		31CCAF3029F1433100262470 /* Coordinator */ = {
@@ -581,6 +656,8 @@
 			isa = PBXGroup;
 			children = (
 				3160A5FE29F7E17F0052C223 /* ProgressAnimationView.swift */,
+				31A4E6DF2A11E9FC00A53B98 /* BlackGradientOverlay.swift */,
+				31A4E6F42A13EA5000A53B98 /* TextEditor.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1214,11 +1291,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31A4E6D32A0E3A2500A53B98 /* HomeScreen.swift in Sources */,
 				3160A60129F8D0E20052C223 /* LogInSpec.swift in Sources */,
 				3160A5EF29F515C80052C223 /* LogInScreen.swift in Sources */,
 				3160A60329F8D3A00052C223 /* LaunchArgument.swift in Sources */,
 				3160A5ED29F515910052C223 /* SplashSpec.swift in Sources */,
 				3160A5E529F294D30052C223 /* GenericScreen.swift in Sources */,
+				31A4E6D12A0E396A00A53B98 /* HomeSpec.swift in Sources */,
 				7A64B246013934FEE87CA7A1 /* KIF+Swift.swift in Sources */,
 				3160A5E729F295440052C223 /* ViewId.swift in Sources */,
 			);
@@ -1230,10 +1309,13 @@
 			files = (
 				317664822A09F6F3000DFD24 /* SkeletonHomeView.swift in Sources */,
 				3160A5F629F51FC80052C223 /* AppDelegate.swift in Sources */,
+				31A4E6CF2A0DDDC900A53B98 /* HomeCombineViewModel.swift in Sources */,
 				84C3B5ACC1291A99F1B957D1 /* Constants+API.swift in Sources */,
 				FA2178E2737B9CA31A70F844 /* Constants.swift in Sources */,
 				3160A5FB29F6625D0052C223 /* Navigator.swift in Sources */,
 				3162022629E554AC00ADC0A9 /* ImageResource+SwiftUI.swift in Sources */,
+				31A4E6ED2A13626700A53B98 /* MultipleChoiceAnswerView.swift in Sources */,
+				31A4E6F52A13EA5000A53B98 /* TextEditor.swift in Sources */,
 				317664642A038D3F000DFD24 /* Image+Kingfisher.swift in Sources */,
 				3160A5F429F51F9F0052C223 /* UITestHelper.swift in Sources */,
 				317664672A06CADE000DFD24 /* HomeHeaderView.swift in Sources */,
@@ -1244,13 +1326,20 @@
 				3176647A2A08A85C000DFD24 /* Collection+SafeIndex.swift in Sources */,
 				77C5D668A2E4E5DEC2BDEA9D /* UIView+Subviews.swift in Sources */,
 				3186FC9929F0DBCC00BA6324 /* PrimaryTextFieldModifier.swift in Sources */,
+				31A4E6EB2A13277D00A53B98 /* EmojiAnswerView.swift in Sources */,
 				317664622A038AD6000DFD24 /* HomeView.swift in Sources */,
 				3160A5FD29F776F90052C223 /* LogInCombineViewModel.swift in Sources */,
 				317664782A08A480000DFD24 /* DragGestureVelocity.swift in Sources */,
+				31A4E6F32A13E39E00A53B98 /* SingleFormAnswerView.swift in Sources */,
+				31A4E6E02A11E9FC00A53B98 /* BlackGradientOverlay.swift in Sources */,
 				611DBFE850B38FE88E68F30C /* R.generated.swift in Sources */,
 				3160A5F929F643B50052C223 /* Container.swift in Sources */,
+				31A4E6DB2A11C92B00A53B98 /* SurveyDetailView.swift in Sources */,
+				31A4E6E52A12137500A53B98 /* SurveyQuestionsView.swift in Sources */,
 				317664812A09F6F3000DFD24 /* SkeletonHomeHeaderView.swift in Sources */,
+				31A4E6F12A137D2500A53B98 /* SpinnerAnswerView.swift in Sources */,
 				B2192456CC3F4341C6E3A88E /* Typealiases.swift in Sources */,
+				31A4E6E22A11F01A00A53B98 /* OnLoadModifier.swift in Sources */,
 				317664842A09F8BC000DFD24 /* SkeletonTextView.swift in Sources */,
 				3186FC9329EFC5A300BA6324 /* LogInView.swift in Sources */,
 				3162022229E5452900ADC0A9 /* SplashView.swift in Sources */,
@@ -1259,13 +1348,16 @@
 				317664692A06CB39000DFD24 /* SurveyContentView.swift in Sources */,
 				31CCAF3629F1485400262470 /* Transition.swift in Sources */,
 				3176646B2A06CB7B000DFD24 /* PageViewIndicator.swift in Sources */,
+				31A4E6F72A147B7E00A53B98 /* MultipleFormsAnswerView.swift in Sources */,
 				3160A5DA29F26F260052C223 /* AnimationCompletionModifier.swift in Sources */,
 				3186FCA329F0E19900BA6324 /* Font+Extension.swift in Sources */,
 				31CCAF3229F1434100262470 /* Screen.swift in Sources */,
 				3160A5E129F281040052C223 /* ViewId.swift in Sources */,
 				3162022429E54E3400ADC0A9 /* KMMICApp.swift in Sources */,
 				3160A5FF29F7E17F0052C223 /* ProgressAnimationView.swift in Sources */,
+				31A4E6EF2A136D9300A53B98 /* NpsAnswerView.swift in Sources */,
 				3186FCAC29F1390F00BA6324 /* SplashViewModel+ObservableObject.swift in Sources */,
+				31A4E6E82A121B2200A53B98 /* SurveyQuestionContentView.swift in Sources */,
 				3160A5F329F51F9F0052C223 /* LaunchArgument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1315,7 +1407,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = PhongKMMIC;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1658,7 +1750,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = PhongKMMIC;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1738,7 +1830,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = PhongKMMIC;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1770,7 +1862,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = PhongKMMIC;
 				PROVISIONING_PROFILE_SPECIFIER = "";

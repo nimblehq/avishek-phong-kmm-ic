@@ -2,6 +2,7 @@ package co.nimblehq.avishek.phong.kmmic.domain.usecase
 
 import co.nimblehq.avishek.phong.kmmic.domain.model.Token
 import co.nimblehq.avishek.phong.kmmic.domain.repository.AuthenticationRepository
+import co.nimblehq.avishek.phong.kmmic.helper.MockUtil
 import io.kotest.matchers.shouldBe
 import io.mockative.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +21,6 @@ class LogInUseCaseTest {
 
     private lateinit var useCase: LogInUseCase
 
-    private val mockThrowable = Throwable("mock")
     private val mockToken = Token("", "", 0, "", 0)
 
     @BeforeTest
@@ -55,13 +55,13 @@ class LogInUseCaseTest {
             .whenInvokedWith(any(), any())
             .thenReturn(
                 flow {
-                    throw mockThrowable
+                    throw MockUtil.mockThrowable
                 }
             )
 
         useCase("email", "password")
             .catch {
-                it.message shouldBe mockThrowable.message
+                it.message shouldBe MockUtil.mockThrowable.message
             }
             .collect()
     }

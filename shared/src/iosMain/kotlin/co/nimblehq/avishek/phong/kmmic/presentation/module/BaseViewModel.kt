@@ -7,7 +7,7 @@ actual abstract class BaseViewModel {
 
     actual val viewModelScope = MainScope()
 
-    fun clear() {
+    actual fun clear() {
         viewModelScope.cancel()
     }
 }

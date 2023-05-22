@@ -3,8 +3,8 @@ object Version {
     const val ANDROID_MIN_SDK_VERSION = 23
     const val ANDROID_TARGET_SDK_VERSION = 33
 
-    const val ANDROID_VERSION_CODE = 4
-    const val ANDROID_VERSION_NAME = "0.5.0"
+    const val ANDROID_VERSION_CODE = 5
+    const val ANDROID_VERSION_NAME = "0.6.0"
 
     const val JSON_API = "0.1.0"
     const val BUILD_KONFIG = "0.13.3"
@@ -17,6 +17,7 @@ object Version {
     const val BUILD_GRADLE_VERSION = "7.2.2"
     const val KOTLIN_VERSION = "1.7.10"
     const val KOTLIN_SERIALIZATION = "1.7.10"
+    const val DATE_TIME = "0.4.0"
     const val KSP = "1.7.10-1.0.6"
     const val KOVER = "0.6.1"
     const val KOIN = "3.2.0"
@@ -45,4 +46,7 @@ object Version {
 
     //BOM
     const val BOM = "1.8.0"
+
+    const val COMPOSE_ACCOMPANIST = "0.28.0"
+    const val COIL_COMPOSE = "2.2.2"
 }

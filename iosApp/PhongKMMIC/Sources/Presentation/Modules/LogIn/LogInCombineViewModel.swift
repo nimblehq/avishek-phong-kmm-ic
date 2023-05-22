@@ -14,11 +14,18 @@ import shared
 
 final class LogInCombineViewModel: ObservableObject {
 
-    @Published var email = ""
-    @Published var password = ""
+    #if DEBUG
+        @Published var email = SharedBuildConfig.UITestConfig().email()
+        @Published var password = SharedBuildConfig.UITestConfig().password()
+    #else
+        @Published var email = ""
+        @Published var password = ""
+    #endif
+
     @Published var isLoading = false
     @Published var isInvalidEmail = false
     @Published var isInvalidPassword = false
+    @Published var isLogInSuccess = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -47,5 +54,6 @@ final class LogInCombineViewModel: ObservableObject {
         isInvalidEmail = state.isInvalidEmail
         isInvalidPassword = state.isInvalidPassword
         isLoading = state.isLoading
+        isLogInSuccess = state.isSuccess
     }
 }

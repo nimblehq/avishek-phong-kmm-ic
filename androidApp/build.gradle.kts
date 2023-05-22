@@ -120,12 +120,16 @@ dependencies {
         implementation(COMPOSE_ACTIVITY)
         implementation(COMPOSE_NAVIGATION)
         implementation(COMPOSE_LIFECYCLE_RUNTIME)
+        implementation(COMPOSE_LIFECYCLE_RUNTIME)
         implementation(KOIN_CORE)
         implementation(KOIN_ANDROID)
         implementation(KOIN_COMPOSE)
         implementation(TIMBER)
         implementation(FIREBASE)
         implementation(platform(BOM))
+
+        implementation(ACCOMPANIST_PLACEHOLDER)
+        implementation(COIL_COMPOSE)
 
         testImplementation(JUNIT)
         testImplementation(MOCKK)

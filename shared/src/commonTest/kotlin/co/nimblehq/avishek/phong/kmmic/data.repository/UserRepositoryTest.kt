@@ -4,6 +4,7 @@ import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.UserRemoteDataSour
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.UserApiModel
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.toUser
 import co.nimblehq.avishek.phong.kmmic.domain.repository.UserRepository
+import co.nimblehq.avishek.phong.kmmic.helper.MockUtil
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.mockative.Mock
@@ -21,14 +22,6 @@ class UserRepositoryTest {
 
     @Mock
     private val mockUserRemoteDataSource = mock(classOf<UserRemoteDataSource>())
-    private val mockThrowable = Throwable("mock")
-    private val mockUser = UserApiModel(
-        "id",
-        "type",
-        "phong.d@nimblehq.co",
-        "Phong Vo",
-        "https://www.example.com/image.png"
-    )
 
     private lateinit var repository: UserRepository
 
@@ -42,9 +35,9 @@ class UserRepositoryTest {
         given(mockUserRemoteDataSource)
             .function(mockUserRemoteDataSource::getProfile)
             .whenInvoked()
-            .thenReturn(flowOf(mockUser))
+            .thenReturn(flowOf(MockUtil.mockUserApiModel))
 
-        repository.getProfile().first() shouldBe mockUser.toUser()
+        repository.getProfile().first() shouldBe MockUtil.mockUserApiModel.toUser()
     }
 
     @Test
@@ -54,7 +47,7 @@ class UserRepositoryTest {
             .whenInvoked()
             .thenReturn(
                 flow {
-                    throw mockThrowable
+                    throw MockUtil.mockThrowable
                 }
             )
 

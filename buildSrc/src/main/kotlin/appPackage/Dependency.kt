@@ -46,6 +46,7 @@ object Dependency {
     const val KOIN_ANDROID = "io.insert-koin:koin-android:${Version.KOIN_ANDROID}"
     const val KOIN_COMPOSE = "io.insert-koin:koin-androidx-compose:${Version.KOIN_ANDROID}"
     const val KOIN_TEST = "io.insert-koin:koin-test:${Version.KOIN}"
+    const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:${Version.DATE_TIME}"
 
     // JSON API
     const val JSON_API = "co.nimblehq.jsonapi:core:${Version.JSON_API}"
@@ -93,4 +94,8 @@ object Dependency {
     // Realm
     const val REALM_GRADLE_PLUGIN = "io.realm.kotlin:gradle-plugin:${Version.REALM}"
     const val REALM_LIBRARY_BASE = "io.realm.kotlin:library-base:${Version.REALM}"
+
+    const val ACCOMPANIST_PLACEHOLDER =
+        "com.google.accompanist:accompanist-placeholder:${Version.COMPOSE_ACCOMPANIST}"
+    const val COIL_COMPOSE = "io.coil-kt:coil-compose:${Version.COIL_COMPOSE}"
 }

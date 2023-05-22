@@ -15,10 +15,14 @@ struct PageViewIndicator: View {
 
     var body: some View {
         HStack {
-            ForEach(0...numberOfPage - 1, id: \.self) { item in
-                Circle()
-                    .fill(currentPage == item ? .white : .white.opacity(0.2))
-                    .frame(width: 8.0, height: 8.0)
+            if numberOfPage <= 0 {
+                EmptyView()
+            } else {
+                ForEach(0 ... numberOfPage - 1, id: \.self) { item in
+                    Circle()
+                        .fill(currentPage == item ? .white : .white.opacity(0.2))
+                        .frame(width: 8.0, height: 8.0)
+                }
             }
         }
     }

@@ -6,60 +6,57 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
-import Factory
 import SwiftUI
-import shared
 
 struct HomeView: View {
 
-    // TODO: Remove this in the integration story
-    @Injected(\.homeViewModel) private var viewModel
+    @EnvironmentObject private var navigator: Navigator
 
-    @State private var isLoading = true
-
-    private let dummySurveys = [
-        SurveyContentView.UIModel(
-            id: 0,
-            title: "Career training and development",
-            description: "We would like to know what are your goals ans skill you wanted to develop",
-            imageUrl: "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_"
-        ),
-        SurveyContentView.UIModel(
-            id: 0,
-            title: "Career development and training",
-            description: "We would like to know what are your goals ans skill you wanted to develop",
-            imageUrl: "https://dhdbhh0jsld0o.cloudfront.net/m/6ea42840403875928db3_"
-        )
-    ]
+    @StateObject private var viewModel = HomeCombineViewModel()
+    @State private var selectedIndex = 0
 
     var body: some View {
         GeometryReader { geometryReader in
             ZStack {
-                if isLoading {
+                if viewModel.isLoading {
                     SkeletonHomeView()
                         .frame(
                             width: geometryReader.size.width,
                             height: geometryReader.size.height
                         )
                 } else {
-                    SurveyContentView(uiModels: dummySurveys)
-                    HomeHeaderView()
-                        .frame(
-                            width: geometryReader.size.width,
-                            height: geometryReader.size.height,
-                            alignment: .top
-                        )
+                    surveyContentView
+                    HomeHeaderView(
+                        userAvatarUrl: $viewModel.userAvatarUrl,
+                        today: $viewModel.today
+                    )
+                    .frame(
+                        width: geometryReader.size.width,
+                        height: geometryReader.size.height,
+                        alignment: .top
+                    )
                 }
             }
-            .onAppear {
-                // TODO: Remove this in the integration story
+            .onLoad {
                 viewModel.fetchData()
-
-                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                    isLoading.toggle()
-                }
             }
         }
+    }
+
+    private var surveyContentView: some View {
+        SurveyContentView(
+            uiModels: $viewModel.surveys,
+            currentIndex: $selectedIndex,
+            didTapNextButtonHandler: { openSurveyDetail(surveyId: $0) }
+        )
+        .onChange(of: selectedIndex) {
+            viewModel.loadMoreSurvey(selectedIndex: $0)
+        }
+        .accessibility(.home(.contentView))
+    }
+
+    private func openSurveyDetail(surveyId: String) {
+        navigator.showScreen(screen: .surveyDetail, with: .presentCover, isAnimated: false)
     }
 }
 

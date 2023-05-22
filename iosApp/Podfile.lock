@@ -77,6 +77,7 @@ PODS:
   - Sourcery/CLI-Only (2.0.1)
   - SwiftFormat/CLI (0.51.4)
   - SwiftLint (0.51.0)
+  - SwiftUIPager (2.5.0)
   - Wormholy (1.6.6)
   - xcbeautify (0.17.0)
 
@@ -100,6 +101,7 @@ DEPENDENCIES:
   - Sourcery
   - SwiftFormat/CLI
   - SwiftLint
+  - SwiftUIPager
   - Wormholy
   - xcbeautify
 
@@ -133,6 +135,7 @@ SPEC REPOS:
     - Sourcery
     - SwiftFormat
     - SwiftLint
+    - SwiftUIPager
     - Wormholy
     - xcbeautify
 
@@ -179,9 +182,10 @@ SPEC CHECKSUMS:
   Sourcery: c873ccac00b051aa0bf2236f86cc3678e403ff27
   SwiftFormat: 9fea1c4be7fdc1274daeb7d34993fcf890d4ee82
   SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
+  SwiftUIPager: b314d8923bef0bde743c904bb74fcc7a05fd3422
   Wormholy: 09da0b876f9276031fd47383627cb75e194fc068
   xcbeautify: 6e2f57af5c3a86d490376d5758030a8dcc201c1b
 
-PODFILE CHECKSUM: 6c8906eaf8b8929bd14b321e150f5987b76ea945
+PODFILE CHECKSUM: e314ca1734b50fe77561503b50714c1172a7292b
 
 COCOAPODS: 1.12.0
