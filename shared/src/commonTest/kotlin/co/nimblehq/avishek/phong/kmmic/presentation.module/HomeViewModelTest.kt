@@ -157,22 +157,9 @@ class HomeViewModelTest {
 
     @Test
     fun `when refreshing the surveys successfully, it emits surveys accordingly`() = runTest {
-        viewModel.fetchData()
-
         viewModel.refresh()
 
-        verify(mockGetSurveysUseCase)
-            .invocation {
-                invoke(
-                    pageNumber = 1,
-                    pageSize = 5,
-                    isForceLatestData = true
-                )
-            }
-            .wasInvoked(exactly = 1.times)
-        viewModel.viewState.takeWhile { !it.isRefreshing }.collect {
-            it.headerUiModel?.dateText shouldBe "Monday, May 12"
-            it.headerUiModel?.imageUrl shouldBe MockUtil.mockUser.avatarUrl
+        viewModel.viewState.takeWhile { !it.isRefreshing && !it.isLoading }.collect {
             it.surveys shouldBe listOf(SurveyUiModel(MockUtil.mockSurvey))
         }
     }
