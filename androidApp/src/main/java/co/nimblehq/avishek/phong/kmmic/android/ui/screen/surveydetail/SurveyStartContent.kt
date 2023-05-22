@@ -80,6 +80,7 @@ fun SurveyStartContent(
             modifier = Modifier
                 .matchParentSize()
                 .statusBarsPadding()
+                .navigationBarsPadding()
         ) {
             Column(
                 modifier = Modifier.matchParentSize()
@@ -120,7 +121,7 @@ fun SurveyStartContent(
                     modifier = Modifier
                         .wrapContentWidth()
                         .align(Alignment.End)
-                        .padding(bottom = 60.dp, end = 20.dp)
+                        .padding(bottom = 54.dp, end = 20.dp)
                 )
             }
         }

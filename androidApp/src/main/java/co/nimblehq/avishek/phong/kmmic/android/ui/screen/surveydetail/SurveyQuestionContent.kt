@@ -69,7 +69,8 @@ fun SurveyQuestionContent(
         modifier = modifier
             .fillMaxSize()
             .padding(bottom = 54.dp)
-            .padding(horizontal = 20.dp)
+            .statusBarsPadding()
+            .navigationBarsPadding()
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_close),
@@ -77,7 +78,7 @@ fun SurveyQuestionContent(
             modifier = Modifier
                 .statusBarsPadding()
                 .align(Alignment.End)
-                .padding(vertical = 20.dp)
+                .padding(vertical = 20.dp, horizontal = 20.dp)
                 .size(28.dp)
                 .clip(CircleShape)
                 .clickable { onCloseClick() }
@@ -99,21 +100,25 @@ fun SurveyQuestionContent(
             )
         }
 
-        FloatingActionButton(
-            backgroundColor = White,
-            onClick = {
-                scope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                }
-            },
-            modifier = Modifier
-                .size(56.dp)
-                .align(Alignment.End)
+        Box(modifier = Modifier
+            .wrapContentSize()
+            .align(Alignment.End)
+            .padding(end = 20.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = null
-            )
+            FloatingActionButton(
+                backgroundColor = White,
+                onClick = {
+                    scope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    }
+                },
+                modifier = Modifier.size(56.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_arrow_right),
+                    contentDescription = null
+                )
+            }
         }
     }
 }
@@ -127,22 +132,24 @@ private fun QuestionContent(
 ) {
     Column(
         modifier = modifier
-            .statusBarsPadding()
-            .navigationBarsPadding()
             .fillMaxWidth()
     ) {
         Text(
             text = "$page/$count",
             color = White.copy(alpha = 0.50f),
             style = MaterialTheme.typography.body2,
-            modifier = Modifier.padding(top = 32.dp)
+            modifier = Modifier
+                .padding(top = 32.dp)
+                .padding(horizontal = 20.dp)
         )
 
         Text(
             text = question.text,
             color = White,
             style = MaterialTheme.typography.h4,
-            modifier = Modifier.padding(top = 8.dp)
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .padding(horizontal = 20.dp)
         )
 
         Box(
