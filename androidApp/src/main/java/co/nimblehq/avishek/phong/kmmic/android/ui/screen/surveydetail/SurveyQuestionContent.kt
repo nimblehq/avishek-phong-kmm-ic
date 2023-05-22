@@ -2,14 +2,15 @@ package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement.End
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -41,57 +42,79 @@ fun SurveyQuestionContent(
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
 
-    Box(modifier = modifier) {
-        Box(Modifier.fillMaxSize()) {
-            AsyncImage(
-                model = surveyQuestionUiModels.first().imageUrl,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .scale(ImageScale)
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Black.copy(alpha = TopGradientAlpha),
-                                Color.Black.copy(alpha = BottomGradientAlpha)
-                            )
+    Box(modifier = modifier.fillMaxSize()) {
+        AsyncImage(
+            model = surveyQuestionUiModels.firstOrNull()?.imageUrl.orEmpty(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .matchParentSize()
+                .scale(ImageScale)
+        )
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Black.copy(alpha = TopGradientAlpha),
+                            Color.Black.copy(alpha = BottomGradientAlpha)
                         )
                     )
-            )
-        }
-
-        CloseButton(
-            modifier = Modifier
-                .statusBarsPadding()
-                .align(Alignment.TopEnd)
-                .padding(vertical = 20.dp, horizontal = 20.dp),
-            onClick = onCloseClick
+                )
         )
     }
 
-    HorizontalPager(
-        pageCount = surveyQuestionUiModels.size,
-        state = pagerState,
-        userScrollEnabled = false,
-        modifier = Modifier
+    Column(
+        modifier = modifier
             .fillMaxSize()
-    ) { page ->
-        QuestionContent(
-            page + 1,
-            surveyQuestionUiModels.size,
-            surveyQuestionUiModels[page],
-            onNextClick = {
+            .padding(bottom = 54.dp)
+            .padding(horizontal = 20.dp)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_close),
+            contentDescription = null,
+            modifier = Modifier
+                .statusBarsPadding()
+                .align(Alignment.End)
+                .padding(vertical = 20.dp)
+                .size(28.dp)
+                .clip(CircleShape)
+                .clickable { onCloseClick() }
+        )
+
+        HorizontalPager(
+            pageCount = surveyQuestionUiModels.size,
+            state = pagerState,
+            userScrollEnabled = false,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) { page ->
+            QuestionContent(
+                page = page + 1,
+                count = surveyQuestionUiModels.size,
+                question = surveyQuestionUiModels[page],
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        FloatingActionButton(
+            backgroundColor = White,
+            onClick = {
                 scope.launch {
-                    pagerState.animateScrollToPage(page + 1)
+                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
                 }
             },
-            modifier = Modifier.fillMaxSize()
-        )
+            modifier = Modifier
+                .size(56.dp)
+                .align(Alignment.End)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_right),
+                contentDescription = null
+            )
+        }
     }
 }
 
@@ -100,7 +123,6 @@ private fun QuestionContent(
     page: Int,
     count: Int,
     question: SurveyQuestionUiModel,
-    onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -108,8 +130,6 @@ private fun QuestionContent(
             .statusBarsPadding()
             .navigationBarsPadding()
             .fillMaxWidth()
-            .padding(top = 70.dp)
-            .padding(horizontal = 20.dp)
     ) {
         Text(
             text = "$page/$count",
@@ -134,24 +154,6 @@ private fun QuestionContent(
                 question = question,
                 modifier = Modifier.align(Alignment.Center)
             )
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 54.dp),
-            horizontalArrangement = End
-        ) {
-            FloatingActionButton(
-                backgroundColor = White,
-                onClick = onNextClick,
-                modifier = Modifier.size(56.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_right),
-                    contentDescription = null
-                )
-            }
         }
     }
 }

@@ -28,32 +28,21 @@ import kotlinx.coroutines.*
 
 private const val TopGradientAlpha: Float = 0.01f
 private const val BottomGradientAlpha: Float = 0.6f
-private const val InitialImageScale: Float = 1f
-private const val FinalImageScale: Float = 1.5f
-const val ImageScaleAnimationDurationInMillis = 700
 
 @Composable
 fun SurveyStartContent(
     surveyUiModel: SurveyUiModel,
+    shouldShowContent: Boolean,
+    imageScale: Float,
+    animationDurationInMillis: Int,
     onStartClick: () -> Unit,
     onBackClick: () -> Unit,
 ) {
-    var shouldShowContent by remember { mutableStateOf(false) }
-    var imageScale by remember { mutableStateOf(InitialImageScale) }
-    val scope = rememberCoroutineScope()
-
-    val backNavigationHandler: suspend CoroutineScope.() -> Unit = {
-        imageScale = InitialImageScale
-        shouldShowContent = false
-        delay(ImageScaleAnimationDurationInMillis.toLong())
-        onBackClick()
-    }
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         val floatTweenSpec = tween<Float>(
-            durationMillis = ImageScaleAnimationDurationInMillis
+            durationMillis = animationDurationInMillis
         )
         val animateImageScale by animateFloatAsState(
             targetValue = imageScale,
@@ -80,19 +69,14 @@ fun SurveyStartContent(
                 )
         )
 
-        LaunchedEffect(Unit) {
-            imageScale = FinalImageScale
-            shouldShowContent = true
-        }
-
         BackHandler(true) {
-            scope.launch(block = backNavigationHandler)
+            onBackClick()
         }
 
         AnimatedVisibility(
             visible = shouldShowContent,
-            enter = fadeIn(animationSpec = tween(ImageScaleAnimationDurationInMillis)),
-            exit = fadeOut(animationSpec = tween(ImageScaleAnimationDurationInMillis)),
+            enter = fadeIn(animationSpec = tween(animationDurationInMillis)),
+            exit = fadeOut(animationSpec = tween(animationDurationInMillis)),
             modifier = Modifier
                 .matchParentSize()
                 .statusBarsPadding()
@@ -106,7 +90,7 @@ fun SurveyStartContent(
                     modifier = Modifier
                         .padding(12.dp)
                         .wrapContentSize()
-                        .clickable { scope.launch(block = backNavigationHandler) }
+                        .clickable { onBackClick() }
                         .padding(all = 8.dp)
                 )
 
@@ -151,6 +135,9 @@ fun SurveyIntroPreview(
     ApplicationTheme {
         SurveyStartContent(
             surveyUiModel = params.survey,
+            shouldShowContent = true,
+            imageScale = FinalImageScale,
+            animationDurationInMillis = 0,
             onStartClick = {},
             onBackClick = {}
         )
