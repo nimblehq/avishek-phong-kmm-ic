@@ -41,6 +41,7 @@ fun HomeScreen(
     HomeContentWithDrawer(
         appVersion = appVersion,
         isLoading = viewState.isLoading,
+        isRefreshing = viewState.isRefreshing,
         surveyUiModels = viewState.surveys,
         surveyHeaderUiModel = viewState.headerUiModel,
         onRefresh = {
@@ -60,6 +61,7 @@ private fun HomeContentWithDrawer(
     surveyHeaderUiModel: SurveyHeaderUiModel? = null,
     surveyUiModels: List<SurveyUiModel>,
     isLoading: Boolean,
+    isRefreshing: Boolean,
     onRefresh: () -> Unit,
     onSurveyClick: (SurveyUiModel) -> Unit,
     onPageChange: (page: Int) -> Unit,
@@ -84,6 +86,7 @@ private fun HomeContentWithDrawer(
             surveyHeaderUiModel = surveyHeaderUiModel,
             surveyUiModels = surveyUiModels,
             isLoading = isLoading,
+            isRefreshing = isRefreshing,
             onRefresh = onRefresh,
             onPageChange = onPageChange,
             onUserAvatarClick = {
@@ -99,6 +102,7 @@ private fun HomeContentWithDrawer(
 fun HomeContent(
     surveyHeaderUiModel: SurveyHeaderUiModel?,
     isLoading: Boolean,
+    isRefreshing: Boolean,
     surveyUiModels: List<SurveyUiModel>,
     onUserAvatarClick: () -> Unit,
     onSurveyClick: (surveyUiModel: SurveyUiModel) -> Unit,
@@ -106,12 +110,11 @@ fun HomeContent(
     onPageChange: (page: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var isFirstLaunch by remember { mutableStateOf(true) }
     val scaffoldState = rememberScaffoldState()
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
     val refreshingState = rememberPullRefreshState(
-        refreshing = if(isFirstLaunch) false else isLoading,
+        refreshing = isRefreshing,
         onRefresh = {
             onRefresh()
             scope.launch {
@@ -120,9 +123,6 @@ fun HomeContent(
         }
     )
     var surveyUiModel by remember { mutableStateOf<SurveyUiModel?>(null) }
-    if (isFirstLaunch) {
-        isFirstLaunch = false
-    }
 
     LaunchedEffect(surveyUiModels) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
@@ -204,7 +204,7 @@ fun HomeContent(
             }
 
             PullRefreshIndicator(
-                refreshing = isLoading,
+                refreshing = isRefreshing,
                 state = refreshingState,
                 modifier = Modifier.align(alignment = Alignment.TopCenter)
             )
@@ -225,6 +225,7 @@ fun HomeScreenPreview(
                 surveyHeaderUiModel = surveyHeader,
                 surveyUiModels = surveys,
                 isLoading = isLoading,
+                isRefreshing = isRefreshing,
                 onRefresh = {},
                 onPageChange = {},
                 onSurveyClick = {}

@@ -170,7 +170,7 @@ class HomeViewModelTest {
                 )
             }
             .wasInvoked(exactly = 1.times)
-        viewModel.viewState.takeWhile { !it.isLoading }.collect {
+        viewModel.viewState.takeWhile { !it.isRefreshing }.collect {
             it.headerUiModel?.dateText shouldBe "Monday, May 12"
             it.headerUiModel?.imageUrl shouldBe MockUtil.mockUser.avatarUrl
             it.surveys shouldBe listOf(SurveyUiModel(MockUtil.mockSurvey))
