@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -39,6 +40,7 @@ fun SurveyQuestionContent(
     backgroundImageUrl: String,
     questionUiModels: List<QuestionUiModel>,
     onCloseClick: () -> Unit,
+    onSubmitClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState()
@@ -67,6 +69,8 @@ fun SurveyQuestionContent(
         )
     }
 
+    val questionCount = questionUiModels.size
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -87,7 +91,7 @@ fun SurveyQuestionContent(
         )
 
         HorizontalPager(
-            pageCount = questionUiModels.size,
+            pageCount = questionCount,
             state = pagerState,
             userScrollEnabled = false,
             modifier = Modifier
@@ -100,21 +104,32 @@ fun SurveyQuestionContent(
             )
         }
 
-        FloatingActionButton(
-            backgroundColor = White,
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                }
-            },
-            modifier = Modifier
-                .align(Alignment.End)
-                .padding(end = 20.dp)
-                .size(56.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = null
+        if (pagerState.currentPage < questionCount - 1) {
+            FloatingActionButton(
+                backgroundColor = White,
+                onClick = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 20.dp)
+                    .size(56.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_arrow_right),
+                    contentDescription = null
+                )
+            }
+        } else {
+            PrimaryButton(
+                text = stringResource(id = R.string.survey_question_submit),
+                onClick = onSubmitClick,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 20.dp)
+                    .wrapContentWidth()
             )
         }
     }
@@ -214,6 +229,7 @@ fun SurveyQuestionPreview(
             backgroundImageUrl = params.survey.largeImageUrl,
             questionUiModels = params.survey.questionUiModels,
             onCloseClick = {},
+            onSubmitClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
