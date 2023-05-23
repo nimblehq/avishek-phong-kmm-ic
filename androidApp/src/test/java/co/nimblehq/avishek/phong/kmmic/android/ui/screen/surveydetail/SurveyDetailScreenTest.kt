@@ -79,7 +79,8 @@ class SurveyDetailScreenTest {
                     homeViewModel = mockHomeViewModel,
                     surveyDetailViewModel = surveyDetailViewModel,
                     surveyId = mockSurvey.id,
-                    onBackClick = mockOnBackClick
+                    onBackClick = mockOnBackClick,
+                    onAnswersSubmitted = {}
                 )
             }
         }
