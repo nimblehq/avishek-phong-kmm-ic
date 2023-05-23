@@ -30,7 +30,7 @@ fun SurveyDetailScreen(
     var shouldShowStartContent by remember { mutableStateOf(false) }
     var shouldShowSurveyQuestionContent by remember { mutableStateOf(false) }
     var imageScale by remember { mutableStateOf(InitialImageScale) }
-    val scope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
     // TODO: use property from the ViewModel in the integrate task
     var surveyQuestionUiModels by remember { mutableStateOf<List<SurveyQuestionUiModel>>(emptyList()) }
 
@@ -66,7 +66,7 @@ fun SurveyDetailScreen(
         imageScale = imageScale,
         shouldShowSurveyQuestionContent = shouldShowSurveyQuestionContent,
         onBackClick = {
-            scope.launch {
+            coroutineScope.launch {
                 imageScale = InitialImageScale
                 shouldShowStartContent = false
                 delay(ImageScaleAnimationDurationInMillis.toLong())
@@ -111,7 +111,8 @@ fun SurveyDetailContent(
 
 @Preview(
     name = "Intro",
-    showSystemUi = true)
+    showSystemUi = true
+)
 @Composable
 fun SurveyDetailScreenStartPagePreview(
     @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class)

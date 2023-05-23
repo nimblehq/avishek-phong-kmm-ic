@@ -40,7 +40,7 @@ fun SurveyQuestionContent(
     modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState()
-    val scope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
     Box(modifier = modifier.fillMaxSize()) {
         AsyncImage(
@@ -108,7 +108,7 @@ fun SurveyQuestionContent(
             FloatingActionButton(
                 backgroundColor = White,
                 onClick = {
-                    scope.launch {
+                    coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 },
