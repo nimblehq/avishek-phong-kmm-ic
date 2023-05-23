@@ -14,6 +14,7 @@ enum ViewId {
     case logIn(LogIn)
     case general(General)
     case home(Home)
+    case surveyDetail(SurveyDetail)
 
     enum General: String {
 
@@ -46,6 +47,14 @@ enum ViewId {
         case contentView = "home.contentView"
     }
 
+    enum SurveyDetail: String {
+
+        case backgroundImage = "surveyDetail.backgroundImage"
+        case title = "surveyDetail.title"
+        case description = "surveyDetail.description"
+        case startButton = "surveyDetail.startButton"
+    }
+
     func callAsFunction() -> String {
         switch self {
         case let .general(general):
@@ -56,6 +65,8 @@ enum ViewId {
             return login.rawValue
         case let .home(home):
             return home.rawValue
+        case let .surveyDetail(surveyDetail):
+            return surveyDetail.rawValue
         }
     }
 }
@@ -63,6 +74,7 @@ enum ViewId {
 extension View {
 
     func accessibility(_ viewId: ViewId) -> some View {
-        accessibilityIdentifier(viewId())
+        accessibilityElement(children: .contain)
+            .accessibilityIdentifier(viewId())
     }
 }

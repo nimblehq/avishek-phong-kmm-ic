@@ -22,4 +22,8 @@ final class HomeScreen: GenericScreen {
             in: .left
         )
     }
+
+    func tapNextButton() {
+        tester().tapView(withAccessibilityIdentifier: ViewId.home(.nextButton)())
+    }
 }

@@ -43,6 +43,10 @@ final class HomeCombineViewModel: ObservableObject {
         homeViewModel.fetchMoreSurveysIfNeeded(selectedIndex: Int32(selectedIndex))
     }
 
+    func getSurveyWith(id: String) -> Survey? {
+        homeViewModel.surveys.first(where: { $0.id == id })
+    }
+
     private func updateViewState(_ state: HomeViewState) {
         isLoading = state.isLoading
         surveys = state.surveys

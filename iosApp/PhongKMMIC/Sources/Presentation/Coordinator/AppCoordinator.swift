@@ -22,8 +22,8 @@ struct AppCoordinator: View {
                 LogInView()
             case .home:
                 HomeView()
-            case .surveyDetail:
-                SurveyDetailView()
+            case let .surveyDetail(survey):
+                SurveyDetailView(survey: survey)
             case .surveyQuestions:
                 SurveyQuestionsView()
             }

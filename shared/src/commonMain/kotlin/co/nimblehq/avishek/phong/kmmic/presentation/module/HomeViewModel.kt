@@ -35,6 +35,7 @@ class HomeViewModel(
 
     private var previousSelectedIndex = 0
     private var currentPage = 1
+    var surveys: List<Survey> = listOf()
 
     init {
         fetchData()
@@ -117,6 +118,7 @@ class HomeViewModel(
     }
 
     private fun handleFetchMoreSurveySuccess(surveys: List<Survey>) {
+        this.surveys += surveys
         val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
             HomeViewState(
@@ -128,6 +130,7 @@ class HomeViewModel(
     }
 
     private fun handleFetchSurveysSuccess(surveys: List<Survey>) {
+        this.surveys = surveys
         val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
             HomeViewState(

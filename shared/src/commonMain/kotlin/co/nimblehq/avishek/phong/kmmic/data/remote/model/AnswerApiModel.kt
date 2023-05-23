@@ -18,7 +18,7 @@ data class AnswerApiModel(
 
 fun AnswerApiModel.toAnswer(): Answer = Answer(
     id = id,
-    text = text,
     displayOrder = displayOrder,
-    inputMaskPlaceholder = inputMaskPlaceholder
+    content = text,
+    placeholder = inputMaskPlaceholder
 )
