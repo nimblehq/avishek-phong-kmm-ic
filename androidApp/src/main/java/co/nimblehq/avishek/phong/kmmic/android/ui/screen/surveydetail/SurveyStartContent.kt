@@ -28,6 +28,8 @@ import kotlinx.coroutines.*
 
 private const val TopGradientAlpha: Float = 0.01f
 private const val BottomGradientAlpha: Float = 0.6f
+const val BackButtonContentDescription = "BackButtonContentDescription"
+
 
 @Composable
 fun SurveyStartContent(
@@ -87,7 +89,7 @@ fun SurveyStartContent(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
-                    contentDescription = null,
+                    contentDescription = BackButtonContentDescription,
                     modifier = Modifier
                         .padding(12.dp)
                         .wrapContentSize()
