@@ -18,19 +18,22 @@ class HomePreviewParameterProvider : PreviewParameterProvider<HomePreviewParamet
             id = "1",
             title = "Scarlett Bangkok",
             description = "We'd love to hear from you!",
-            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_"
+            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_",
+            surveyQuestionUiModels = emptyList()
         ),
         SurveyUiModel(
             id = "2",
             title = "ibis Bangkok Riverside",
             description = "We'd love to hear from you!",
-            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/287db81c5e4242412cc0_"
+            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/287db81c5e4242412cc0_",
+            surveyQuestionUiModels = emptyList()
         ),
         SurveyUiModel(
             id = "3",
             title = "21 on Rajah",
             description = "We'd love to hear from you!",
-            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/0221e768b99dc3576210_"
+            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/0221e768b99dc3576210_",
+            surveyQuestionUiModels = emptyList()
         )
     )
 

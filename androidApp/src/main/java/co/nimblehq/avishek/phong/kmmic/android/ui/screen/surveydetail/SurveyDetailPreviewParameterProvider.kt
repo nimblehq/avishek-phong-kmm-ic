@@ -1,7 +1,7 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.*
 
 @Suppress("MagicNumber")
 class SurveyDetailScreenPreviewParameterProvider :
@@ -17,7 +17,21 @@ class SurveyDetailScreenPreviewParameterProvider :
             id = "1",
             title = "Scarlett Bangkok",
             description = "We'd love to hear from you!",
-            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_"
+            imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_",
+            surveyQuestionUiModels = listOf(
+                SurveyQuestionUiModel(
+                    id = "1",
+                    text = "How fulfilled did you feel during this WFH period?",
+                    displayType = DisplayType.DROPDOWN,
+                    imageUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_l",
+                    answerUiModels = List(5) {
+                        AnswerUiModel(
+                            id = (it + 1).toString(),
+                            text = "Text ${it + 1}"
+                        )
+                    }
+                )
+            )
         ),
     )
 }

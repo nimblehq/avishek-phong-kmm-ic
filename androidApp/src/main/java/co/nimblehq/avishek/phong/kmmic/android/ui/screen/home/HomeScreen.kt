@@ -67,7 +67,7 @@ private fun HomeContentWithDrawer(
     onPageChange: (page: Int) -> Unit,
 ) {
     val drawerState = rememberDrawerState(initialDrawerState)
-    val scope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
     RtlModalDrawer(
         drawerState = drawerState,
@@ -77,7 +77,7 @@ private fun HomeContentWithDrawer(
                 surveyHeaderUiModel = surveyHeaderUiModel,
                 appVersion = appVersion,
                 onLogoutClick = {
-                    scope.launch { drawerState.close() }
+                    coroutineScope.launch { drawerState.close() }
                 }
             )
         }
@@ -90,7 +90,7 @@ private fun HomeContentWithDrawer(
             onRefresh = onRefresh,
             onPageChange = onPageChange,
             onUserAvatarClick = {
-                scope.launch { drawerState.open() }
+                coroutineScope.launch { drawerState.open() }
             },
             onSurveyClick = onSurveyClick
         )
@@ -112,12 +112,12 @@ fun HomeContent(
 ) {
     val scaffoldState = rememberScaffoldState()
     val pagerState = rememberPagerState()
-    val scope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
     val refreshingState = rememberPullRefreshState(
         refreshing = isRefreshing,
         onRefresh = {
             onRefresh()
-            scope.launch {
+            coroutineScope.launch {
                 pagerState.scrollToPage(0)
             }
         }
