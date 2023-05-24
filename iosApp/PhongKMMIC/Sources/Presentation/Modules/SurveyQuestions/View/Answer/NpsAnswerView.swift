@@ -46,7 +46,6 @@ struct NpsAnswerView: View {
         .frame(height: 56.0)
         .cornerRadius(10.0)
         .overlay(RoundedRectangle(cornerRadius: 10.0).stroke(.white, lineWidth: 1.0))
-//        .padding(.horizontal, 20.0)
     }
 
     private var legendView: some View {
