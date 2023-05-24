@@ -31,6 +31,7 @@ private const val BottomGradientAlpha: Float = 0.6f
 const val BackButtonContentDescription = "BackButtonContentDescription"
 
 
+@Suppress("LongMethod")
 @Composable
 fun SurveyStartContent(
     surveyUiModel: SurveyUiModel,
@@ -133,7 +134,8 @@ fun SurveyStartContent(
 @Preview(showSystemUi = true)
 @Composable
 fun SurveyIntroPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class) params: SurveyDetailScreenPreviewParameterProvider.Params,
+    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class)
+    params: SurveyDetailScreenPreviewParameterProvider.Params,
 ) {
     ApplicationTheme {
         SurveyStartContent(

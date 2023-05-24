@@ -22,6 +22,7 @@ const val InitialImageScale: Float = 1f
 const val FinalImageScale: Float = 1.5f
 const val ImageScaleAnimationDurationInMillis = 700
 
+@Suppress("LongMethod", "MagicNumber")
 @Composable
 fun SurveyDetailScreen(
     homeViewModel: HomeViewModel = getViewModel(),

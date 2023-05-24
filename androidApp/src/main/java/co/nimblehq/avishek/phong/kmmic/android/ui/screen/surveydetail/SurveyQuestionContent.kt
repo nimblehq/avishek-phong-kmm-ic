@@ -32,6 +32,7 @@ private const val TopGradientAlpha: Float = 0.01f
 private const val BottomGradientAlpha: Float = 0.6f
 private const val ImageScale = 1.5f
 
+@Suppress("LongMethod")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SurveyQuestionContent(

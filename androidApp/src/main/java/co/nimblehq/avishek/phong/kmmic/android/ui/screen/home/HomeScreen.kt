@@ -97,6 +97,7 @@ private fun HomeContentWithDrawer(
     }
 }
 
+@Suppress("LongParameterList", "LongMethod")
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun HomeContent(
