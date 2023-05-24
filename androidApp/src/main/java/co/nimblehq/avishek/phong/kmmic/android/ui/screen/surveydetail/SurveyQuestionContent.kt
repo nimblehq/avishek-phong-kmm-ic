@@ -100,25 +100,22 @@ fun SurveyQuestionContent(
             )
         }
 
-        Box(modifier = Modifier
-            .wrapContentSize()
-            .align(Alignment.End)
-            .padding(end = 20.dp)
+        FloatingActionButton(
+            backgroundColor = White,
+            onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                }
+            },
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(end = 20.dp)
+                .size(56.dp)
         ) {
-            FloatingActionButton(
-                backgroundColor = White,
-                onClick = {
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                    }
-                },
-                modifier = Modifier.size(56.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_right),
-                    contentDescription = null
-                )
-            }
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_right),
+                contentDescription = null
+            )
         }
     }
 }
