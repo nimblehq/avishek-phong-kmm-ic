@@ -33,6 +33,7 @@ private const val BottomGradientAlpha: Float = 0.6f
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = getViewModel(),
+    onSurveyClick: (SurveyUiModel) -> Unit,
 ) {
     val viewState by homeViewModel.viewState.collectAsStateWithLifecycle()
     val appVersion by homeViewModel.appVersion.collectAsStateWithLifecycle()
@@ -40,6 +41,7 @@ fun HomeScreen(
     HomeContentWithDrawer(
         appVersion = appVersion,
         isLoading = viewState.isLoading,
+        isRefreshing = viewState.isRefreshing,
         surveyUiModels = viewState.surveys,
         surveyHeaderUiModel = viewState.headerUiModel,
         onRefresh = {
@@ -47,11 +49,11 @@ fun HomeScreen(
         },
         onPageChange = {
             homeViewModel.fetchMoreSurveysIfNeeded(it)
-        }
+        },
+        onSurveyClick = onSurveyClick
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HomeContentWithDrawer(
     appVersion: String,
@@ -59,7 +61,9 @@ private fun HomeContentWithDrawer(
     surveyHeaderUiModel: SurveyHeaderUiModel? = null,
     surveyUiModels: List<SurveyUiModel>,
     isLoading: Boolean,
+    isRefreshing: Boolean,
     onRefresh: () -> Unit,
+    onSurveyClick: (SurveyUiModel) -> Unit,
     onPageChange: (page: Int) -> Unit,
 ) {
     val drawerState = rememberDrawerState(initialDrawerState)
@@ -82,11 +86,13 @@ private fun HomeContentWithDrawer(
             surveyHeaderUiModel = surveyHeaderUiModel,
             surveyUiModels = surveyUiModels,
             isLoading = isLoading,
+            isRefreshing = isRefreshing,
             onRefresh = onRefresh,
             onPageChange = onPageChange,
             onUserAvatarClick = {
                 scope.launch { drawerState.open() }
             },
+            onSurveyClick = onSurveyClick
         )
     }
 }
@@ -96,8 +102,10 @@ private fun HomeContentWithDrawer(
 fun HomeContent(
     surveyHeaderUiModel: SurveyHeaderUiModel?,
     isLoading: Boolean,
+    isRefreshing: Boolean,
     surveyUiModels: List<SurveyUiModel>,
     onUserAvatarClick: () -> Unit,
+    onSurveyClick: (surveyUiModel: SurveyUiModel) -> Unit,
     onRefresh: () -> Unit,
     onPageChange: (page: Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -106,7 +114,7 @@ fun HomeContent(
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
     val refreshingState = rememberPullRefreshState(
-        refreshing = isLoading,
+        refreshing = isRefreshing,
         onRefresh = {
             onRefresh()
             scope.launch {
@@ -188,7 +196,7 @@ fun HomeContent(
                                 .align(Alignment.BottomCenter)
                                 .padding(bottom = 54.dp),
                             onSurveyClick = {
-                                // TODO: implement in the integrate task
+                                onSurveyClick(it)
                             }
                         )
                     }
@@ -196,7 +204,7 @@ fun HomeContent(
             }
 
             PullRefreshIndicator(
-                refreshing = isLoading,
+                refreshing = isRefreshing,
                 state = refreshingState,
                 modifier = Modifier.align(alignment = Alignment.TopCenter)
             )
@@ -217,8 +225,10 @@ fun HomeScreenPreview(
                 surveyHeaderUiModel = surveyHeader,
                 surveyUiModels = surveys,
                 isLoading = isLoading,
+                isRefreshing = isRefreshing,
                 onRefresh = {},
-                onPageChange = {}
+                onPageChange = {},
+                onSurveyClick = {}
             )
         }
     }

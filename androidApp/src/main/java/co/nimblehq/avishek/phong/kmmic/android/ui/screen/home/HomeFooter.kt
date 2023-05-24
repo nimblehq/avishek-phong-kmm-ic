@@ -29,7 +29,7 @@ fun HomeFooter(
     pageCount: Int,
     isLoading: Boolean,
     surveyUiModel: SurveyUiModel?,
-    onSurveyClick: (SurveyUiModel?) -> Unit,
+    onSurveyClick: (SurveyUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -44,7 +44,9 @@ fun HomeFooter(
                 pagerState = pagerState,
                 pageCount = pageCount,
                 surveyUiModel = surveyUiModel,
-                onSurveyClick = onSurveyClick
+                onSurveyClick = {
+                    it?.let(onSurveyClick::invoke)
+                }
             )
         }
     }

@@ -13,10 +13,11 @@ private const val DEFAULT_PAGE_SIZE = 5
 
 data class HomeViewState(
     val isLoading: Boolean,
+    val isRefreshing: Boolean,
     val headerUiModel: SurveyHeaderUiModel? = null,
     var surveys: List<SurveyUiModel> = listOf(),
 ) {
-    constructor() : this(true)
+    constructor() : this(true, false)
 }
 
 class HomeViewModel(
@@ -36,10 +37,6 @@ class HomeViewModel(
     private var previousSelectedIndex = 0
     private var currentPage = 1
     var surveys: List<Survey> = listOf()
-
-    init {
-        fetchData()
-    }
 
     fun fetchData() {
         getProfile()
@@ -77,7 +74,7 @@ class HomeViewModel(
             page = currentPage,
             isForceLatestData = true
         )
-            .onStart { setStateLoading() }
+            .onStart { setStateRefreshing() }
             .onEach {
                 handleFetchSurveysSuccess(it)
             }
@@ -113,7 +110,10 @@ class HomeViewModel(
         val headerUiModel = user?.toSurveyHeaderUiModel(today, dateTimeFormatter)
 
         _viewState.update {
-            HomeViewState(isLoading = false, headerUiModel)
+            HomeViewState(
+                isLoading = false,
+                isRefreshing = false,
+                headerUiModel = headerUiModel)
         }
     }
 
@@ -123,6 +123,7 @@ class HomeViewModel(
         _viewState.update {
             HomeViewState(
                 isLoading = false,
+                isRefreshing = false,
                 headerUiModel = it.headerUiModel,
                 surveys = it.surveys + surveyUiModels
             )
@@ -135,6 +136,7 @@ class HomeViewModel(
         _viewState.update {
             HomeViewState(
                 isLoading = false,
+                isRefreshing = false,
                 headerUiModel = it.headerUiModel,
                 surveys = surveyUiModels
             )
@@ -145,6 +147,18 @@ class HomeViewModel(
         _viewState.update {
             HomeViewState(
                 isLoading = true,
+                isRefreshing = false,
+                headerUiModel = it.headerUiModel,
+                surveys = it.surveys
+            )
+        }
+    }
+
+    private fun setStateRefreshing() {
+        _viewState.update {
+            HomeViewState(
+                isLoading = false,
+                isRefreshing = true,
                 headerUiModel = it.headerUiModel,
                 surveys = it.surveys
             )

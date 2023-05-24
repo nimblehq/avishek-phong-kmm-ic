@@ -37,18 +37,26 @@ class HomePreviewParameterProvider : PreviewParameterProvider<HomePreviewParamet
     override val values = sequenceOf(
         Params(
             isLoading = false,
+            isRefreshing = false,
         ),
         Params(
             isLoading = true,
+            isRefreshing = false,
         ),
         Params(
             isLoading = false,
+            isRefreshing = true,
+        ),
+        Params(
+            isLoading = false,
+            isRefreshing = false,
             drawerState = DrawerValue.Open,
         )
     )
 
     inner class Params(
         val isLoading: Boolean,
+        val isRefreshing: Boolean,
         val drawerState: DrawerValue = DrawerValue.Closed,
         val appVersion: String = "v0.5.0",
         val surveyHeader: SurveyHeaderUiModel = surveyHeaderUiModel,
