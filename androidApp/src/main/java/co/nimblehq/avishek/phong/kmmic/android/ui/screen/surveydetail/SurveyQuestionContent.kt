@@ -37,7 +37,7 @@ private const val ImageScale = 1.5f
 @Composable
 fun SurveyQuestionContent(
     backgroundImageUrl: String,
-    surveyQuestionUiModels: List<QuestionUiModel>,
+    questionUiModels: List<QuestionUiModel>,
     onCloseClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -87,7 +87,7 @@ fun SurveyQuestionContent(
         )
 
         HorizontalPager(
-            pageCount = surveyQuestionUiModels.size,
+            pageCount = questionUiModels.size,
             state = pagerState,
             userScrollEnabled = false,
             modifier = Modifier
@@ -95,7 +95,7 @@ fun SurveyQuestionContent(
                 .weight(1f)
         ) { page ->
             QuestionContent(
-                questionUiModel = surveyQuestionUiModels[page],
+                questionUiModel = questionUiModels[page],
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -194,7 +194,7 @@ fun SurveyQuestionPreview(
     ApplicationTheme {
         SurveyQuestionContent(
             backgroundImageUrl = params.survey.largeImageUrl,
-            surveyQuestionUiModels = params.survey.questionUiModels,
+            questionUiModels = params.survey.questionUiModels,
             onCloseClick = {},
             modifier = Modifier.fillMaxSize()
         )

@@ -37,6 +37,9 @@ fun SurveyDetailScreen(
     var imageScale by remember { mutableStateOf(InitialImageScale) }
     val coroutineScope = rememberCoroutineScope()
     val surveyUiModel = homeViewState.surveys.find { it.id == surveyId }
+    val surveyWithoutIntro = surveyDetailViewState.survey?.run {
+        copy(questions = questions?.filter { it.displayType != INTRO })
+    }
 
     LaunchedEffect(Unit) {
         surveyDetailViewModel.fetchSurveyDetail(surveyId)
@@ -46,7 +49,7 @@ fun SurveyDetailScreen(
 
     SurveyDetailContent(
         surveyUiModel = surveyUiModel,
-        questionUiModels = surveyDetailViewState.survey?.toSurveyUiModel()?.questionUiModels,
+        questionUiModels = surveyWithoutIntro?.toSurveyUiModel()?.questionUiModels,
         shouldShowStartContent = shouldShowStartContent,
         imageScale = imageScale,
         shouldShowSurveyQuestionContent = shouldShowSurveyQuestionContent,
@@ -96,7 +99,7 @@ fun SurveyDetailContent(
     if (shouldShowSurveyQuestionContent && questionUiModels?.isNotEmpty() == true) {
         SurveyQuestionContent(
             backgroundImageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
-            surveyQuestionUiModels = questionUiModels.filter { it.displayType != INTRO },
+            questionUiModels = questionUiModels,
             onCloseClick = {},
             modifier = Modifier.fillMaxSize()
         )
