@@ -12,7 +12,7 @@ final class SurveyDetailScreen: GenericScreen {
         tester().waitForView(withAccessibilityIdentifier: ViewId.surveyDetail(.backgroundImage)())
     }
 
-    func tapNextButton() {
+    func tapStartButton() {
         tester().tapView(withAccessibilityIdentifier: ViewId.surveyDetail(.startButton)())
     }
 }

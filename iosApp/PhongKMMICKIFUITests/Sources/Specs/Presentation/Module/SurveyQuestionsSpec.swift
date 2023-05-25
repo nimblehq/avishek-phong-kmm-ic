@@ -17,6 +17,7 @@ final class SurveyQuestionsSpec: QuickSpec {
         var homeScreen: HomeScreen!
         var surveyDetailScreen: SurveyDetailScreen!
         var surveyQuestionScreen: SurveyQuestionScreen!
+        var submissionSuccessScreen: SubmissionSuccessScreen!
 
         // swiftlint:disable:next closure_body_length
         describe("an Survey Detail screen") {
@@ -26,6 +27,7 @@ final class SurveyQuestionsSpec: QuickSpec {
                 homeScreen = HomeScreen(self)
                 surveyDetailScreen = SurveyDetailScreen(self)
                 surveyQuestionScreen = SurveyQuestionScreen(self)
+                submissionSuccessScreen = SubmissionSuccessScreen(self)
             }
 
             context("when the user start a survey") {
@@ -35,7 +37,7 @@ final class SurveyQuestionsSpec: QuickSpec {
                     homeScreen.waitForAppearance()
                     homeScreen.tapNextButton()
                     surveyDetailScreen.waitForAppearance()
-                    surveyDetailScreen.tapNextButton()
+                    surveyDetailScreen.tapStartButton()
                 }
 
                 it("shows its ui components") {
@@ -50,11 +52,11 @@ final class SurveyQuestionsSpec: QuickSpec {
                     homeScreen.waitForAppearance()
                     homeScreen.tapNextButton()
                     surveyDetailScreen.waitForAppearance()
-                    surveyDetailScreen.tapNextButton()
+                    surveyDetailScreen.tapStartButton()
                     surveyQuestionScreen.waitForAppearance()
                     while self.tester()
                         .waitForView(withAccessibilityIdentifier: ViewId.surveyQuestion(.nextButton)()) == nil {
-                        surveyDetailScreen.tapNextButton()
+                        surveyDetailScreen.tapStartButton()
                     }
                 }
 
@@ -63,6 +65,31 @@ final class SurveyQuestionsSpec: QuickSpec {
                     self.tester().waitForView(withAccessibilityIdentifier: ViewId.surveyQuestion(.answerContent)())
                     self.tester().waitForView(withAccessibilityIdentifier: ViewId.surveyQuestion(.questionTitle)())
                     self.tester().waitForView(withAccessibilityIdentifier: ViewId.surveyQuestion(.submitButton)())
+                }
+            }
+
+            context("when the user submit their answer") {
+
+                beforeEach {
+                    logInScreen.loginIfNeeded()
+                    homeScreen.waitForAppearance()
+                    homeScreen.tapNextButton()
+                    surveyDetailScreen.waitForAppearance()
+                    surveyDetailScreen.tapStartButton()
+                    surveyQuestionScreen.waitForAppearance()
+                    while self.tester()
+                        .waitForView(withAccessibilityIdentifier: ViewId.surveyQuestion(.nextButton)()) == nil {
+                        surveyDetailScreen.tapStartButton()
+                    }
+                    surveyQuestionScreen.tapSubmitButton()
+                }
+
+                afterEach {
+                    homeScreen.waitForAppearance()
+                }
+
+                it("shows thank you screen") {
+                    submissionSuccessScreen.waitForAppearance()
                 }
             }
         }

@@ -67,6 +67,10 @@ final class Navigator: ObservableObject {
             }
         }
     }
+
+    func steps(routes: (inout Routes<Screen>) -> Void) {
+        RouteSteps.withDelaysIfUnsupported(self, \.routes) { routes(&$0) }
+    }
 }
 
 extension Navigator {

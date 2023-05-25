@@ -26,6 +26,8 @@ struct AppCoordinator: View {
                 SurveyDetailView(survey: survey)
             case let .surveyQuestions(survey):
                 SurveyQuestionsView(survey: survey)
+            case .thankYou:
+                SubmissionSuccessView()
             }
         }
         .environmentObject(navigator)
