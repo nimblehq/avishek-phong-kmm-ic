@@ -20,6 +20,7 @@ import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 @Composable
 fun NpsBar(
     surveyAnswerUiModels: List<SurveyAnswerUiModel>,
+    onAnswerSelected: (SurveyAnswerUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
@@ -50,6 +51,7 @@ fun NpsBar(
                     isSelected = isSelected,
                     onClick = {
                         selectedIndex = index
+                        onAnswerSelected(answer)
                     },
                     modifier = Modifier.wrapContentWidth()
                 )
@@ -121,7 +123,8 @@ fun NpsBarPreview() {
                     displayOrder = it,
                     placeholder = ""
                 )
-            }
+            },
+            onAnswerSelected = {}
         )
     }
 }

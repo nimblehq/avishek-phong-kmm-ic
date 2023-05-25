@@ -22,6 +22,7 @@ import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 @Composable
 fun MultiChoiceForm(
     surveyAnswerUiModels: List<SurveyAnswerUiModel>,
+    onAnswersChecked: (checkedAnswers: List<SurveyAnswerUiModel>) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var checkedAnswers by remember { mutableStateOf(emptySet<SurveyAnswerUiModel>()) }
@@ -42,6 +43,7 @@ fun MultiChoiceForm(
                     } else {
                         checkedAnswers.plus(answerUiModel)
                     }
+                    onAnswersChecked(checkedAnswers.toList())
                 }
             )
 
@@ -98,6 +100,9 @@ private fun Choice(
 @Composable
 fun MultipleChoiceFormPreview() {
     ApplicationTheme {
-        MultiChoiceForm(surveyAnswerUiModels = answerUiModels)
+        MultiChoiceForm(
+            surveyAnswerUiModels = answerUiModels,
+            onAnswersChecked = {}
+        )
     }
 }

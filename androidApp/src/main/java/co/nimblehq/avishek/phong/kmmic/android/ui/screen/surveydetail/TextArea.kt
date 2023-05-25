@@ -11,6 +11,7 @@ import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 @Composable
 fun TextArea(
     surveyAnswerUiModel: SurveyAnswerUiModel,
+    onAnswerProvided: (answerUiModel: SurveyAnswerUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var value by remember { mutableStateOf("") }
@@ -20,7 +21,10 @@ fun TextArea(
         placeholder = surveyAnswerUiModel.placeholder.orEmpty(),
         singleLine = false,
         imeAction = ImeAction.Done,
-        onValueChange = { value = it },
+        onValueChange = {
+            value = it
+            onAnswerProvided(surveyAnswerUiModel.copy(text = it))
+        },
         modifier = modifier
     )
 }
@@ -29,6 +33,9 @@ fun TextArea(
 @Composable
 fun TextAreaPreview() {
     ApplicationTheme {
-        TextArea(surveyAnswerUiModel = answerUiModels[0])
+        TextArea(
+            surveyAnswerUiModel = answerUiModels[0],
+            onAnswerProvided = {}
+        )
     }
 }
