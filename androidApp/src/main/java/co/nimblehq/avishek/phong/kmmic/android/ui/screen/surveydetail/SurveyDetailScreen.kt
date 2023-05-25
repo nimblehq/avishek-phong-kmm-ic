@@ -14,8 +14,7 @@ import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.AlertDialog
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.INTRO
-import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
-import co.nimblehq.avishek.phong.kmmic.presentation.module.SurveyDetailViewModel
+import co.nimblehq.avishek.phong.kmmic.presentation.module.*
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,12 +29,14 @@ const val ImageScaleAnimationDurationInMillis = 700
 fun SurveyDetailScreen(
     homeViewModel: HomeViewModel = getViewModel(),
     surveyDetailViewModel: SurveyDetailViewModel = getViewModel(),
+    surveyQuestionViewModel: SurveyQuestionViewModel = getViewModel(),
     surveyId: String,
     onBackClick: () -> Unit,
     onAnswersSubmitted: () -> Unit,
 ) {
     val homeViewState by homeViewModel.viewState.collectAsStateWithLifecycle()
     val surveyDetailViewState by surveyDetailViewModel.viewSate.collectAsStateWithLifecycle()
+    val surveyQuestionViewState by surveyQuestionViewModel.viewSate.collectAsStateWithLifecycle()
     var shouldShowStartContent by remember { mutableStateOf(false) }
     var shouldShowSurveyQuestionContent by remember { mutableStateOf(false) }
     var imageScale by remember { mutableStateOf(InitialImageScale) }
@@ -52,6 +53,9 @@ fun SurveyDetailScreen(
 
     LaunchedEffect(Unit) {
         surveyDetailViewModel.fetchSurveyDetail(surveyId)
+
+        surveyDetailViewState.survey?.let(surveyQuestionViewModel::updateStateWith)
+
         imageScale = FinalImageScale
         shouldShowStartContent = true
     }
@@ -84,10 +88,12 @@ fun SurveyDetailScreen(
         onCloseClick = {
             shouldShowExitConfirmationDialog = true
         },
-        onAnswersSubmitted = onAnswersSubmitted
+        onSubmitClick = {
+            questionsWithoutIntro?.let(surveyQuestionViewModel::submitAnswer)
+        }
     )
 
-    if (surveyDetailViewState.isLoading) {
+    if (surveyDetailViewState.isLoading || surveyQuestionViewState.isLoading) {
         CircularProgressIndicator(
             modifier = Modifier
                 .fillMaxSize()
@@ -105,6 +111,8 @@ fun SurveyDetailScreen(
             }
         )
     }
+
+    if (surveyQuestionViewState.isSuccess) onAnswersSubmitted()
 }
 
 @Composable
@@ -117,7 +125,7 @@ fun SurveyDetailContent(
     onStartSurveyClick: () -> Unit,
     onCloseClick: () -> Unit,
     onQuestionAnswered: (surveyQuestionUiModel: QuestionUiModel) -> Unit,
-    onAnswersSubmitted: () -> Unit,
+    onSubmitClick: () -> Unit,
     imageScale: Float,
 ) {
     surveyUiModel?.let {
@@ -137,10 +145,7 @@ fun SurveyDetailContent(
             questionUiModels = questionUiModels,
             onCloseClick = onCloseClick,
             onQuestionAnswered = onQuestionAnswered,
-            onSubmitClick = {
-                //TODO: invoke after the submission is successful in the integrate task
-                onAnswersSubmitted()
-            },
+            onSubmitClick = onSubmitClick,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -166,7 +171,7 @@ fun SurveyDetailScreenStartPagePreview(
                 onStartSurveyClick = {},
                 onCloseClick = {},
                 onQuestionAnswered = {},
-                onAnswersSubmitted = {},
+                onSubmitClick = {},
                 imageScale = FinalImageScale
             )
         }
@@ -193,7 +198,7 @@ fun SurveyDetailScreenQuestionPagePreview(
                 onStartSurveyClick = {},
                 onCloseClick = {},
                 onQuestionAnswered = {},
-                onAnswersSubmitted = { },
+                onSubmitClick = {},
                 imageScale = FinalImageScale
             )
         }
