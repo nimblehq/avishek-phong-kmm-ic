@@ -6,38 +6,52 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 
 struct MultipleFormsAnswerView: View {
 
-    private let dummyPlaceholder = [
-        "Your answer 1",
-        "Your answer 2",
-        "Your answer 3",
-        "Your answer 4",
-        "Your answer 5"
-    ]
+    @ObservedObject var question: QuestionUiModel
+    private let numberOfAnswers: Int
 
     // TODO: relace this with actual logic for binding user's inputs
-    @State private var values = [
-        "",
-        "",
-        "",
-        "",
-        ""
-    ]
+    @State private var values = ""
 
     var body: some View {
         VStack(spacing: 16.0) {
-            ForEach(0 ..< dummyPlaceholder.count, id: \.self) { index in
-                TextField(dummyPlaceholder[index], text: $values[index])
+            ForEach(0 ..< question.answers.count, id: \.self) { index in
+                TextField(question.answers[safe: index]?.placeholder, text: content(of: index))
                     .primaryTextField()
                     .padding(.horizontal, 12.0)
-                    // TODO: replace with actual logic for binding user's inputs
-                    .onChange(of: values) { _ in
-                        print("User input: \(values[index])")
-                    }
             }
         }
+    }
+
+    init(question: QuestionUiModel) {
+        self.question = question
+        numberOfAnswers = question.answers.count
+    }
+
+    func content(of index: Int) -> Binding<String> {
+        return Binding<String>(
+            get: {
+                let currentInput = getCurrentInput(index)
+                return currentInput?.content ?? ""
+
+            },
+            set: {
+                let answerId = question.answers[safe: index]?.id ?? ""
+                let currentInput = getCurrentInput(index)
+                if let currentInput {
+                    question.userInputs.remove(currentInput)
+                }
+                question.userInputs.insert(AnswerInput(id: answerId, content: $0))
+            }
+        )
+    }
+
+    private func getCurrentInput(_ index: Int) -> AnswerInput? {
+        let answerId = question.answers[safe: index]?.id ?? ""
+        return question.userInputs.first(where: { $0.id == answerId })
     }
 }

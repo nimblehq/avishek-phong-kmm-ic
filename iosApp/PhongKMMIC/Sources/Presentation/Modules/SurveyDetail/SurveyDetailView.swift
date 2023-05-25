@@ -69,12 +69,15 @@ struct SurveyDetailView: View {
                 Spacer()
                 Button {
                     viewModel.fetchSurveyDetail()
-                    // TODO: navigate user to survey questions view
                 } label: {
                     Text(R.string.localizable.surveyDetailStartSurvey())
                         .frame(alignment: .center)
                         .font(.boldBody)
                         .padding(.horizontal, 21.0)
+                }
+                .onChange(of: viewModel.survey) {
+                    guard let survey = $0 else { return }
+                    navigator.showScreen(screen: .surveyQuestions(survey: survey), with: .push)
                 }
                 .frame(height: 56.0)
                 .background(Color.white)

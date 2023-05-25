@@ -6,27 +6,54 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 
 struct SurveyQuestionContentView: View {
 
+    @ObservedObject var question: QuestionUiModel
+
     var body: some View {
         ScrollView {
             VStack {
-                Text("1/5")
+                Text(question.step)
                     .font(.boldMedium)
                     .foregroundColor(Color.white.opacity(0.5))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 8.0)
 
-                Text("How did WFH change your productivity?")
+                Text(question.questionTitle)
                     .font(.boldTitle)
                     .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer(minLength: 150.0)
-                // TODO: Replace with correct answer type based on a response from the API
-                MultipleFormsAnswerView()
+                answerView
             }
         }
+    }
+
+    private var answerView: some View {
+        VStack {
+            switch question.displayType {
+            case .choice:
+                MultipleChoiceAnswerView(question: question)
+            case .dropdown:
+                SpinnerAnswerView(question: question)
+            case .heart, .smiley, .star:
+                EmojiAnswerView(question: question)
+            case .nps:
+                NpsAnswerView(question: question)
+            case .textarea:
+                SingleFormAnswerView(question: question)
+            case .textfield:
+                MultipleFormsAnswerView(question: question)
+            default:
+                EmptyView()
+            }
+        }
+    }
+
+    init(question: QuestionUiModel) {
+        self.question = question
     }
 }

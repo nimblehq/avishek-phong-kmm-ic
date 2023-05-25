@@ -6,28 +6,33 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 
 struct SpinnerAnswerView: View {
 
-    @State private var selectedValue = ""
+    @ObservedObject var question: QuestionUiModel
 
-    private let dummyValues = [
-        "option 1",
-        "option 2",
-        "option 3",
-        "option 4",
-        "option 5",
-        "option 6"
-    ]
+    private var selection: Binding<String> {
+        Binding<String>(
+            get: { question.userInputs.first?.id ?? "" },
+            set: {
+                question.userInputs = [AnswerInput(id: $0, content: nil)]
+            }
+        )
+    }
+
+    private lazy var ids: [String] = question.answers.map { $0.id }
 
     var body: some View {
-        Picker("", selection: $selectedValue) {
-            ForEach(0 ..< dummyValues.count, id: \.self) { index in
-                Text(dummyValues[index])
+        Picker(String(describing: Self.self), selection: selection) {
+            ForEach(0 ..< question.answers.count, id: \.self) { index in
+                let answer = question.answers[safe: index]?.text ?? ""
+                Text(answer)
                     .font(getFontForAnswer(at: index))
                     .foregroundColor(Color.white)
-                if index < dummyValues.count - 1 {
+                    .tag(question.answers[safe: index]?.id ?? "")
+                if index < question.answers.count - 1 {
                     Divider()
                         .frame(minHeight: 0.5)
                         .background(Color.white)
@@ -38,8 +43,13 @@ struct SpinnerAnswerView: View {
         .padding(20.0)
     }
 
+    init(question: QuestionUiModel) {
+        self.question = question
+        question.userInputs.insert(AnswerInput(id: question.answers.first?.id ?? "", content: nil))
+    }
+
     private func getFontForAnswer(at index: Int) -> Font {
-        if selectedValue == dummyValues[index] {
+        if selection.wrappedValue == question.answers[safe: index]?.id {
             return .boldLarge
         }
         return .regularLarge

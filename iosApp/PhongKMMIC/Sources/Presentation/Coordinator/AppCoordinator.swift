@@ -24,8 +24,8 @@ struct AppCoordinator: View {
                 HomeView()
             case let .surveyDetail(survey):
                 SurveyDetailView(survey: survey)
-            case .surveyQuestions:
-                SurveyQuestionsView()
+            case let .surveyQuestions(survey):
+                SurveyQuestionsView(survey: survey)
             }
         }
         .environmentObject(navigator)
