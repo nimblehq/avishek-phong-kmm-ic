@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AnswerSubmissionApiBody(
+data class AnswerSubmissionRequestBody(
     @SerialName("id")
     val id: String,
     @SerialName("answer")

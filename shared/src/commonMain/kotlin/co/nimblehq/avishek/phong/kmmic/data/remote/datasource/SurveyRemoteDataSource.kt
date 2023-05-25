@@ -2,7 +2,7 @@ package co.nimblehq.avishek.phong.kmmic.data.remote.datasource
 
 import co.nimblehq.avishek.phong.kmmic.Endpoint
 import co.nimblehq.avishek.phong.kmmic.data.remote.ApiClient
-import co.nimblehq.avishek.phong.kmmic.data.remote.body.SurveySubmissionApiBody
+import co.nimblehq.avishek.phong.kmmic.data.remote.body.SurveySubmissionRequestBody
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.SurveyApiModel
 import co.nimblehq.avishek.phong.kmmic.data.remote.param.GetSurveysQueryParam
 import io.ktor.http.HttpMethod
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface SurveyRemoteDataSource {
     fun getSurveys(params: GetSurveysQueryParam): Flow<List<SurveyApiModel>>
     fun getSurvey(id: String): Flow<SurveyApiModel>
-    fun submitSurvey(body: SurveySubmissionApiBody): Flow<Unit>
+    fun submitSurvey(body: SurveySubmissionRequestBody): Flow<Unit>
 }
 
 class SurveyRemoteDataSourceImpl(private val apiClient: ApiClient) : SurveyRemoteDataSource {
@@ -24,8 +24,7 @@ class SurveyRemoteDataSourceImpl(private val apiClient: ApiClient) : SurveyRemot
         return apiClient.responseBody(Endpoint.SURVEYS + "/$id", HttpMethod.Get)
     }
 
-    override fun submitSurvey(body: SurveySubmissionApiBody): Flow<Unit> {
-        println(body)
+    override fun submitSurvey(body: SurveySubmissionRequestBody): Flow<Unit> {
         return apiClient.emptyResponseBody(Endpoint.RESPONSES, HttpMethod.Post, body)
     }
 }

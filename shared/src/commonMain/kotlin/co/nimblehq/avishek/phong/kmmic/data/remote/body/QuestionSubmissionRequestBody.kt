@@ -5,14 +5,14 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class QuestionSubmissionApiBody(
+data class QuestionSubmissionRequestBody(
     @SerialName("id")
     val id: String,
     @SerialName("answers")
-    val answers: List<AnswerSubmissionApiBody>
+    val answers: List<AnswerSubmissionRequestBody>
 ) {
     constructor(questionSubmission: QuestionSubmission) : this(
         questionSubmission.id,
-        questionSubmission.answers.map(::AnswerSubmissionApiBody)
+        questionSubmission.answers.map(::AnswerSubmissionRequestBody)
     )
 }

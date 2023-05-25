@@ -2,7 +2,7 @@ package co.nimblehq.avishek.phong.kmmic.data.repository
 
 import co.nimblehq.avishek.phong.kmmic.data.local.datasource.SurveyLocalDataSource
 import co.nimblehq.avishek.phong.kmmic.data.local.model.toSurvey
-import co.nimblehq.avishek.phong.kmmic.data.remote.body.SurveySubmissionApiBody
+import co.nimblehq.avishek.phong.kmmic.data.remote.body.SurveySubmissionRequestBody
 import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.SurveyRemoteDataSource
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.toSurvey
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.toSurveyRealmObject
@@ -54,6 +54,6 @@ class SurveyRepositoryImpl(
     }
 
     override fun submitSurvey(submission: SurveySubmission): Flow<Unit> {
-        return surveyRemoteDataSource.submitSurvey(SurveySubmissionApiBody(submission))
+        return surveyRemoteDataSource.submitSurvey(SurveySubmissionRequestBody(submission))
     }
 }
