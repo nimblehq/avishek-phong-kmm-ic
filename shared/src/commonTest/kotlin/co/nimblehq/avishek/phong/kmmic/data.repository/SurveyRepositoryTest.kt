@@ -6,6 +6,7 @@ import co.nimblehq.avishek.phong.kmmic.data.local.model.SurveyRealmObject
 import co.nimblehq.avishek.phong.kmmic.data.local.model.toSurvey
 import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.SurveyRemoteDataSource
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.toSurvey
+import co.nimblehq.avishek.phong.kmmic.domain.model.SurveySubmission
 import co.nimblehq.avishek.phong.kmmic.domain.repository.SurveyRepository
 import co.nimblehq.avishek.phong.kmmic.helper.MockUtil
 import io.kotest.matchers.shouldBe
@@ -163,6 +164,33 @@ class SurveyRepositoryTest {
                 .thenReturn(flow { throw MockUtil.mockThrowable })
 
             repository.getSurvey("id").test {
+                this.awaitError().message shouldBe MockUtil.mockThrowable.message
+            }
+        }
+
+    @Test
+    fun `when submit survey is succeeded, it returns empty response`() =
+        runTest {
+            given(mockSurveyRemoteDataSource)
+                .function(mockSurveyRemoteDataSource::submitSurvey)
+                .whenInvokedWith(any())
+                .thenReturn(flow { emit(Unit) })
+
+            repository.submitSurvey(SurveySubmission("survey_id", emptyList())).test {
+                this.awaitItem() shouldBe Unit
+                this.awaitComplete()
+            }
+        }
+
+    @Test
+    fun `when submit survey is failed, it returns error`() =
+        runTest {
+            given(mockSurveyRemoteDataSource)
+                .function(mockSurveyRemoteDataSource::submitSurvey)
+                .whenInvokedWith(any())
+                .thenReturn(flow { throw MockUtil.mockThrowable })
+
+            repository.submitSurvey(SurveySubmission("survey_id", emptyList())).test {
                 this.awaitError().message shouldBe MockUtil.mockThrowable.message
             }
         }
