@@ -49,7 +49,7 @@ class HomeViewModel(
                 handleFetchUserProfileSuccess(user)
                 handleFetchSurveysSuccess(surveys)
             }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
 
         _appVersion.update { getAppVersionUseCase() }
     }
@@ -66,7 +66,7 @@ class HomeViewModel(
             .onEach {
                 handleFetchMoreSurveySuccess(it)
             }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
     }
 
     fun refresh() {
@@ -79,7 +79,7 @@ class HomeViewModel(
             .onEach {
                 handleFetchSurveysSuccess(it)
             }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
     }
 
     private fun getProfile(): Flow<User?> {

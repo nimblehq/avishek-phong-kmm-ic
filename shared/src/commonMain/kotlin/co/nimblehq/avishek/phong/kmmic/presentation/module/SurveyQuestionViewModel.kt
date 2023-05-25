@@ -1,18 +1,18 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.module
 
-import co.nimblehq.avishek.phong.kmmic.domain.model.Answer
 import co.nimblehq.avishek.phong.kmmic.domain.model.AnswerSubmission
-import co.nimblehq.avishek.phong.kmmic.domain.model.Question
-import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionSubmission
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 import co.nimblehq.avishek.phong.kmmic.domain.model.SurveySubmission
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.SubmitSurveyAnswerUseCase
+import co.nimblehq.avishek.phong.kmmic.helper.DispatchersProvider
+import co.nimblehq.avishek.phong.kmmic.helper.DispatchersProviderImpl
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toQuestionUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -29,7 +29,8 @@ data class SurveyQuestionViewState(
 }
 
 class SurveyQuestionViewModel(
-    private val submitSurveyAnswerUseCase: SubmitSurveyAnswerUseCase
+    private val submitSurveyAnswerUseCase: SubmitSurveyAnswerUseCase,
+    private val dispatchersProvider: DispatchersProvider
 ) : BaseViewModel() {
 
     private val _viewState: MutableStateFlow<SurveyQuestionViewState> =
@@ -68,10 +69,11 @@ class SurveyQuestionViewModel(
             }
         )
         submitSurveyAnswerUseCase(surveySubmission)
+            .flowOn(dispatchersProvider.io)
             .onStart { setStateLoading() }
             .catch { handleError(it) }
             .onEach { handleSubmitSuccess() }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
     }
 
     private fun setStateLoading() {

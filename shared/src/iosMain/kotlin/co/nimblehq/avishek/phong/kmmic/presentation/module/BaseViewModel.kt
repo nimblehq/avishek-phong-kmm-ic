@@ -5,9 +5,9 @@ import kotlinx.coroutines.cancel
 
 actual abstract class BaseViewModel {
 
-    actual val viewModelScope = MainScope()
+    actual val vmScope = MainScope()
 
     actual fun clear() {
-        viewModelScope.cancel()
+        vmScope.cancel()
     }
 }

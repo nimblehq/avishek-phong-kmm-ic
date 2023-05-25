@@ -29,8 +29,8 @@ class LogInViewModelTest {
 
     @BeforeTest
     fun setUp() {
-        viewModel = LogInViewModel(logInUseCase)
         Dispatchers.setMain(mainThreadSurrogate)
+        viewModel = LogInViewModel(logInUseCase)
     }
 
     @AfterTest

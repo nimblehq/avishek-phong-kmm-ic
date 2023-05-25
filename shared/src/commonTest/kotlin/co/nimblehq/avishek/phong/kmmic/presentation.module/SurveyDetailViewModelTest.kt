@@ -32,8 +32,8 @@ class SurveyDetailViewModelTest {
 
     @BeforeTest
     fun setUp() {
-        viewModel = SurveyDetailViewModel(getSurveyDetailUseCase)
         Dispatchers.setMain(mainThreadSurrogate)
+        viewModel = SurveyDetailViewModel(getSurveyDetailUseCase)
     }
 
     @AfterTest

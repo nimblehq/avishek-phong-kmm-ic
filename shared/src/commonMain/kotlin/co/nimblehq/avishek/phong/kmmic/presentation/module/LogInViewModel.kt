@@ -29,7 +29,7 @@ class LogInViewModel(private val logInUseCase: LogInUseCase) : BaseViewModel() {
             .onStart { setLoadingState() }
             .catch { error -> handleLoginError(error) }
             .onEach { loginSuccess() }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
     }
 
     private fun validInput(email: String, password: String): Boolean {

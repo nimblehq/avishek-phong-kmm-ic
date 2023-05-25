@@ -1,6 +1,5 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.module
 
-import co.nimblehq.avishek.phong.kmmic.data.remote.helper.extension.toErrorMessage
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.GetSurveyDetailUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,7 +37,7 @@ class SurveyDetailViewModel(
             .onStart { setLoadingState() }
             .catch { handleApiError(it) }
             .onEach { handleFetchSuccess(it) }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
     }
 
     private fun setLoadingState() {
