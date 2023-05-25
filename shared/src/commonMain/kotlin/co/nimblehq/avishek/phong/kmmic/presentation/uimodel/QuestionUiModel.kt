@@ -1,8 +1,11 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.uimodel
 
+import co.nimblehq.avishek.phong.kmmic.data.remote.model.QuestionApiModel
+import co.nimblehq.avishek.phong.kmmic.data.remote.model.toAnswer
 import co.nimblehq.avishek.phong.kmmic.domain.model.AnswerInput
 import co.nimblehq.avishek.phong.kmmic.domain.model.Question
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType
+import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 
 data class QuestionUiModel(
     val id: String,
@@ -24,3 +27,8 @@ data class QuestionUiModel(
         userInputs = emptySet()
     )
 }
+
+fun Question.toQuestionUiModel(index: Int, totalStep: Int): QuestionUiModel = QuestionUiModel(
+    question = this,
+    step = "${index + 1}/${totalStep}"
+)

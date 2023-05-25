@@ -5,6 +5,7 @@ import co.nimblehq.avishek.phong.kmmic.domain.model.Question
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toQuestionUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -29,7 +30,7 @@ class SurveyQuestionViewModel : BaseViewModel() {
     fun updateStateWith(survey: Survey) {
         this.survey = survey
         val questionUiModels = survey.questions?.mapIndexed { index, question ->
-                QuestionUiModel(question, "${index + 1}/${survey.questions.count()}")
+                question.toQuestionUiModel(index = index, totalStep = survey.questions.count())
             }
 
         _viewState.update {
