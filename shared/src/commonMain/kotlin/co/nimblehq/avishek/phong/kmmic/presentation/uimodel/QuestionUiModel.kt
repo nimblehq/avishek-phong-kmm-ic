@@ -1,11 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.uimodel
 
-import co.nimblehq.avishek.phong.kmmic.data.remote.model.QuestionApiModel
-import co.nimblehq.avishek.phong.kmmic.data.remote.model.toAnswer
-import co.nimblehq.avishek.phong.kmmic.domain.model.AnswerInput
-import co.nimblehq.avishek.phong.kmmic.domain.model.Question
-import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType
-import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
+import co.nimblehq.avishek.phong.kmmic.domain.model.*
 
 data class QuestionUiModel(
     val id: String,

@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
-import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.DisplayType.DROPDOWN
-import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyQuestionUiModel
+import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.DROPDOWN
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
 
@@ -35,7 +35,8 @@ private const val ImageScale = 1.5f
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SurveyQuestionContent(
-    surveyQuestionUiModels: List<SurveyQuestionUiModel>,
+    backgroundImageUrl: String,
+    surveyQuestionUiModels: List<QuestionUiModel>,
     onCloseClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -44,7 +45,7 @@ fun SurveyQuestionContent(
 
     Box(modifier = modifier.fillMaxSize()) {
         AsyncImage(
-            model = surveyQuestionUiModels.firstOrNull()?.imageUrl.orEmpty(),
+            model = backgroundImageUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -93,9 +94,7 @@ fun SurveyQuestionContent(
                 .weight(1f)
         ) { page ->
             QuestionContent(
-                page = page + 1,
-                count = surveyQuestionUiModels.size,
-                question = surveyQuestionUiModels[page],
+                questionUiModel = surveyQuestionUiModels[page],
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -122,9 +121,7 @@ fun SurveyQuestionContent(
 
 @Composable
 private fun QuestionContent(
-    page: Int,
-    count: Int,
-    question: SurveyQuestionUiModel,
+    questionUiModel: QuestionUiModel,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -132,7 +129,7 @@ private fun QuestionContent(
             .fillMaxWidth()
     ) {
         Text(
-            text = "$page/$count",
+            text = questionUiModel.step,
             color = White.copy(alpha = 0.50f),
             style = MaterialTheme.typography.body2,
             modifier = Modifier
@@ -141,7 +138,7 @@ private fun QuestionContent(
         )
 
         Text(
-            text = question.text,
+            text = questionUiModel.questionTitle,
             color = White,
             style = MaterialTheme.typography.h4,
             modifier = Modifier
@@ -155,7 +152,7 @@ private fun QuestionContent(
                 .weight(1f)
         ) {
             AnswerContent(
-                question = question,
+                questionUiModel = questionUiModel,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -166,12 +163,12 @@ private fun QuestionContent(
 @Composable
 private fun AnswerContent(
     modifier: Modifier = Modifier,
-    question: SurveyQuestionUiModel,
+    questionUiModel: QuestionUiModel,
 ) {
-    with(question) {
+    with(questionUiModel) {
         when (displayType) {
             DROPDOWN -> Spinner(
-                answerUiModels = answerUiModels,
+                surveyAnswerUiModels = answers,
                 modifier = modifier.padding(horizontal = 40.dp)
             )
             else -> Unit
@@ -187,7 +184,8 @@ fun SurveyQuestionPreview(
 ) {
     ApplicationTheme {
         SurveyQuestionContent(
-            surveyQuestionUiModels = params.survey.surveyQuestionUiModels,
+            backgroundImageUrl = params.survey.largeImageUrl,
+            surveyQuestionUiModels = params.survey.questionUiModels,
             onCloseClick = {},
             modifier = Modifier.fillMaxSize()
         )

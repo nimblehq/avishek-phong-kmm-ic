@@ -15,13 +15,7 @@ enum class QuestionDisplayType {
 
     companion object {
         fun fromString(value: String): QuestionDisplayType {
-            return try {
-                QuestionDisplayType.valueOf(value)
-            } catch (exc: IllegalArgumentException) {
-                UNKNOWN
-            } catch (exc: NullPointerException) {
-                UNKNOWN
-            }
+            return values().find { it.name.equals(value, true) } ?: UNKNOWN
         }
     }
 }

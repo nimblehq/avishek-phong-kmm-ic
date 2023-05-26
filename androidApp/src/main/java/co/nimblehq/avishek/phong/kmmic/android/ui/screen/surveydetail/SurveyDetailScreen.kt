@@ -1,6 +1,7 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.pager.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -9,7 +10,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.INTRO
 import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
+import co.nimblehq.avishek.phong.kmmic.presentation.module.SurveyDetailViewModel
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,51 +20,32 @@ import org.koin.androidx.compose.getViewModel
 
 const val InitialImageScale: Float = 1f
 const val FinalImageScale: Float = 1.5f
-private const val ImageScaleAnimationDurationInMillis = 700
+const val ImageScaleAnimationDurationInMillis = 700
 
 @Composable
 fun SurveyDetailScreen(
     homeViewModel: HomeViewModel = getViewModel(),
+    surveyDetailViewModel: SurveyDetailViewModel = getViewModel(),
     surveyId: String,
     onBackClick: () -> Unit,
 ) {
-    val viewState by homeViewModel.viewState.collectAsStateWithLifecycle()
-    val surveyUiModel = viewState.surveys.find { it.id == surveyId }
+    val homeViewState by homeViewModel.viewState.collectAsStateWithLifecycle()
+    val surveyDetailViewState by surveyDetailViewModel.viewSate.collectAsStateWithLifecycle()
     var shouldShowStartContent by remember { mutableStateOf(false) }
     var shouldShowSurveyQuestionContent by remember { mutableStateOf(false) }
     var imageScale by remember { mutableStateOf(InitialImageScale) }
     val coroutineScope = rememberCoroutineScope()
-    // TODO: use property from the ViewModel in the integrate task
-    var surveyQuestionUiModels by remember { mutableStateOf<List<SurveyQuestionUiModel>>(emptyList()) }
-
-    // TODO: simulating network latency. Remove in the integrate task.
-    LaunchedEffect(Unit) {
-        delay(1000)
-        // Call API and fetch the questions
-        surveyQuestionUiModels = List(5) {
-            SurveyQuestionUiModel(
-                id = it.plus(1).toString(),
-                text = "How fulfilled did you feel during this WFH period?",
-                displayType = DisplayType.DROPDOWN,
-                imageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
-                answerUiModels = List(5) {
-                    AnswerUiModel(
-                        id = (it + 1).toString(),
-                        text = "Text ${it + 1}"
-                    )
-                }
-            )
-        }
-    }
+    val surveyUiModel = homeViewState.surveys.find { it.id == surveyId }
 
     LaunchedEffect(Unit) {
+        surveyDetailViewModel.fetchSurveyDetail(surveyId)
         imageScale = FinalImageScale
         shouldShowStartContent = true
     }
 
     SurveyDetailContent(
         surveyUiModel = surveyUiModel,
-        surveyQuestionUiModels = surveyQuestionUiModels,
+        questionUiModels = surveyDetailViewState.survey?.toSurveyUiModel()?.questionUiModels,
         shouldShowStartContent = shouldShowStartContent,
         imageScale = imageScale,
         shouldShowSurveyQuestionContent = shouldShowSurveyQuestionContent,
@@ -77,12 +61,20 @@ fun SurveyDetailScreen(
             shouldShowSurveyQuestionContent = true
         }
     )
+
+    if (surveyDetailViewState.isLoading) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize()
+        )
+    }
 }
 
 @Composable
 fun SurveyDetailContent(
     surveyUiModel: SurveyUiModel?,
-    surveyQuestionUiModels: List<SurveyQuestionUiModel>,
+    questionUiModels: List<QuestionUiModel>?,
     shouldShowStartContent: Boolean,
     shouldShowSurveyQuestionContent: Boolean,
     onBackClick: () -> Unit,
@@ -100,9 +92,10 @@ fun SurveyDetailContent(
         )
     }
 
-    if (shouldShowSurveyQuestionContent) {
+    if (shouldShowSurveyQuestionContent && questionUiModels?.isNotEmpty() == true) {
         SurveyQuestionContent(
-            surveyQuestionUiModels = surveyQuestionUiModels.filter { it.displayType != DisplayType.INTRO },
+            backgroundImageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
+            surveyQuestionUiModels = questionUiModels.filter { it.displayType != INTRO },
             onCloseClick = {},
             modifier = Modifier.fillMaxSize()
         )
@@ -122,7 +115,7 @@ fun SurveyDetailScreenStartPagePreview(
         ApplicationTheme {
             SurveyDetailContent(
                 surveyUiModel = survey,
-                surveyQuestionUiModels = survey.surveyQuestionUiModels,
+                questionUiModels = survey.questionUiModels,
                 shouldShowStartContent = true,
                 shouldShowSurveyQuestionContent = false,
                 onBackClick = {},
@@ -146,7 +139,7 @@ fun SurveyDetailScreenQuestionPagePreview(
         ApplicationTheme {
             SurveyDetailContent(
                 surveyUiModel = survey,
-                surveyQuestionUiModels = survey.surveyQuestionUiModels,
+                questionUiModels = survey.questionUiModels,
                 shouldShowStartContent = false,
                 shouldShowSurveyQuestionContent = true,
                 onBackClick = {},
