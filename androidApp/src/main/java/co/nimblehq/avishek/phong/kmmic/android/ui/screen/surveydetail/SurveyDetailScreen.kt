@@ -20,7 +20,7 @@ import org.koin.androidx.compose.getViewModel
 
 const val InitialImageScale: Float = 1f
 const val FinalImageScale: Float = 1.5f
-private const val ImageScaleAnimationDurationInMillis = 700
+const val ImageScaleAnimationDurationInMillis = 700
 
 @Composable
 fun SurveyDetailScreen(
@@ -39,9 +39,6 @@ fun SurveyDetailScreen(
 
     LaunchedEffect(Unit) {
         surveyDetailViewModel.fetchSurveyDetail(surveyId)
-    }
-
-    LaunchedEffect(Unit) {
         imageScale = FinalImageScale
         shouldShowStartContent = true
     }
