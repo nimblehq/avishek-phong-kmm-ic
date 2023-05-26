@@ -2,9 +2,11 @@ package co.nimblehq.avishek.phong.kmmic.presentation.module
 
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.GetSurveyDetailUseCase
+import co.nimblehq.avishek.phong.kmmic.helper.DispatchersProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -25,7 +27,8 @@ data class SurveyDetailViewState(
 }
 
 class SurveyDetailViewModel(
-    private val getSurveyUseCase: GetSurveyDetailUseCase
+    private val getSurveyUseCase: GetSurveyDetailUseCase,
+    private val dispatchersProvider: DispatchersProvider
 ): BaseViewModel() {
 
     private val _viewState: MutableStateFlow<SurveyDetailViewState> =
@@ -34,6 +37,7 @@ class SurveyDetailViewModel(
 
     fun fetchSurveyDetail(id: String) {
         getSurveyUseCase(id)
+            .flowOn(dispatchersProvider.io)
             .onStart { setLoadingState() }
             .catch { handleApiError(it) }
             .onEach { handleFetchSuccess(it) }
