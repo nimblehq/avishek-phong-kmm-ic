@@ -1,6 +1,7 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.uimodel
 
 import co.nimblehq.avishek.phong.kmmic.domain.model.*
+import co.nimblehq.avishek.phong.kmmic.data.remote.model.*
 
 data class QuestionUiModel(
     val id: String,
@@ -27,3 +28,14 @@ fun Question.toQuestionUiModel(index: Int, totalStep: Int): QuestionUiModel = Qu
     question = this,
     step = "${index + 1}/${totalStep}"
 )
+
+fun List<QuestionUiModel>.toQuestionSubmissions(): List<QuestionSubmission> {
+    return this.map { question ->
+        QuestionSubmission(
+            id = question.id,
+            answers = question.answers.map { answer ->
+                AnswerSubmission(answer.id, answer.text)
+            }
+        )
+    }
+}

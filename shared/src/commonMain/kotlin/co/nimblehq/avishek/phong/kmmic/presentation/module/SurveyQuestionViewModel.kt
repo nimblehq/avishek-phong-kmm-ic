@@ -8,6 +8,7 @@ import co.nimblehq.avishek.phong.kmmic.domain.usecase.SubmitSurveyAnswerUseCase
 import co.nimblehq.avishek.phong.kmmic.helper.DispatchersProvider
 import co.nimblehq.avishek.phong.kmmic.helper.DispatchersProviderImpl
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toQuestionSubmissions
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toQuestionUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -59,14 +60,7 @@ class SurveyQuestionViewModel(
         val surveyId = survey?.id ?: return
         val surveySubmission = SurveySubmission(
             id = surveyId,
-            questions = questions.map { question ->
-                QuestionSubmission(
-                    id = question.id,
-                    answers = question.answers.map { answer ->
-                        AnswerSubmission(answer.id, answer.text)
-                    }
-                )
-            }
+            questions = questions.toQuestionSubmissions()
         )
         submitSurveyAnswerUseCase(surveySubmission)
             .flowOn(dispatchersProvider.io)
