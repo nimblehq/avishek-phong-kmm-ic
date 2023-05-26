@@ -29,16 +29,16 @@ fun Question.toQuestionUiModel(index: Int, totalStep: Int): QuestionUiModel = Qu
     step = "${index + 1}/${totalStep}"
 )
 
-fun List<QuestionUiModel>.mapToQuestionSubmissions(): List<QuestionSubmission> {
+fun List<QuestionUiModel>.toQuestionSubmissions(): List<QuestionSubmission> {
     return this.map { question ->
         QuestionSubmission(
             id = question.id,
-            answers = question.answers.mapToAnswerSubmissions()
+            answers = question.userInputs.toAnswerSubmissions()
         )
     }
 }
 
 fun List<QuestionUiModel>.toSurveySubmission(surveyId: String): SurveySubmission = SurveySubmission(
     id = surveyId,
-    questions = this.mapToQuestionSubmissions()
+    questions = this.toQuestionSubmissions()
 )
