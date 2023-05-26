@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.*
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
-import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.DROPDOWN
-import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
+import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.*
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.*
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
 
@@ -32,11 +32,12 @@ private const val TopGradientAlpha: Float = 0.01f
 private const val BottomGradientAlpha: Float = 0.6f
 private const val ImageScale = 1.5f
 
+@Suppress("LongMethod")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SurveyQuestionContent(
     backgroundImageUrl: String,
-    surveyQuestionUiModels: List<QuestionUiModel>,
+    questionUiModels: List<QuestionUiModel>,
     onCloseClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -86,7 +87,7 @@ fun SurveyQuestionContent(
         )
 
         HorizontalPager(
-            pageCount = surveyQuestionUiModels.size,
+            pageCount = questionUiModels.size,
             state = pagerState,
             userScrollEnabled = false,
             modifier = Modifier
@@ -94,7 +95,7 @@ fun SurveyQuestionContent(
                 .weight(1f)
         ) { page ->
             QuestionContent(
-                questionUiModel = surveyQuestionUiModels[page],
+                questionUiModel = questionUiModels[page],
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -171,6 +172,14 @@ private fun AnswerContent(
                 surveyAnswerUiModels = answers,
                 modifier = modifier.padding(horizontal = 40.dp)
             )
+            STAR,
+            HEART,
+            SMILEY,
+            -> RatingBar(
+                emojis = displayType.toEmojis(answers.size),
+                isRangeSelectable = displayType != SMILEY,
+                modifier = modifier
+            )
             else -> Unit
         }
     }
@@ -185,7 +194,7 @@ fun SurveyQuestionPreview(
     ApplicationTheme {
         SurveyQuestionContent(
             backgroundImageUrl = params.survey.largeImageUrl,
-            surveyQuestionUiModels = params.survey.questionUiModels,
+            questionUiModels = params.survey.questionUiModels,
             onCloseClick = {},
             modifier = Modifier.fillMaxSize()
         )

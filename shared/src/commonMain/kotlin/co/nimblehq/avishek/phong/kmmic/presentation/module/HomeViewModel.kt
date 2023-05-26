@@ -20,6 +20,7 @@ data class HomeViewState(
     constructor() : this(true, false)
 }
 
+@Suppress("TooManyFunctions")
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getSurveysUseCase: GetSurveysUseCase,
