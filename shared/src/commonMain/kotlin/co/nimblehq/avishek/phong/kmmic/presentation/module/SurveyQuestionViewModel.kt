@@ -1,15 +1,11 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.module
 
-import co.nimblehq.avishek.phong.kmmic.domain.model.AnswerSubmission
-import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionSubmission
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
-import co.nimblehq.avishek.phong.kmmic.domain.model.SurveySubmission
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.SubmitSurveyAnswerUseCase
 import co.nimblehq.avishek.phong.kmmic.helper.DispatchersProvider
-import co.nimblehq.avishek.phong.kmmic.helper.DispatchersProviderImpl
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
-import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toQuestionSubmissions
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toQuestionUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.toSurveySubmission
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -58,10 +54,7 @@ class SurveyQuestionViewModel(
 
     fun submitAnswer(questions: List<QuestionUiModel>) {
         val surveyId = survey?.id ?: return
-        val surveySubmission = SurveySubmission(
-            id = surveyId,
-            questions = questions.toQuestionSubmissions()
-        )
+        val surveySubmission = questions.toSurveySubmission(surveyId)
         submitSurveyAnswerUseCase(surveySubmission)
             .flowOn(dispatchersProvider.io)
             .onStart { setStateLoading() }
