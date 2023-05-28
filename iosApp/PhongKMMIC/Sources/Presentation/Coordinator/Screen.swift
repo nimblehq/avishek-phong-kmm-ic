@@ -15,4 +15,5 @@ enum Screen {
     case home
     case surveyDetail(survey: Survey)
     case surveyQuestions(survey: Survey)
+    case thankYou
 }

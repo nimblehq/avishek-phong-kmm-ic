@@ -74,6 +74,11 @@ struct SurveyQuestionsView: View {
             }
             .padding(.horizontal, 20.0)
         }
+        .onChange(of: viewModel.isSuccess) {
+            if $0 {
+                navigator.showScreen(screen: .thankYou, with: .push)
+            }
+        }
         .alert(isPresented: $isAlertShown, content: {
             Alert(
                 title: Text(R.string.localizable.alertWarningTitle()),

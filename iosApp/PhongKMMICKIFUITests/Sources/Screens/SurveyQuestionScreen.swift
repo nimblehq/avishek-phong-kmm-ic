@@ -18,4 +18,8 @@ final class SurveyQuestionScreen: GenericScreen {
     func tapNextButton() {
         tester().tapView(withAccessibilityIdentifier: ViewId.surveyQuestion(.nextButton)())
     }
+
+    func tapSubmitButton() {
+        tester().tapView(withAccessibilityIdentifier: ViewId.surveyQuestion(.submitButton)())
+    }
 }

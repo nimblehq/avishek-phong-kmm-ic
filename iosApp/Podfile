@@ -15,6 +15,7 @@ target 'PhongKMMIC' do
   pod 'SnapKit'
   pod 'SkeletonUI'
   pod 'SwiftUIPager'
+  pod 'lottie-ios'
 
   # Storage
   pod 'KeychainAccess'

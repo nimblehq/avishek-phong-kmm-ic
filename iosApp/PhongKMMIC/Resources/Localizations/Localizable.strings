@@ -20,3 +20,5 @@
 "alert.warning.title" = "Warning!";
 "alert.yesButton.title" = "Yes";
 "alert.cancelButton.title" = "Cancel";
+
+"submissionSuccess.title" = "Thanks for taking the survey.";
