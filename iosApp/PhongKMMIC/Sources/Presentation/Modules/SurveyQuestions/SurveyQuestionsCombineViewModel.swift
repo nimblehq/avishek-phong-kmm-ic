@@ -15,6 +15,8 @@ final class SurveyQuestionsCombineViewModel: ObservableObject {
 
     @Published var questions: [QuestionUiModel] = []
     @Published var backgroundImageUrl = ""
+    @Published var isLoading = false
+    @Published var isSuccess = false
 
     @Injected(\.surveyQuestionViewModel) private var sharedViewModel
     private var cancellables = Set<AnyCancellable>()
@@ -34,8 +36,14 @@ final class SurveyQuestionsCombineViewModel: ObservableObject {
         sharedViewModel.updateStateWith(survey: survey)
     }
 
+    func submitAnswer() {
+        sharedViewModel.submitAnswer(questions: questions)
+    }
+
     private func updateState(_ viewState: SurveyQuestionViewState) {
         questions = viewState.questions
         backgroundImageUrl = viewState.backgroundImageUrl
+        isLoading = viewState.isLoading
+        isSuccess = viewState.isSuccess
     }
 }

@@ -192,6 +192,7 @@ naming:
     ignoreAnnotated: [ 'Composable' ]
   MatchingDeclarationName:
     active: true
+    excludes: ['**/Platform.kt']
   MemberNameEqualsClassName:
     active: false
     ignoreOverriddenFunction: true
@@ -298,6 +299,7 @@ style:
     maxLineLength: 120
     excludePackageStatements: false
     excludeImportStatements: false
+    excludes: ['**/test/**', '**/*.Test.kt', '**/*.Spec.kt']
   ModifierOrder:
     active: true
   NestedClassesVisibility:

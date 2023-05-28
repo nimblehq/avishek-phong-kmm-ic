@@ -5,8 +5,13 @@ import co.nimblehq.avishek.phong.kmmic.data.remote.model.QuestionApiModel
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.SurveyApiModel
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.UserApiModel
 import co.nimblehq.avishek.phong.kmmic.domain.model.Answer
+import co.nimblehq.avishek.phong.kmmic.domain.model.AnswerInput
+import co.nimblehq.avishek.phong.kmmic.domain.model.Question
+import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
 import co.nimblehq.avishek.phong.kmmic.domain.model.User
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.QuestionUiModel
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 
 
 object MockUtil {
@@ -77,5 +82,29 @@ object MockUtil {
         content = "",
         displayOrder = 0,
         placeholder = "placeholder"
+    )
+
+    val mockQuestionUiModels = listOf(
+        QuestionUiModel(
+            id = "id",
+            step = "1/5",
+            displayOrder = 0,
+            displayType = QuestionDisplayType.CHOICE,
+            questionTitle = "questionTitle",
+            answers = listOf(
+                SurveyAnswerUiModel(
+                    id = "id",
+                    text = "text",
+                    displayOrder = 0,
+                    placeholder = "placeholder"
+                )
+            ),
+            userInputs = setOf(
+                AnswerInput(
+                    id = "id",
+                    content = "content"
+                )
+            )
+        )
     )
 }

@@ -47,7 +47,7 @@ struct SurveyQuestionsView: View {
                     Spacer()
                     Button {
                         if isLastPage {
-                            // TODO: Submit answers
+                            viewModel.submitAnswer()
                         } else {
                             withAnimation {
                                 page.update(.next)
@@ -94,6 +94,7 @@ struct SurveyQuestionsView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .progressView($viewModel.isLoading)
     }
 
     init(survey: Survey) {

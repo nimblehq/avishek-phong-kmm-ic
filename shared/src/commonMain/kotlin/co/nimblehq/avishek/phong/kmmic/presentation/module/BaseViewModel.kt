@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 
 expect abstract class BaseViewModel() {
 
-    val viewModelScope: CoroutineScope
+    val vmScope: CoroutineScope
 
     fun clear()
 }
