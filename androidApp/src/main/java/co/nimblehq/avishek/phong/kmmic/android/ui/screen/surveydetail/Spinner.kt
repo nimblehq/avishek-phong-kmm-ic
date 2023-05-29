@@ -6,7 +6,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 import com.chargemap.compose.numberpicker.ListItemPicker
@@ -20,7 +19,7 @@ fun Spinner(
     var answerText by remember { mutableStateOf(answerTexts[0]) }
 
     ListItemPicker(
-        label = { it.orEmpty() },
+        label = { it },
         value = answerText,
         onValueChange = {
             answerText = it
@@ -34,13 +33,8 @@ fun Spinner(
 
 @Preview
 @Composable
-fun SpinnerPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class)
-    params: SurveyDetailScreenPreviewParameterProvider.Params,
-) {
+fun SpinnerPreview() {
     ApplicationTheme {
-        Spinner(
-            surveyAnswerUiModels = params.survey.questionUiModels[0].answers
-        )
+        Spinner(surveyAnswerUiModels = answerUiModels)
     }
 }

@@ -68,8 +68,8 @@ fun QuestionDisplayType.toEmojis(count: Int): List<String> {
 @Preview
 @Composable
 fun RatingBarPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class)
-    params: SurveyDetailScreenPreviewParameterProvider.Params,
+    @PreviewParameter(RatingBarPreviewParameterProvider::class)
+    params: RatingBarPreviewParameterProvider.Params,
 ) {
     with(params) {
         ApplicationTheme {
