@@ -131,14 +131,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                         displayOrder = 1,
                         questionTitle = "How fulfilled did you feel during this WFH period?",
                         displayType = TEXTFIELD,
-                        answers = List(5) {
-                            SurveyAnswerUiModel(
-                                id = (it + 1).toString(),
-                                text = "Text ${it + 1}",
-                                displayOrder = it,
-                                placeholder = "Your thoughts"
-                            )
-                        },
+                        answers = answerUiModels,
                         userInputs = emptySet()
                     )
                 )
@@ -158,14 +151,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                         displayOrder = 1,
                         questionTitle = "How fulfilled did you feel during this WFH period?",
                         displayType = CHOICE,
-                        answers = List(5) {
-                            SurveyAnswerUiModel(
-                                id = (it + 1).toString(),
-                                text = "Text ${it + 1}",
-                                displayOrder = it,
-                                placeholder = "Your thoughts"
-                            )
-                        },
+                        answers = answerUiModels,
                         userInputs = emptySet()
                     )
                 )

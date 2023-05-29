@@ -41,15 +41,6 @@ fun TextFields(
 @Composable
 fun TextFieldPreview() {
     ApplicationTheme {
-        TextFields(
-            surveyAnswerUiModels = List(5) {
-                SurveyAnswerUiModel(
-                    id = (it + 1).toString(),
-                    text = "Text ${it + 1}",
-                    displayOrder = it,
-                    placeholder = "Your thoughts"
-                )
-            }
-        )
+        TextFields(surveyAnswerUiModels = answerUiModels)
     }
 }

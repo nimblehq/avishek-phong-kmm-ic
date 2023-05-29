@@ -1,6 +1,7 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -13,9 +14,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.R
+import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 
 @Composable
@@ -95,11 +96,8 @@ private fun Choice(
 
 @Preview
 @Composable
-fun MultipleChoiceFormPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class)
-    params: SurveyDetailScreenPreviewParameterProvider.Params,
-) {
-    MultiChoiceForm(
-        surveyAnswerUiModels = params.survey.questionUiModels[0].answers
-    )
+fun MultipleChoiceFormPreview() {
+    ApplicationTheme {
+        MultiChoiceForm(surveyAnswerUiModels = answerUiModels)
+    }
 }
