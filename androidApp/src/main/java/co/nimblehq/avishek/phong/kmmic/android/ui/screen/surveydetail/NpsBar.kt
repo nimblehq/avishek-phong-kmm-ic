@@ -31,10 +31,16 @@ fun NpsBar(
     ) {
         LazyRow(
             modifier = Modifier
-                .border(BorderStroke(1.dp, White), MaterialTheme.shapes.medium)
+                .border(
+                    border = BorderStroke(1.dp, White),
+                    shape = MaterialTheme.shapes.medium,
+                )
                 .height(57.dp)
         ) {
-            items(surveyAnswerUiModels.size) { index ->
+            items(
+                count = surveyAnswerUiModels.size,
+                key = { surveyAnswerUiModels[it].id },
+            ) { index ->
                 val isSelected = index <= selectedIndex
                 val answer = surveyAnswerUiModels[index]
 
@@ -107,6 +113,15 @@ fun NpsItem(
 @Composable
 fun NpsBarPreview() {
     ApplicationTheme {
-        NpsBar(surveyAnswerUiModels = answerUiModels)
+        NpsBar(
+            surveyAnswerUiModels = List(10) {
+                SurveyAnswerUiModel(
+                    id = (it + 1).toString(),
+                    text = "${it + 1}",
+                    displayOrder = it,
+                    placeholder = ""
+                )
+            }
+        )
     }
 }
