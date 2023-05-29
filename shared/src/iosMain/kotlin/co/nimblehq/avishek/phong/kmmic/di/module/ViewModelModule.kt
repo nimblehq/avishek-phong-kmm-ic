@@ -10,4 +10,6 @@ actual val viewModelModule: Module
         factoryOf(::SplashViewModel)
         factoryOf(::LogInViewModel)
         factoryOf(::HomeViewModel)
+        factoryOf(::SurveyDetailViewModel)
+        factoryOf(::SurveyQuestionViewModel)
     }

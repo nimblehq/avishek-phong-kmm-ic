@@ -2,11 +2,13 @@ package co.nimblehq.avishek.phong.kmmic.data.repository
 
 import co.nimblehq.avishek.phong.kmmic.data.local.datasource.SurveyLocalDataSource
 import co.nimblehq.avishek.phong.kmmic.data.local.model.toSurvey
+import co.nimblehq.avishek.phong.kmmic.data.remote.body.SurveySubmissionRequestBody
 import co.nimblehq.avishek.phong.kmmic.data.remote.datasource.SurveyRemoteDataSource
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.toSurvey
 import co.nimblehq.avishek.phong.kmmic.data.remote.model.toSurveyRealmObject
 import co.nimblehq.avishek.phong.kmmic.data.remote.param.GetSurveysQueryParam
 import co.nimblehq.avishek.phong.kmmic.domain.model.Survey
+import co.nimblehq.avishek.phong.kmmic.domain.model.SurveySubmission
 import co.nimblehq.avishek.phong.kmmic.domain.repository.SurveyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -49,5 +51,9 @@ class SurveyRepositoryImpl(
 
     override fun getSurvey(id: String): Flow<Survey> {
         return surveyRemoteDataSource.getSurvey(id).map { it.toSurvey() }
+    }
+
+    override fun submitSurvey(submission: SurveySubmission): Flow<Unit> {
+        return surveyRemoteDataSource.submitSurvey(SurveySubmissionRequestBody(submission))
     }
 }

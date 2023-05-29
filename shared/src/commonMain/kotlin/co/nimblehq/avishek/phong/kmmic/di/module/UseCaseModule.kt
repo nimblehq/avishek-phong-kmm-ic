@@ -12,4 +12,5 @@ val useCaseModule = module {
     singleOf(::GetUserProfileUseCaseImpl) bind GetUserProfileUseCase::class
     singleOf(::GetSurveyDetailUseCaseImpl) bind GetSurveyDetailUseCase:: class
     singleOf(::GetAppVersionUseCaseImpl) bind GetAppVersionUseCase::class
+    singleOf(::SubmitSurveyAnswerUseCaseImpl) bind SubmitSurveyAnswerUseCase::class
 }

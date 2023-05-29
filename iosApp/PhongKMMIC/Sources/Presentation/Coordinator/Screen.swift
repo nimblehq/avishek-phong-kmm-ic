@@ -6,11 +6,14 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
+
 enum Screen {
 
     case splash
     case login
     case home
-    case surveyDetail
-    case surveyQuestions
+    case surveyDetail(survey: Survey)
+    case surveyQuestions(survey: Survey)
+    case thankYou
 }

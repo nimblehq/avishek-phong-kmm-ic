@@ -14,8 +14,11 @@
 
 "surveyQuestions.nps.unlike" = "Not at all Likely";
 "surveyQuestions.nps.like" = "Extremely Likely";
+"surveyQuestions.submit" = "Submit";
 
 "surveyQuestionScreen.exitAlert.message" = "Are you sure you want to quit the survey?";
 "alert.warning.title" = "Warning!";
 "alert.yesButton.title" = "Yes";
 "alert.cancelButton.title" = "Cancel";
+
+"submissionSuccess.title" = "Thanks for taking the survey.";

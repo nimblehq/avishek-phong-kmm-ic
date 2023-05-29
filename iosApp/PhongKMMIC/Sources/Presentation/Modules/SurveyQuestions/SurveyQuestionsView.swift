@@ -6,6 +6,7 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 import SwiftUIPager
 
@@ -16,40 +17,67 @@ struct SurveyQuestionsView: View {
     @StateObject private var page: Page = .first()
     @State private var isAlertShown = false
 
+    @ObservedObject private var viewModel: SurveyQuestionsCombineViewModel
+
     var body: some View {
         ZStack {
             GeometryReader { geometryReader in
-                Image.url("https://dhdbhh0jsld0o.cloudfront.net/m/4670c0dca0ed82de564a_l")
+                Image.url(viewModel.backgroundImageUrl)
                     .resizable()
                     .scaledToFill()
                     .frame(width: geometryReader.size.width, height: geometryReader.size.height)
+                    .accessibility(.surveyQuestion(.backgroundImage))
                 BlackGradientOverlay()
             }
             .ignoresSafeArea()
 
-            Pager(page: page, data: 0 ..< 6, id: \.self) { _ in
-                SurveyQuestionContentView()
+            Pager(page: page, data: viewModel.questions, id: \.id) { question in
+                SurveyQuestionContentView(question: question)
                     .padding(.top, 26.0)
                     .padding(.horizontal, 20.0)
                     .padding(.bottom, 56.0)
+                    .accessibility(.surveyQuestion(.answerContent))
             }
             .disableDragging()
 
             VStack(alignment: .leading) {
+                let isLastPage = self.page.index == viewModel.questions.count - 1
                 Spacer()
                 HStack {
                     Spacer()
                     Button {
-                        print("next button is tapped")
+                        if isLastPage {
+                            viewModel.submitAnswer()
+                        } else {
+                            withAnimation {
+                                page.update(.next)
+                            }
+                        }
                     } label: {
-                        R.image.rightChevron.image
-                            .frame(width: 56.0, height: 56.0)
-                            .background(Color.white)
-                            .clipShape(Circle())
+                        if isLastPage {
+                            Text(R.string.localizable.surveyQuestionsSubmit())
+                                .foregroundColor(Color.black)
+                                .font(.boldBody)
+                                .frame(alignment: .center)
+                                .padding()
+                                .accessibility(.surveyQuestion(.submitButton))
+                        } else {
+                            R.image.rightChevron.image
+                                .clipShape(Circle())
+                                .accessibility(.surveyQuestion(.nextButton))
+                        }
                     }
+                    .frame(width: isLastPage ? nil : 56.0, height: 56.0)
+                    .background(Color.white)
+                    .cornerRadius(isLastPage ? 10.0 : 28.0)
                 }
             }
             .padding(.horizontal, 20.0)
+        }
+        .onChange(of: viewModel.isSuccess) {
+            if $0 {
+                navigator.showScreen(screen: .thankYou, with: .push)
+            }
         }
         .alert(isPresented: $isAlertShown, content: {
             Alert(
@@ -71,5 +99,10 @@ struct SurveyQuestionsView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .progressView($viewModel.isLoading)
+    }
+
+    init(survey: Survey) {
+        viewModel = SurveyQuestionsCombineViewModel(survey: survey)
     }
 }

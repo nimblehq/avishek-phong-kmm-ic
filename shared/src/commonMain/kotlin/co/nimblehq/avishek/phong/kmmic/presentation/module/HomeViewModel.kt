@@ -13,12 +13,14 @@ private const val DEFAULT_PAGE_SIZE = 5
 
 data class HomeViewState(
     val isLoading: Boolean,
+    val isRefreshing: Boolean,
     val headerUiModel: SurveyHeaderUiModel? = null,
     var surveys: List<SurveyUiModel> = listOf(),
 ) {
-    constructor() : this(true)
+    constructor() : this(true, false)
 }
 
+@Suppress("TooManyFunctions")
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getSurveysUseCase: GetSurveysUseCase,
@@ -35,10 +37,7 @@ class HomeViewModel(
 
     private var previousSelectedIndex = 0
     private var currentPage = 1
-
-    init {
-        fetchData()
-    }
+    var surveys: List<Survey> = listOf()
 
     fun fetchData() {
         getProfile()
@@ -50,7 +49,7 @@ class HomeViewModel(
                 handleFetchUserProfileSuccess(user)
                 handleFetchSurveysSuccess(surveys)
             }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
 
         _appVersion.update { getAppVersionUseCase() }
     }
@@ -67,7 +66,7 @@ class HomeViewModel(
             .onEach {
                 handleFetchMoreSurveySuccess(it)
             }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
     }
 
     fun refresh() {
@@ -76,11 +75,11 @@ class HomeViewModel(
             page = currentPage,
             isForceLatestData = true
         )
-            .onStart { setStateLoading() }
+            .onStart { setStateRefreshing() }
             .onEach {
                 handleFetchSurveysSuccess(it)
             }
-            .launchIn(viewModelScope)
+            .launchIn(vmScope)
     }
 
     private fun getProfile(): Flow<User?> {
@@ -112,15 +111,20 @@ class HomeViewModel(
         val headerUiModel = user?.toSurveyHeaderUiModel(today, dateTimeFormatter)
 
         _viewState.update {
-            HomeViewState(isLoading = false, headerUiModel)
+            HomeViewState(
+                isLoading = false,
+                isRefreshing = false,
+                headerUiModel = headerUiModel)
         }
     }
 
     private fun handleFetchMoreSurveySuccess(surveys: List<Survey>) {
+        this.surveys += surveys
         val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
             HomeViewState(
                 isLoading = false,
+                isRefreshing = false,
                 headerUiModel = it.headerUiModel,
                 surveys = it.surveys + surveyUiModels
             )
@@ -128,10 +132,12 @@ class HomeViewModel(
     }
 
     private fun handleFetchSurveysSuccess(surveys: List<Survey>) {
+        this.surveys = surveys
         val surveyUiModels = surveys.map { SurveyUiModel(it) }
         _viewState.update {
             HomeViewState(
                 isLoading = false,
+                isRefreshing = false,
                 headerUiModel = it.headerUiModel,
                 surveys = surveyUiModels
             )
@@ -142,6 +148,18 @@ class HomeViewModel(
         _viewState.update {
             HomeViewState(
                 isLoading = true,
+                isRefreshing = false,
+                headerUiModel = it.headerUiModel,
+                surveys = it.surveys
+            )
+        }
+    }
+
+    private fun setStateRefreshing() {
+        _viewState.update {
+            HomeViewState(
+                isLoading = false,
+                isRefreshing = true,
                 headerUiModel = it.headerUiModel,
                 surveys = it.surveys
             )

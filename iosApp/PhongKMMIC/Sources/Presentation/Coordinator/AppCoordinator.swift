@@ -22,10 +22,12 @@ struct AppCoordinator: View {
                 LogInView()
             case .home:
                 HomeView()
-            case .surveyDetail:
-                SurveyDetailView()
-            case .surveyQuestions:
-                SurveyQuestionsView()
+            case let .surveyDetail(survey):
+                SurveyDetailView(survey: survey)
+            case let .surveyQuestions(survey):
+                SurveyQuestionsView(survey: survey)
+            case .thankYou:
+                SubmissionSuccessView()
             }
         }
         .environmentObject(navigator)

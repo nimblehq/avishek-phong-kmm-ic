@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import co.nimble.avishek.phong.kmmic.android.helpers.TestDispatchersProvider
 import co.nimblehq.avishek.phong.kmmic.android.R
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.CheckLoggedInUseCase
@@ -43,7 +44,7 @@ internal class SplashScreenTest {
         every { mockOnLoginSuccess() } just Runs
 
         splashViewModel = SplashViewModel(mockCheckLoggedInUseCase)
-        logInViewModel = LogInViewModel(mockLogInUseCase)
+        logInViewModel = LogInViewModel(mockLogInUseCase, TestDispatchersProvider)
     }
 
     @After

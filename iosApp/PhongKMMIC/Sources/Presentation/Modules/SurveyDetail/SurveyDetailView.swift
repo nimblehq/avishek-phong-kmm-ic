@@ -6,55 +6,29 @@
 //  Copyright © 2023 Nimble. All rights reserved.
 //
 
+import shared
 import SwiftUI
 
 struct SurveyDetailView: View {
 
     @EnvironmentObject private var navigator: Navigator
-
+    @ObservedObject private var viewModel: SurveyDetailCombineViewModel
     @State private var backgroundScale = 1.0
 
     var body: some View {
         ZStack {
             GeometryReader { geometryReader in
-                Image.url("https://dhdbhh0jsld0o.cloudfront.net/m/4670c0dca0ed82de564a_l")
+                Image.url(viewModel.surveyUiModel.largeImageUrl)
                     .resizable()
                     .scaledToFill()
                     .frame(width: geometryReader.size.width, height: geometryReader.size.height)
                     .scaleEffect(backgroundScale, anchor: .topTrailing)
+                    .accessibility(.surveyDetail(.backgroundImage))
                 BlackGradientOverlay()
             }
             .ignoresSafeArea()
 
-            VStack(alignment: .leading) {
-                Text("Working from home Check-in")
-                    .font(.boldTitle)
-                    .foregroundColor(Color.white)
-
-                Text("We would like to know how you feel about our work from home (WFH) experience")
-                    .font(.regularBody)
-                    .foregroundColor(Color.white.opacity(0.7))
-                    .padding(.top, 16.0)
-
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button {
-                        navigator.showScreen(screen: .surveyQuestions, with: .push)
-                    } label: {
-                        Text(R.string.localizable.surveyDetailStartSurvey())
-                            .frame(alignment: .center)
-                            .font(.boldBody)
-                            .padding(.horizontal, 21.0)
-                    }
-                    .frame(height: 56.0)
-                    .background(Color.white)
-                    .foregroundColor(Color.black)
-                    .cornerRadius(10.0)
-                }
-            }
-            .padding(.top, 26.0)
-            .padding(.horizontal, 20.0)
+            contentView
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -63,6 +37,7 @@ struct SurveyDetailView: View {
                 } label: {
                     R.image.whiteLeftChevron.image
                 }
+                .accessibility(.general(.backButton))
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -73,6 +48,50 @@ struct SurveyDetailView: View {
                 }
             }
         }
+        .progressView($viewModel.isLoading)
+    }
+
+    private var contentView: some View {
+        VStack(alignment: .leading) {
+            Text(viewModel.surveyUiModel.title)
+                .font(.boldTitle)
+                .foregroundColor(Color.white)
+                .accessibility(.surveyDetail(.title))
+
+            Text(viewModel.surveyUiModel.description_)
+                .font(.regularBody)
+                .foregroundColor(Color.white.opacity(0.7))
+                .padding(.top, 16.0)
+                .accessibility(.surveyDetail(.description))
+
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    viewModel.fetchSurveyDetail()
+                } label: {
+                    Text(R.string.localizable.surveyDetailStartSurvey())
+                        .frame(alignment: .center)
+                        .font(.boldBody)
+                        .padding(.horizontal, 21.0)
+                }
+                .onChange(of: viewModel.survey) {
+                    guard let survey = $0 else { return }
+                    navigator.showScreen(screen: .surveyQuestions(survey: survey), with: .push)
+                }
+                .frame(height: 56.0)
+                .background(Color.white)
+                .foregroundColor(Color.black)
+                .cornerRadius(10.0)
+                .accessibility(.surveyDetail(.startButton))
+            }
+        }
+        .padding(.top, 26.0)
+        .padding(.horizontal, 20.0)
+    }
+
+    init(survey: Survey) {
+        viewModel = SurveyDetailCombineViewModel(survey: survey)
     }
 
     private func didTapBackButton() {

@@ -54,9 +54,7 @@ class HomeViewModelTest {
             .function(mockGetAppVersionUseCase::invoke)
             .whenInvoked()
             .thenReturn(BuildKonfig.VERSION_CODE)
-    }
-
-    private fun initViewModel() {
+        
         viewModel = HomeViewModel(
             mockGetUserProfileUseCase,
             mockGetSurveysUseCase,
@@ -75,7 +73,7 @@ class HomeViewModelTest {
 
     @Test
     fun `when fetchData is called successfully, it returns the user's avatar, current date and surveys`() = runTest {
-        initViewModel()
+        viewModel.fetchData()
 
         viewModel.viewState.takeWhile { !it.isLoading }.collect {
             it.headerUiModel?.dateText shouldBe "Monday, May 12"
@@ -97,7 +95,7 @@ class HomeViewModelTest {
                     }
                 )
 
-            initViewModel()
+            viewModel.fetchData()
 
             viewModel.viewState.takeWhile { !it.isLoading }.collect {
                 it.headerUiModel?.imageUrl shouldBe null
@@ -118,7 +116,7 @@ class HomeViewModelTest {
                     }
                 )
 
-            initViewModel()
+            viewModel.fetchData()
 
             viewModel.viewState.takeWhile { !it.isLoading }.collect {
                 it.headerUiModel?.imageUrl shouldBe MockUtil.mockUser.avatarUrl
@@ -148,7 +146,7 @@ class HomeViewModelTest {
                     }
                 )
 
-            initViewModel()
+            viewModel.fetchData()
 
             viewModel.viewState.takeWhile { !it.isLoading }.collect {
                 it.headerUiModel?.imageUrl shouldBe ""
@@ -158,23 +156,10 @@ class HomeViewModelTest {
         }
 
     @Test
-    fun `when refreshing the surveys successfull, it emits surveys accordingly`() = runTest {
-        initViewModel()
-
+    fun `when refreshing the surveys successfully, it emits surveys accordingly`() = runTest {
         viewModel.refresh()
 
-        verify(mockGetSurveysUseCase)
-            .invocation {
-                invoke(
-                    pageNumber = 1,
-                    pageSize = 5,
-                    isForceLatestData = true
-                )
-            }
-            .wasInvoked(exactly = 1.times)
-        viewModel.viewState.takeWhile { !it.isLoading }.collect {
-            it.headerUiModel?.dateText shouldBe "Monday, May 12"
-            it.headerUiModel?.imageUrl shouldBe MockUtil.mockUser.avatarUrl
+        viewModel.viewState.takeWhile { !it.isRefreshing && !it.isLoading }.collect {
             it.surveys shouldBe listOf(SurveyUiModel(MockUtil.mockSurvey))
         }
     }

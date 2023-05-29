@@ -1,13 +1,15 @@
 package co.nimblehq.avishek.phong.kmmic.presentation.module
 
+import app.cash.turbine.test
 import co.nimblehq.avishek.phong.kmmic.domain.model.Token
 import co.nimblehq.avishek.phong.kmmic.domain.usecase.LogInUseCase
+import co.nimblehq.avishek.phong.kmmic.helper.TestDispatchersProvider
 import io.kotest.matchers.shouldBe
 import io.mockative.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -23,20 +25,19 @@ class LogInViewModelTest {
 
     private lateinit var viewModel: LogInViewModel
 
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-    private val mockThrowable = Throwable("mock")
     private val mockToken = Token("", "", 0, "", 0)
 
     @BeforeTest
     fun setUp() {
-        viewModel = LogInViewModel(logInUseCase)
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(TestDispatchersProvider.io)
+        viewModel = LogInViewModel(logInUseCase, TestDispatchersProvider)
     }
 
     @AfterTest
     fun tearDown() {
         Dispatchers.resetMain()
-        mainThreadSurrogate.close()
+        TestDispatchersProvider.io.cancel()
+        viewModel.clear()
     }
 
     @Test
@@ -48,12 +49,13 @@ class LogInViewModelTest {
 
         viewModel.logIn("phong.d@nimblehq.co", "123456")
 
-        viewModel.viewState.takeWhile { it.isSuccess }.collect {
-            it.isSuccess shouldBe true
-            it.isLoading shouldBe false
-            it.isInvalidEmail shouldBe false
-            it.isInvalidPassword shouldBe false
-            it.error shouldBe null
+        viewModel.viewState.takeWhile { it.isSuccess }.test {
+            val awaitItem = awaitItem()
+            awaitItem.isSuccess shouldBe true
+            awaitItem.isLoading shouldBe false
+            awaitItem.isInvalidEmail shouldBe false
+            awaitItem.isInvalidPassword shouldBe false
+            awaitItem.error shouldBe null
         }
     }
 

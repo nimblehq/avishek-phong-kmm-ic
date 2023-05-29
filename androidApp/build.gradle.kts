@@ -130,6 +130,7 @@ dependencies {
 
         implementation(ACCOMPANIST_PLACEHOLDER)
         implementation(COIL_COMPOSE)
+        implementation(NUMBERPICKER)
 
         testImplementation(JUNIT)
         testImplementation(MOCKK)
