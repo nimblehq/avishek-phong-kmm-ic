@@ -9,12 +9,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryTextField
+import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
+import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.TEXTFIELD
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 
 @Composable
 fun TextFields(
     surveyAnswerUiModels: List<SurveyAnswerUiModel>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -37,10 +39,17 @@ fun TextFields(
 
 @Preview
 @Composable
-fun TextFieldPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class) params: SurveyDetailScreenPreviewParameterProvider.Params
-) {
-    TextFields(
-        surveyAnswerUiModels = params.survey.questionUiModels[0].answers
-    )
+fun TextFieldPreview() {
+    ApplicationTheme {
+        TextFields(
+            surveyAnswerUiModels = List(5) {
+                SurveyAnswerUiModel(
+                    id = (it + 1).toString(),
+                    text = "Text ${it + 1}",
+                    displayOrder = it,
+                    placeholder = "Your thoughts"
+                )
+            }
+        )
+    }
 }
