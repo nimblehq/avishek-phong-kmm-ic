@@ -25,7 +25,10 @@ fun MultiChoiceForm(
 ) {
     var checkedAnswers by remember { mutableStateOf(emptySet<SurveyAnswerUiModel>()) }
     LazyColumn(modifier = modifier.padding(horizontal = 80.dp)) {
-        items(surveyAnswerUiModels.size) { index ->
+        items(
+            count = surveyAnswerUiModels.size,
+            key = { surveyAnswerUiModels[it].id }
+        ) { index ->
             val answerUiModel = surveyAnswerUiModels[index]
             val isChecked = checkedAnswers.contains(answerUiModel)
 
