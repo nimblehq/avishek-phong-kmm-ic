@@ -1,11 +1,9 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import co.nimblehq.avishek.phong.kmmic.android.ui.common.PrimaryTextField
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
@@ -29,12 +27,8 @@ fun TextArea(
 
 @Preview
 @Composable
-fun TextAreaPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class) params: SurveyDetailScreenPreviewParameterProvider.Params,
-) {
+fun TextAreaPreview() {
     ApplicationTheme {
-        TextArea(
-            surveyAnswerUiModel = params.survey.questionUiModels[0].answers[0]
-        )
+        TextArea(surveyAnswerUiModel = answerUiModels[0])
     }
 }

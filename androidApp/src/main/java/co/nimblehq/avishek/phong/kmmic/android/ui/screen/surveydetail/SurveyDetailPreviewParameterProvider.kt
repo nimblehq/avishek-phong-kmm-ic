@@ -4,10 +4,18 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.*
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.*
 
+val answerUiModels = List(5) {
+    SurveyAnswerUiModel(
+        id = (it + 1).toString(),
+        text = "Text ${it + 1}",
+        displayOrder = it,
+        placeholder = "Your thoughts"
+    )
+}
+
 @Suppress("MagicNumber")
 class SurveyDetailScreenPreviewParameterProvider :
     PreviewParameterProvider<SurveyDetailScreenPreviewParameterProvider.Params> {
-
     override val values = sequenceOf(
         Params(
             isLoading = false,
@@ -23,14 +31,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                         displayOrder = 1,
                         questionTitle = "How fulfilled did you feel during this WFH period?",
                         displayType = DROPDOWN,
-                        answers = List(5) {
-                            SurveyAnswerUiModel(
-                                id = (it + 1).toString(),
-                                text = "Text ${it + 1}",
-                                displayOrder = it,
-                                placeholder = "Your thoughts"
-                            )
-                        },
+                        answers = answerUiModels,
                         userInputs = emptySet()
                     )
                 )
@@ -50,14 +51,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                         displayOrder = 1,
                         questionTitle = "How fulfilled did you feel during this WFH period?",
                         displayType = STAR,
-                        answers = List(5) {
-                            SurveyAnswerUiModel(
-                                id = (it + 1).toString(),
-                                text = "Text ${it + 1}",
-                                displayOrder = it,
-                                placeholder = "Your thoughts"
-                            )
-                        },
+                        answers = answerUiModels,
                         userInputs = emptySet()
                     )
                 )
@@ -77,14 +71,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                         displayOrder = 1,
                         questionTitle = "How fulfilled did you feel during this WFH period?",
                         displayType = HEART,
-                        answers = List(5) {
-                            SurveyAnswerUiModel(
-                                id = (it + 1).toString(),
-                                text = "Text ${it + 1}",
-                                displayOrder = it,
-                                placeholder = "Your thoughts"
-                            )
-                        },
+                        answers = answerUiModels,
                         userInputs = emptySet()
                     )
                 )
@@ -104,14 +91,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                         displayOrder = 1,
                         questionTitle = "How fulfilled did you feel during this WFH period?",
                         displayType = SMILEY,
-                        answers = List(5) {
-                            SurveyAnswerUiModel(
-                                id = (it + 1).toString(),
-                                text = "Text ${it + 1}",
-                                displayOrder = it,
-                                placeholder = "Your thoughts"
-                            )
-                        },
+                        answers = answerUiModels,
                         userInputs = emptySet()
                     )
                 )
@@ -131,14 +111,7 @@ class SurveyDetailScreenPreviewParameterProvider :
                         displayOrder = 1,
                         questionTitle = "How fulfilled did you feel during this WFH period?",
                         displayType = TEXTAREA,
-                        answers = List(5) {
-                            SurveyAnswerUiModel(
-                                id = (it + 1).toString(),
-                                text = "Text ${it + 1}",
-                                displayOrder = it,
-                                placeholder = "Your thoughts"
-                            )
-                        },
+                        answers = answerUiModels,
                         userInputs = emptySet()
                     )
                 )
