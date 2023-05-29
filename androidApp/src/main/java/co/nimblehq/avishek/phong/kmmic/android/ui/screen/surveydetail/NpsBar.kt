@@ -107,15 +107,6 @@ fun NpsItem(
 @Composable
 fun NpsBarPreview() {
     ApplicationTheme {
-        NpsBar(
-            surveyAnswerUiModels = List(10) {
-                SurveyAnswerUiModel(
-                    id = (it + 1).toString(),
-                    text = (it + 1).toString(),
-                    displayOrder = 1,
-                    placeholder = null
-                )
-            }
-        )
+        NpsBar(surveyAnswerUiModels = answerUiModels)
     }
 }
