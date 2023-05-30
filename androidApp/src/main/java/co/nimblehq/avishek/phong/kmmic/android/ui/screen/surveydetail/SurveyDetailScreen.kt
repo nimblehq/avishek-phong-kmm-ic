@@ -36,7 +36,7 @@ fun SurveyDetailScreen(
 ) {
     val homeViewState by homeViewModel.viewState.collectAsStateWithLifecycle()
     val surveyDetailViewState by surveyDetailViewModel.viewSate.collectAsStateWithLifecycle()
-    val surveyQuestionViewState by surveyQuestionViewModel.viewSate.collectAsStateWithLifecycle()
+    val surveyQuestionViewState by surveyQuestionViewModel.viewState.collectAsStateWithLifecycle()
     var shouldShowStartContent by remember { mutableStateOf(false) }
     var shouldShowSurveyQuestionContent by remember { mutableStateOf(false) }
     var imageScale by remember { mutableStateOf(InitialImageScale) }

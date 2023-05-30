@@ -29,7 +29,9 @@ class SurveyDetailScreenTest {
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
     private val mockHomeViewModel: HomeViewModel = mockk()
+    private val mockSurveyQuestionViewModel: SurveyQuestionViewModel = mockk()
     private val mockGetSurveyDetailUseCase: GetSurveyDetailUseCase = mockk()
+    private val mockSubmitSurveyAnswerUseCase: SubmitSurveyAnswerUseCase = mockk()
     private val mockOnBackClick: () -> Unit = mockk()
 
     private val surveyDetailViewModel = SurveyDetailViewModel(
@@ -49,10 +51,18 @@ class SurveyDetailScreenTest {
         isRefreshing = false,
         surveys = listOf(SurveyUiModel(mockSurvey))
     )
+    private val mockSurveyQuestionViewState = SurveyQuestionViewState(
+        isLoading = false,
+        isSuccess = false,
+        errorMessage = null,
+        questions = emptyList(),
+        backgroundImageUrl = "",
+    )
 
     @Before
     fun setUp() {
         every { mockHomeViewModel.viewState } returns MutableStateFlow(mockHomeViewState)
+        every { mockSurveyQuestionViewModel.viewState } returns MutableStateFlow(mockSurveyQuestionViewState)
         every { mockGetSurveyDetailUseCase(any()) } returns flowOf(mockSurvey)
         every { mockOnBackClick() } just Runs
     }
@@ -78,6 +88,7 @@ class SurveyDetailScreenTest {
                 SurveyDetailScreen(
                     homeViewModel = mockHomeViewModel,
                     surveyDetailViewModel = surveyDetailViewModel,
+                    surveyQuestionViewModel = mockSurveyQuestionViewModel,
                     surveyId = mockSurvey.id,
                     onBackClick = mockOnBackClick,
                     onAnswersSubmitted = {}

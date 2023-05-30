@@ -23,7 +23,7 @@ class SurveyQuestionViewModel(
 
     private val _viewState: MutableStateFlow<SurveyQuestionViewState> =
         MutableStateFlow(SurveyQuestionViewState())
-    val viewSate: StateFlow<SurveyQuestionViewState> = _viewState
+    val viewState: StateFlow<SurveyQuestionViewState> = _viewState
 
     private var survey: Survey? = null
 
