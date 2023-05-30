@@ -39,15 +39,14 @@ fun ThankYouScreen(
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 20.dp)
         ) {
             LottieAnimation(
                 composition = composition,
-                modifier = Modifier
-                    .size(200.dp)
-                    .align(Alignment.CenterHorizontally)
+                modifier = Modifier.size(200.dp)
             )
             Text(
                 text = stringResource(R.string.thank_you_message),
