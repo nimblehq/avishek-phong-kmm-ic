@@ -19,4 +19,6 @@ sealed class AppDestination(val route: String = "") {
                 navArgument(SurveyIdArg) { type = NavType.StringType }
             )
     }
+
+    object ThankYou : AppDestination("thank-you")
 }

@@ -12,4 +12,5 @@
     <string name="survey_question_submit">Submit</string>
     <string name="nps_not_ikely">Not at all Likely</string>
     <string name="nps_likely">Extremely Likely</string>
+    <string name="thank_you_message">Thanks for taking the survey.</string>
 </resources>

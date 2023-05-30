@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import co.nimblehq.avishek.phong.kmmic.android.ui.screen.home.HomeScreen
 import co.nimblehq.avishek.phong.kmmic.android.ui.screen.splash.SplashScreen
 import co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail.SurveyDetailScreen
+import co.nimblehq.avishek.phong.kmmic.android.ui.screen.thankyou.ThankYouScreen
 import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
@@ -54,7 +55,24 @@ fun AppNavHost(
             SurveyDetailScreen(
                 homeViewModel = homeViewModel,
                 surveyId = navBackStackEntry.arguments?.getString(AppDestination.SurveyDetail.SurveyIdArg).orEmpty(),
-                onBackClick = navController::popBackStack
+                onBackClick = navController::popBackStack,
+                onAnswersSubmitted = {
+                    navController.navigate(
+                        route = AppDestination.ThankYou.route,
+                        navOptions = navOptions {
+                            popUpTo(route = AppDestination.SurveyDetail.routeWithArgs) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
+                    )
+                }
+            )
+        }
+
+        composable(AppDestination.ThankYou) {
+            ThankYouScreen(
+                onComplete = navController::popBackStack,
             )
         }
     }

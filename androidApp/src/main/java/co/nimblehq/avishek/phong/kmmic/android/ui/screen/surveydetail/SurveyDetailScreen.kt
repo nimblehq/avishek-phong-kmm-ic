@@ -29,6 +29,7 @@ fun SurveyDetailScreen(
     surveyDetailViewModel: SurveyDetailViewModel = getViewModel(),
     surveyId: String,
     onBackClick: () -> Unit,
+    onAnswersSubmitted: () -> Unit,
 ) {
     val homeViewState by homeViewModel.viewState.collectAsStateWithLifecycle()
     val surveyDetailViewState by surveyDetailViewModel.viewSate.collectAsStateWithLifecycle()
@@ -63,7 +64,8 @@ fun SurveyDetailScreen(
         },
         onStartSurveyClick = {
             shouldShowSurveyQuestionContent = true
-        }
+        },
+        onAnswersSubmitted = onAnswersSubmitted
     )
 
     if (surveyDetailViewState.isLoading) {
@@ -83,6 +85,7 @@ fun SurveyDetailContent(
     shouldShowSurveyQuestionContent: Boolean,
     onBackClick: () -> Unit,
     onStartSurveyClick: () -> Unit,
+    onAnswersSubmitted: () -> Unit,
     imageScale: Float,
 ) {
     surveyUiModel?.let {
@@ -101,7 +104,10 @@ fun SurveyDetailContent(
             backgroundImageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
             questionUiModels = questionUiModels,
             onCloseClick = {},
-            onSubmitClick = {},
+            onSubmitClick = {
+                //TODO: invoke after the submission is successful in the integrate task
+                onAnswersSubmitted()
+            },
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -125,6 +131,7 @@ fun SurveyDetailScreenStartPagePreview(
                 shouldShowSurveyQuestionContent = false,
                 onBackClick = {},
                 onStartSurveyClick = {},
+                onAnswersSubmitted = {},
                 imageScale = FinalImageScale
             )
         }
@@ -149,6 +156,7 @@ fun SurveyDetailScreenQuestionPagePreview(
                 shouldShowSurveyQuestionContent = true,
                 onBackClick = {},
                 onStartSurveyClick = {},
+                onAnswersSubmitted = { },
                 imageScale = FinalImageScale
             )
         }
