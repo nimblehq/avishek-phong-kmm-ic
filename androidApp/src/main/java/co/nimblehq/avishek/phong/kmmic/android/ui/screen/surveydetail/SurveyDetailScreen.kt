@@ -101,6 +101,7 @@ fun SurveyDetailContent(
             backgroundImageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
             questionUiModels = questionUiModels,
             onCloseClick = {},
+            onSubmitClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
