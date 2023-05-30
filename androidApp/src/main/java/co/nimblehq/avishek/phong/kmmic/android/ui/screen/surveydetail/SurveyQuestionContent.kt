@@ -186,6 +186,10 @@ private fun AnswerContent(
                     .padding(horizontal = 24.dp)
                     .heightIn(168.dp)
             )
+            TEXTFIELD -> TextFields(
+                surveyAnswerUiModels = questionUiModel.answers,
+                modifier = modifier.padding(horizontal = 24.dp)
+            )
             else -> Unit
         }
     }
