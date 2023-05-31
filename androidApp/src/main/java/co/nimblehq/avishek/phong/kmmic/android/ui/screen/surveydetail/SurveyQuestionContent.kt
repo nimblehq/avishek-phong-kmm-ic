@@ -1,5 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -132,6 +133,10 @@ fun SurveyQuestionContent(
                     .wrapContentWidth()
             )
         }
+    }
+
+    BackHandler(true) {
+        onCloseClick()
     }
 }
 
