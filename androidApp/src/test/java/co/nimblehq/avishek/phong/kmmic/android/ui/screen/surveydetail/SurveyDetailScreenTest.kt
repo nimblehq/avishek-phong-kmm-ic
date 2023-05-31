@@ -31,7 +31,6 @@ class SurveyDetailScreenTest {
     private val mockHomeViewModel: HomeViewModel = mockk()
     private val mockSurveyQuestionViewModel: SurveyQuestionViewModel = mockk()
     private val mockGetSurveyDetailUseCase: GetSurveyDetailUseCase = mockk()
-    private val mockSubmitSurveyAnswerUseCase: SubmitSurveyAnswerUseCase = mockk()
     private val mockOnBackClick: () -> Unit = mockk()
 
     private val surveyDetailViewModel = SurveyDetailViewModel(
@@ -63,6 +62,7 @@ class SurveyDetailScreenTest {
     fun setUp() {
         every { mockHomeViewModel.viewState } returns MutableStateFlow(mockHomeViewState)
         every { mockSurveyQuestionViewModel.viewState } returns MutableStateFlow(mockSurveyQuestionViewState)
+        every { mockSurveyQuestionViewModel.updateStateWith(any()) } just Runs
         every { mockGetSurveyDetailUseCase(any()) } returns flowOf(mockSurvey)
         every { mockOnBackClick() } just Runs
     }
