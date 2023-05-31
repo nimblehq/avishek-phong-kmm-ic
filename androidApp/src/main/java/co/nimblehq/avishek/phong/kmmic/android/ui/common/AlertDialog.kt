@@ -1,6 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.common
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -32,66 +32,11 @@ fun AlertDialog(
     )
 }
 
-@Composable
-fun AlertDialog(
-    title: String,
-    message: String,
-    onYesClick: () -> Unit,
-    onCancelClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    AlertDialog(
-        title = {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.h6
-            )
-        },
-        text = { Text(text = message) },
-        buttons = {
-            Row(
-                horizontalArrangement = Arrangement.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-            ) {
-                TextButton(
-                    onClick = onCancelClick
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.cancel)
-                    )
-                }
-                TextButton(
-                    onClick = onYesClick
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.yes)
-                    )
-                }
-            }
-        },
-        onDismissRequest = {},
-        modifier = modifier.padding(horizontal = 8.dp)
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun AlertDialogPreview() {
     AlertDialog(
         message = "Message",
         onDismissRequest = {}
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AlertDialogMultiButtonsPreview() {
-    AlertDialog(
-        title = "Title",
-        message = "Message",
-        onYesClick = {},
-        onCancelClick = {}
     )
 }

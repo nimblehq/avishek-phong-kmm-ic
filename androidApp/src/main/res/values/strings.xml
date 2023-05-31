@@ -5,12 +5,8 @@
     <string name="login_password">Password</string>
     <string name="login_forgot">Forgot?</string>
     <string name="login_button">Log in</string>
+    <string name="ok">OK</string>
     <string name="home_today">Today</string>
     <string name="home_logout">Logout</string>
     <string name="survey_detail_start">Start Survey</string>
-    <string name="ok">OK</string>
-    <string name="yes">Yes</string>
-    <string name="cancel">Cancel</string>
-    <string name="warning">Warning!</string>
-    <string name="quit_survey_message">Are you sure you want to quit the survey?</string>
 </resources>
