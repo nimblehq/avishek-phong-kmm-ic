@@ -16,17 +16,16 @@ fun Spinner(
     surveyAnswerUiModels: List<SurveyAnswerUiModel>,
     onAnswerSelected: (surveyAnswerUiModel: SurveyAnswerUiModel) -> Unit,
 ) {
-    val answerTexts = surveyAnswerUiModels.map { it.text }
-    var answerText by remember { mutableStateOf(answerTexts[0]) }
+    var value by remember { mutableStateOf(surveyAnswerUiModels[0]) }
 
     ListItemPicker(
-        label = { it },
-        value = answerText,
-        onValueChange = { text ->
-            answerText = text
-            surveyAnswerUiModels.find { it.text == text }?.let(onAnswerSelected)
+        label = { it.text },
+        value = value,
+        onValueChange = {
+            value = it
+            onAnswerSelected(it)
         },
-        list = answerTexts,
+        list = surveyAnswerUiModels,
         dividersColor = White,
         textStyle = MaterialTheme.typography.h6.copy(color = White),
         modifier = modifier.fillMaxWidth()
