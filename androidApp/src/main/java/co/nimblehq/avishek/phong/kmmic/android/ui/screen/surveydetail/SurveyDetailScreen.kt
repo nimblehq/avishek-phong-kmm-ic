@@ -51,10 +51,12 @@ fun SurveyDetailScreen(
     }
     var shouldShowExitConfirmationDialog by remember { mutableStateOf(false) }
 
+    LaunchedEffect(surveyDetailViewState.survey) {
+        surveyDetailViewState.survey?.let(surveyQuestionViewModel::updateStateWith)
+    }
+
     LaunchedEffect(Unit) {
         surveyDetailViewModel.fetchSurveyDetail(surveyId)
-
-        surveyDetailViewState.survey?.let(surveyQuestionViewModel::updateStateWith)
 
         imageScale = FinalImageScale
         shouldShowStartContent = true
