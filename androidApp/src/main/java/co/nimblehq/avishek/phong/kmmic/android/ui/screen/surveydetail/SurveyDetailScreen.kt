@@ -6,9 +6,12 @@ import androidx.compose.foundation.pager.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.nimblehq.avishek.phong.kmmic.android.R
+import co.nimblehq.avishek.phong.kmmic.android.ui.common.AlertDialog
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.INTRO
 import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
@@ -40,6 +43,7 @@ fun SurveyDetailScreen(
     val surveyWithoutIntro = surveyDetailViewState.survey?.run {
         copy(questions = questions?.filter { it.displayType != INTRO })
     }
+    var shouldShowExitConfirmationDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         surveyDetailViewModel.fetchSurveyDetail(surveyId)
@@ -63,6 +67,9 @@ fun SurveyDetailScreen(
         },
         onStartSurveyClick = {
             shouldShowSurveyQuestionContent = true
+        },
+        onCloseClick = {
+            shouldShowExitConfirmationDialog = true
         }
     )
 
@@ -71,6 +78,17 @@ fun SurveyDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .wrapContentSize()
+        )
+    }
+
+    if (shouldShowExitConfirmationDialog) {
+        AlertDialog(
+            title = LocalContext.current.getString(R.string.warning),
+            message = LocalContext.current.getString(R.string.quit_survey_message),
+            onYesClick = onBackClick,
+            onCancelClick = {
+                shouldShowExitConfirmationDialog = false
+            }
         )
     }
 }
@@ -83,6 +101,7 @@ fun SurveyDetailContent(
     shouldShowSurveyQuestionContent: Boolean,
     onBackClick: () -> Unit,
     onStartSurveyClick: () -> Unit,
+    onCloseClick: () -> Unit,
     imageScale: Float,
 ) {
     surveyUiModel?.let {
@@ -100,7 +119,7 @@ fun SurveyDetailContent(
         SurveyQuestionContent(
             backgroundImageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
             questionUiModels = questionUiModels,
-            onCloseClick = {},
+            onCloseClick = onCloseClick,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -124,6 +143,7 @@ fun SurveyDetailScreenStartPagePreview(
                 shouldShowSurveyQuestionContent = false,
                 onBackClick = {},
                 onStartSurveyClick = {},
+                onCloseClick = {},
                 imageScale = FinalImageScale
             )
         }
@@ -148,6 +168,7 @@ fun SurveyDetailScreenQuestionPagePreview(
                 shouldShowSurveyQuestionContent = true,
                 onBackClick = {},
                 onStartSurveyClick = {},
+                onCloseClick = {},
                 imageScale = FinalImageScale
             )
         }
