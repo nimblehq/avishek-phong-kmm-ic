@@ -41,8 +41,12 @@ fun SurveyDetailScreen(
     var imageScale by remember { mutableStateOf(InitialImageScale) }
     val coroutineScope = rememberCoroutineScope()
     val surveyUiModel = homeViewState.surveys.find { it.id == surveyId }
-    val surveyWithoutIntro = surveyDetailViewState.survey?.run {
-        copy(questions = questions?.filter { it.displayType != INTRO })
+    var questionsWithoutIntro by remember(surveyDetailViewState.survey) {
+        mutableStateOf(
+            surveyDetailViewState.survey?.run {
+                copy(questions = questions?.filter { it.displayType != INTRO })
+            }?.toSurveyUiModel()?.questionUiModels
+        )
     }
     var shouldShowExitConfirmationDialog by remember { mutableStateOf(false) }
 
@@ -54,7 +58,7 @@ fun SurveyDetailScreen(
 
     SurveyDetailContent(
         surveyUiModel = surveyUiModel,
-        questionUiModels = surveyWithoutIntro?.toSurveyUiModel()?.questionUiModels,
+        questionUiModels = questionsWithoutIntro,
         shouldShowStartContent = shouldShowStartContent,
         imageScale = imageScale,
         shouldShowSurveyQuestionContent = shouldShowSurveyQuestionContent,
@@ -64,6 +68,14 @@ fun SurveyDetailScreen(
                 shouldShowStartContent = false
                 delay(ImageScaleAnimationDurationInMillis.toLong())
                 onBackClick()
+            }
+        },
+        onQuestionAnswered = { questionUiModel ->
+            val index = questionsWithoutIntro?.indexOfFirst { it.id == questionUiModel.id }
+            if (index != null && index != -1) {
+                questionsWithoutIntro = questionsWithoutIntro?.toMutableList()?.apply {
+                    this[index] = questionUiModel
+                }
             }
         },
         onStartSurveyClick = {
@@ -104,6 +116,7 @@ fun SurveyDetailContent(
     onBackClick: () -> Unit,
     onStartSurveyClick: () -> Unit,
     onCloseClick: () -> Unit,
+    onQuestionAnswered: (surveyQuestionUiModel: QuestionUiModel) -> Unit,
     onAnswersSubmitted: () -> Unit,
     imageScale: Float,
 ) {
@@ -123,6 +136,7 @@ fun SurveyDetailContent(
             backgroundImageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
             questionUiModels = questionUiModels,
             onCloseClick = onCloseClick,
+            onQuestionAnswered = onQuestionAnswered,
             onSubmitClick = {
                 //TODO: invoke after the submission is successful in the integrate task
                 onAnswersSubmitted()
@@ -151,6 +165,7 @@ fun SurveyDetailScreenStartPagePreview(
                 onBackClick = {},
                 onStartSurveyClick = {},
                 onCloseClick = {},
+                onQuestionAnswered = {},
                 onAnswersSubmitted = {},
                 imageScale = FinalImageScale
             )
@@ -177,6 +192,7 @@ fun SurveyDetailScreenQuestionPagePreview(
                 onBackClick = {},
                 onStartSurveyClick = {},
                 onCloseClick = {},
+                onQuestionAnswered = {},
                 onAnswersSubmitted = { },
                 imageScale = FinalImageScale
             )

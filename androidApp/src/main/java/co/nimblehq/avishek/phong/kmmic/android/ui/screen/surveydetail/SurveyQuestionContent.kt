@@ -42,6 +42,7 @@ fun SurveyQuestionContent(
     questionUiModels: List<QuestionUiModel>,
     onCloseClick: () -> Unit,
     onSubmitClick: () -> Unit,
+    onQuestionAnswered: (surveyQuestionUiModel: QuestionUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState()
@@ -101,6 +102,7 @@ fun SurveyQuestionContent(
         ) { page ->
             QuestionContent(
                 questionUiModel = questionUiModels[page],
+                onQuestionAnswered = onQuestionAnswered,
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -143,6 +145,7 @@ fun SurveyQuestionContent(
 @Composable
 private fun QuestionContent(
     questionUiModel: QuestionUiModel,
+    onQuestionAnswered: (questionUiModel: QuestionUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -174,6 +177,7 @@ private fun QuestionContent(
         ) {
             AnswerContent(
                 questionUiModel = questionUiModel,
+                onQuestionAnswered = onQuestionAnswered,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -183,39 +187,58 @@ private fun QuestionContent(
 @Suppress("ComplexMethod")
 @Composable
 private fun AnswerContent(
-    modifier: Modifier = Modifier,
     questionUiModel: QuestionUiModel,
+    onQuestionAnswered: (questionUiModel: QuestionUiModel) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     with(questionUiModel) {
+        val onAnswerProvided: (surveyAnswerUiModel: SurveyAnswerUiModel) -> Unit =
+            { onQuestionAnswered(questionUiModel.copy(userInputs = setOf(it.toUserInput()))) }
+        val onAnswersProvided: (answerUiModels: List<SurveyAnswerUiModel>) -> Unit = { surveyAnswerUiModels ->
+            onQuestionAnswered(
+                questionUiModel.copy(
+                    userInputs = surveyAnswerUiModels
+                        .map { it.toUserInput() }
+                        .toSet()
+                )
+            )
+        }
         when (displayType) {
             DROPDOWN -> Spinner(
                 surveyAnswerUiModels = answers,
+                onAnswerSelected = onAnswerProvided,
                 modifier = modifier.padding(horizontal = 40.dp)
             )
             STAR,
             HEART,
             SMILEY,
             -> RatingBar(
+                answerUiModels = answers,
                 emojis = displayType.toEmojis(answers.size),
+                onAnswerSelected = onAnswerProvided,
                 isRangeSelectable = displayType != SMILEY,
                 modifier = modifier
             )
             TEXTAREA -> TextArea(
                 surveyAnswerUiModel = questionUiModel.answers.first(),
+                onAnswerProvided = onAnswerProvided,
                 modifier = modifier
                     .padding(horizontal = 24.dp)
                     .heightIn(168.dp)
             )
             TEXTFIELD -> TextFields(
                 surveyAnswerUiModels = questionUiModel.answers,
+                onAnswersProvided = onAnswersProvided,
                 modifier = modifier.padding(horizontal = 24.dp)
             )
             CHOICE -> MultiChoiceForm(
                 surveyAnswerUiModels = questionUiModel.answers,
+                onAnswersChecked = onAnswersProvided,
                 modifier = modifier.padding(horizontal = 24.dp)
             )
             NPS -> NpsBar(
                 surveyAnswerUiModels = questionUiModel.answers,
+                onAnswerSelected = onAnswerProvided,
                 modifier = modifier
             )
             else -> Unit
@@ -235,6 +258,7 @@ fun SurveyQuestionPreview(
             questionUiModels = params.survey.questionUiModels,
             onCloseClick = {},
             onSubmitClick = {},
+            onQuestionAnswered = {},
             modifier = Modifier.fillMaxSize()
         )
     }

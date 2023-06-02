@@ -14,17 +14,18 @@ import com.chargemap.compose.numberpicker.ListItemPicker
 fun Spinner(
     modifier: Modifier = Modifier,
     surveyAnswerUiModels: List<SurveyAnswerUiModel>,
+    onAnswerSelected: (surveyAnswerUiModel: SurveyAnswerUiModel) -> Unit,
 ) {
-    val answerTexts = surveyAnswerUiModels.map { it.text }
-    var answerText by remember { mutableStateOf(answerTexts[0]) }
+    var value by remember { mutableStateOf(surveyAnswerUiModels[0]) }
 
     ListItemPicker(
-        label = { it },
-        value = answerText,
+        label = { it.text },
+        value = value,
         onValueChange = {
-            answerText = it
+            value = it
+            onAnswerSelected(it)
         },
-        list = answerTexts,
+        list = surveyAnswerUiModels,
         dividersColor = White,
         textStyle = MaterialTheme.typography.h6.copy(color = White),
         modifier = modifier.fillMaxWidth()
@@ -35,6 +36,9 @@ fun Spinner(
 @Composable
 fun SpinnerPreview() {
     ApplicationTheme {
-        Spinner(surveyAnswerUiModels = answerUiModels)
+        Spinner(
+            surveyAnswerUiModels = answerUiModels,
+            onAnswerSelected = {}
+        )
     }
 }
