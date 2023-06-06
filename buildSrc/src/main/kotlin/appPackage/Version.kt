@@ -50,4 +50,5 @@ object Version {
     const val COMPOSE_ACCOMPANIST = "0.28.0"
     const val COIL_COMPOSE = "2.2.2"
     const val NUMBERPICKER = "1.0.3"
+    const val LOTTIE = "6.0.0"
 }

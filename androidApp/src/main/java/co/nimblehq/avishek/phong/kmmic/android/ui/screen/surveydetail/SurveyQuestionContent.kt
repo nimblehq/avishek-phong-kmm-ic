@@ -1,5 +1,6 @@
 package co.nimblehq.avishek.phong.kmmic.android.ui.screen.surveydetail
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,8 @@ fun SurveyQuestionContent(
     backgroundImageUrl: String,
     questionUiModels: List<QuestionUiModel>,
     onCloseClick: () -> Unit,
+    onSubmitClick: () -> Unit,
+    onQuestionAnswered: (surveyQuestionUiModel: QuestionUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState()
@@ -67,6 +71,8 @@ fun SurveyQuestionContent(
         )
     }
 
+    val questionCount = questionUiModels.size
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -87,7 +93,7 @@ fun SurveyQuestionContent(
         )
 
         HorizontalPager(
-            pageCount = questionUiModels.size,
+            pageCount = questionCount,
             state = pagerState,
             userScrollEnabled = false,
             modifier = Modifier
@@ -96,33 +102,50 @@ fun SurveyQuestionContent(
         ) { page ->
             QuestionContent(
                 questionUiModel = questionUiModels[page],
+                onQuestionAnswered = onQuestionAnswered,
                 modifier = Modifier.fillMaxSize()
             )
         }
 
-        FloatingActionButton(
-            backgroundColor = White,
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                }
-            },
-            modifier = Modifier
-                .align(Alignment.End)
-                .padding(end = 20.dp)
-                .size(56.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = null
+        if (pagerState.currentPage < questionCount - 1) {
+            FloatingActionButton(
+                backgroundColor = White,
+                onClick = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 20.dp)
+                    .size(56.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_arrow_right),
+                    contentDescription = null
+                )
+            }
+        } else {
+            PrimaryButton(
+                text = stringResource(id = R.string.survey_question_submit),
+                onClick = onSubmitClick,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 20.dp)
+                    .wrapContentWidth()
             )
         }
+    }
+
+    BackHandler(true) {
+        onCloseClick()
     }
 }
 
 @Composable
 private fun QuestionContent(
     questionUiModel: QuestionUiModel,
+    onQuestionAnswered: (questionUiModel: QuestionUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -154,6 +177,7 @@ private fun QuestionContent(
         ) {
             AnswerContent(
                 questionUiModel = questionUiModel,
+                onQuestionAnswered = onQuestionAnswered,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -163,21 +187,58 @@ private fun QuestionContent(
 @Suppress("ComplexMethod")
 @Composable
 private fun AnswerContent(
-    modifier: Modifier = Modifier,
     questionUiModel: QuestionUiModel,
+    onQuestionAnswered: (questionUiModel: QuestionUiModel) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     with(questionUiModel) {
+        val onAnswerProvided: (surveyAnswerUiModel: SurveyAnswerUiModel) -> Unit =
+            { onQuestionAnswered(questionUiModel.copy(userInputs = setOf(it.toUserInput()))) }
+        val onAnswersProvided: (answerUiModels: List<SurveyAnswerUiModel>) -> Unit = { surveyAnswerUiModels ->
+            onQuestionAnswered(
+                questionUiModel.copy(
+                    userInputs = surveyAnswerUiModels
+                        .map { it.toUserInput() }
+                        .toSet()
+                )
+            )
+        }
         when (displayType) {
             DROPDOWN -> Spinner(
                 surveyAnswerUiModels = answers,
+                onAnswerSelected = onAnswerProvided,
                 modifier = modifier.padding(horizontal = 40.dp)
             )
             STAR,
             HEART,
             SMILEY,
             -> RatingBar(
+                answerUiModels = answers,
                 emojis = displayType.toEmojis(answers.size),
+                onAnswerSelected = onAnswerProvided,
                 isRangeSelectable = displayType != SMILEY,
+                modifier = modifier
+            )
+            TEXTAREA -> TextArea(
+                surveyAnswerUiModel = questionUiModel.answers.first(),
+                onAnswerProvided = onAnswerProvided,
+                modifier = modifier
+                    .padding(horizontal = 24.dp)
+                    .heightIn(168.dp)
+            )
+            TEXTFIELD -> TextFields(
+                surveyAnswerUiModels = questionUiModel.answers,
+                onAnswersProvided = onAnswersProvided,
+                modifier = modifier.padding(horizontal = 24.dp)
+            )
+            CHOICE -> MultiChoiceForm(
+                surveyAnswerUiModels = questionUiModel.answers,
+                onAnswersChecked = onAnswersProvided,
+                modifier = modifier.padding(horizontal = 24.dp)
+            )
+            NPS -> NpsBar(
+                surveyAnswerUiModels = questionUiModel.answers,
+                onAnswerSelected = onAnswerProvided,
                 modifier = modifier
             )
             else -> Unit
@@ -196,6 +257,8 @@ fun SurveyQuestionPreview(
             backgroundImageUrl = params.survey.largeImageUrl,
             questionUiModels = params.survey.questionUiModels,
             onCloseClick = {},
+            onSubmitClick = {},
+            onQuestionAnswered = {},
             modifier = Modifier.fillMaxSize()
         )
     }

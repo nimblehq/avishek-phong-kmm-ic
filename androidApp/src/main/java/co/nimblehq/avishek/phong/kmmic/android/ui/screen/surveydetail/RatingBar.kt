@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.*
+import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 
 private const val SelectedEmojiAlpha = 1f
 private const val UnselectedEmojiAlpha = 0.5f
@@ -25,7 +26,9 @@ private const val GrinningEmoji = "\uD83D\uDE04"
 
 @Composable
 fun RatingBar(
+    answerUiModels: List<SurveyAnswerUiModel>,
     emojis: List<String>,
+    onAnswerSelected: (answerUiModel: SurveyAnswerUiModel) -> Unit,
     modifier: Modifier = Modifier,
     isRangeSelectable: Boolean = false,
 ) {
@@ -42,7 +45,10 @@ fun RatingBar(
             }
             val alpha = if (isSelected) SelectedEmojiAlpha else UnselectedEmojiAlpha
             TextButton(
-                onClick = { selectedIndex = index },
+                onClick = {
+                    selectedIndex = index
+                    onAnswerSelected(answerUiModels[index])
+                },
                 contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.size(34.dp)
             ) {
@@ -68,16 +74,18 @@ fun QuestionDisplayType.toEmojis(count: Int): List<String> {
 @Preview
 @Composable
 fun RatingBarPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class)
-    params: SurveyDetailScreenPreviewParameterProvider.Params,
+    @PreviewParameter(RatingBarPreviewParameterProvider::class)
+    params: RatingBarPreviewParameterProvider.Params,
 ) {
     with(params) {
         ApplicationTheme {
             RatingBar(
+                answerUiModels = survey.questionUiModels[0].answers,
                 emojis = survey
                     .questionUiModels[0]
                     .displayType
-                    .toEmojis(survey.questionUiModels[0].answers.size)
+                    .toEmojis(survey.questionUiModels[0].answers.size),
+                onAnswerSelected = {}
             )
         }
     }

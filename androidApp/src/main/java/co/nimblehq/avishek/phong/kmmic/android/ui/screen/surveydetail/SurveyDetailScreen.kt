@@ -6,13 +6,15 @@ import androidx.compose.foundation.pager.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.nimblehq.avishek.phong.kmmic.android.R
+import co.nimblehq.avishek.phong.kmmic.android.ui.common.AlertDialog
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.domain.model.QuestionDisplayType.INTRO
-import co.nimblehq.avishek.phong.kmmic.presentation.module.HomeViewModel
-import co.nimblehq.avishek.phong.kmmic.presentation.module.SurveyDetailViewModel
+import co.nimblehq.avishek.phong.kmmic.presentation.module.*
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,29 +29,42 @@ const val ImageScaleAnimationDurationInMillis = 700
 fun SurveyDetailScreen(
     homeViewModel: HomeViewModel = getViewModel(),
     surveyDetailViewModel: SurveyDetailViewModel = getViewModel(),
+    surveyQuestionViewModel: SurveyQuestionViewModel = getViewModel(),
     surveyId: String,
     onBackClick: () -> Unit,
+    onAnswersSubmitted: () -> Unit,
 ) {
     val homeViewState by homeViewModel.viewState.collectAsStateWithLifecycle()
     val surveyDetailViewState by surveyDetailViewModel.viewSate.collectAsStateWithLifecycle()
+    val surveyQuestionViewState by surveyQuestionViewModel.viewState.collectAsStateWithLifecycle()
     var shouldShowStartContent by remember { mutableStateOf(false) }
     var shouldShowSurveyQuestionContent by remember { mutableStateOf(false) }
     var imageScale by remember { mutableStateOf(InitialImageScale) }
     val coroutineScope = rememberCoroutineScope()
     val surveyUiModel = homeViewState.surveys.find { it.id == surveyId }
-    val surveyWithoutIntro = surveyDetailViewState.survey?.run {
-        copy(questions = questions?.filter { it.displayType != INTRO })
+    var questionsWithoutIntro by remember(surveyDetailViewState.survey) {
+        mutableStateOf(
+            surveyDetailViewState.survey?.run {
+                copy(questions = questions?.filter { it.displayType != INTRO })
+            }?.toSurveyUiModel()?.questionUiModels
+        )
+    }
+    var shouldShowExitConfirmationDialog by remember { mutableStateOf(false) }
+
+    LaunchedEffect(surveyDetailViewState.survey) {
+        surveyDetailViewState.survey?.let(surveyQuestionViewModel::updateStateWith)
     }
 
     LaunchedEffect(Unit) {
         surveyDetailViewModel.fetchSurveyDetail(surveyId)
+
         imageScale = FinalImageScale
         shouldShowStartContent = true
     }
 
     SurveyDetailContent(
         surveyUiModel = surveyUiModel,
-        questionUiModels = surveyWithoutIntro?.toSurveyUiModel()?.questionUiModels,
+        questionUiModels = questionsWithoutIntro,
         shouldShowStartContent = shouldShowStartContent,
         imageScale = imageScale,
         shouldShowSurveyQuestionContent = shouldShowSurveyQuestionContent,
@@ -61,18 +76,45 @@ fun SurveyDetailScreen(
                 onBackClick()
             }
         },
+        onQuestionAnswered = { questionUiModel ->
+            val index = questionsWithoutIntro?.indexOfFirst { it.id == questionUiModel.id }
+            if (index != null && index != -1) {
+                questionsWithoutIntro = questionsWithoutIntro?.toMutableList()?.apply {
+                    this[index] = questionUiModel
+                }
+            }
+        },
         onStartSurveyClick = {
             shouldShowSurveyQuestionContent = true
+        },
+        onCloseClick = {
+            shouldShowExitConfirmationDialog = true
+        },
+        onSubmitClick = {
+            questionsWithoutIntro?.let(surveyQuestionViewModel::submitAnswer)
         }
     )
 
-    if (surveyDetailViewState.isLoading) {
+    if (surveyDetailViewState.isLoading || surveyQuestionViewState.isLoading) {
         CircularProgressIndicator(
             modifier = Modifier
                 .fillMaxSize()
                 .wrapContentSize()
         )
     }
+
+    if (shouldShowExitConfirmationDialog) {
+        AlertDialog(
+            title = LocalContext.current.getString(R.string.warning),
+            message = LocalContext.current.getString(R.string.quit_survey_message),
+            onYesClick = onBackClick,
+            onCancelClick = {
+                shouldShowExitConfirmationDialog = false
+            }
+        )
+    }
+
+    if (surveyQuestionViewState.isSuccess) onAnswersSubmitted()
 }
 
 @Composable
@@ -83,6 +125,9 @@ fun SurveyDetailContent(
     shouldShowSurveyQuestionContent: Boolean,
     onBackClick: () -> Unit,
     onStartSurveyClick: () -> Unit,
+    onCloseClick: () -> Unit,
+    onQuestionAnswered: (surveyQuestionUiModel: QuestionUiModel) -> Unit,
+    onSubmitClick: () -> Unit,
     imageScale: Float,
 ) {
     surveyUiModel?.let {
@@ -100,7 +145,9 @@ fun SurveyDetailContent(
         SurveyQuestionContent(
             backgroundImageUrl = surveyUiModel?.largeImageUrl.orEmpty(),
             questionUiModels = questionUiModels,
-            onCloseClick = {},
+            onCloseClick = onCloseClick,
+            onQuestionAnswered = onQuestionAnswered,
+            onSubmitClick = onSubmitClick,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -124,6 +171,9 @@ fun SurveyDetailScreenStartPagePreview(
                 shouldShowSurveyQuestionContent = false,
                 onBackClick = {},
                 onStartSurveyClick = {},
+                onCloseClick = {},
+                onQuestionAnswered = {},
+                onSubmitClick = {},
                 imageScale = FinalImageScale
             )
         }
@@ -148,6 +198,9 @@ fun SurveyDetailScreenQuestionPagePreview(
                 shouldShowSurveyQuestionContent = true,
                 onBackClick = {},
                 onStartSurveyClick = {},
+                onCloseClick = {},
+                onQuestionAnswered = {},
+                onSubmitClick = {},
                 imageScale = FinalImageScale
             )
         }

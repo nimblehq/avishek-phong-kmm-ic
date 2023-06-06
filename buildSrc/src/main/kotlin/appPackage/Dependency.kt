@@ -99,4 +99,5 @@ object Dependency {
         "com.google.accompanist:accompanist-placeholder:${Version.COMPOSE_ACCOMPANIST}"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${Version.COIL_COMPOSE}"
     const val NUMBERPICKER = "com.chargemap.compose:numberpicker:${Version.NUMBERPICKER}"
+    const val LOTTIE = "com.airbnb.android:lottie-compose:${Version.LOTTIE}"
 }

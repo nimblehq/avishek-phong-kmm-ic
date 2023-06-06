@@ -6,7 +6,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import co.nimblehq.avishek.phong.kmmic.android.ui.theme.ApplicationTheme
 import co.nimblehq.avishek.phong.kmmic.presentation.uimodel.SurveyAnswerUiModel
 import com.chargemap.compose.numberpicker.ListItemPicker
@@ -15,17 +14,18 @@ import com.chargemap.compose.numberpicker.ListItemPicker
 fun Spinner(
     modifier: Modifier = Modifier,
     surveyAnswerUiModels: List<SurveyAnswerUiModel>,
+    onAnswerSelected: (surveyAnswerUiModel: SurveyAnswerUiModel) -> Unit,
 ) {
-    val answerTexts = surveyAnswerUiModels.map { it.text }
-    var answerText by remember { mutableStateOf(answerTexts[0]) }
+    var value by remember { mutableStateOf(surveyAnswerUiModels[0]) }
 
     ListItemPicker(
-        label = { it.orEmpty() },
-        value = answerText,
+        label = { it.text },
+        value = value,
         onValueChange = {
-            answerText = it
+            value = it
+            onAnswerSelected(it)
         },
-        list = answerTexts,
+        list = surveyAnswerUiModels,
         dividersColor = White,
         textStyle = MaterialTheme.typography.h6.copy(color = White),
         modifier = modifier.fillMaxWidth()
@@ -34,13 +34,11 @@ fun Spinner(
 
 @Preview
 @Composable
-fun SpinnerPreview(
-    @PreviewParameter(SurveyDetailScreenPreviewParameterProvider::class)
-    params: SurveyDetailScreenPreviewParameterProvider.Params,
-) {
+fun SpinnerPreview() {
     ApplicationTheme {
         Spinner(
-            surveyAnswerUiModels = params.survey.questionUiModels[0].answers
+            surveyAnswerUiModels = answerUiModels,
+            onAnswerSelected = {}
         )
     }
 }

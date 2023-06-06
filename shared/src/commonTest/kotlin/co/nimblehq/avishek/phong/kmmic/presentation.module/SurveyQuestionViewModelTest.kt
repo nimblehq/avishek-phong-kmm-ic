@@ -52,7 +52,7 @@ class SurveyQuestionViewModelTest {
         runTest {
             viewModel.updateStateWith(MockUtil.mockSurveyApiModel.toSurvey())
 
-            viewModel.viewSate
+            viewModel.viewState
                 .test {
                     val awaitItem = awaitItem()
                     awaitItem.questions.first().questionTitle shouldBe "question_text"
@@ -72,7 +72,7 @@ class SurveyQuestionViewModelTest {
         viewModel.updateStateWith(MockUtil.mockSurveyApiModel.toSurvey())
         viewModel.submitAnswer(MockUtil.mockQuestionUiModels)
 
-        viewModel.viewSate
+        viewModel.viewState
             .test {
                 val awaitItem = awaitItem()
                 awaitItem.isLoading shouldBe false
@@ -94,7 +94,7 @@ class SurveyQuestionViewModelTest {
         viewModel.updateStateWith(MockUtil.mockSurveyApiModel.toSurvey())
         viewModel.submitAnswer(MockUtil.mockQuestionUiModels)
 
-        viewModel.viewSate
+        viewModel.viewState
             .test {
                 val errorAwaitItem = awaitItem()
                 errorAwaitItem.isLoading shouldBe false
