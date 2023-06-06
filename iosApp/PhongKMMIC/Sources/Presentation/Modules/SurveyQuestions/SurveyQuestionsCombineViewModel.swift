@@ -22,7 +22,7 @@ final class SurveyQuestionsCombineViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init(survey: Survey) {
-        createPublisher(for: sharedViewModel.viewSateNative)
+        createPublisher(for: sharedViewModel.viewStateNative)
             .catch { _ -> Just<SurveyQuestionViewState> in
                 let viewState = SurveyQuestionViewState()
                 return Just(viewState)
